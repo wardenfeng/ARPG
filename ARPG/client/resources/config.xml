@@ -1,0 +1,14 @@
+<config>
+		<!--
+		<server>
+			<policy>843</policy>
+			<host>223.166.252.52</host>
+			<port>8887</port>
+		</server>
+		-->
+		<server>
+			<policy>843</policy>
+			<host>localhost</host>
+			<port>8887</port>
+		</server>
+</config>

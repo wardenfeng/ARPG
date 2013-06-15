@@ -1,0 +1,122 @@
+package protobuf;
+
+		
+		message ASPKG_LOGIN_REQ
+		{
+			required string account  = 1;
+			required string password = 2;
+		}
+
+		message ASPKG_LOGIN_ACK
+		{
+			enum E_LOGIN_RESULT
+			{
+				SUCCEED = 0;
+				FAIL = 1;
+				NO_REGISTER = 2;
+				PASSWORD_ERROR = 3;
+			}
+			required E_LOGIN_RESULT result = 1;
+			optional string username = 2; //用户名
+			optional int32 mapX = 3;	//地图坐标X
+			optional int32 mapY = 4;	//地图坐标Y
+			optional int32 playerId = 5;	//玩家编号
+			optional string clothing = 6;	//服装名称
+			optional int32 mapId = 7;//地图编号
+			optional int32 HP = 8;
+			optional int32 MP = 9;
+		}
+
+		message ASPKG_MOVE_REQ
+		{
+			required int32 mapX = 1;
+			required int32 mapY = 2;
+		}
+		
+		message ASPKG_MOVE_ACK
+		{
+			enum E_MOVE_RESULT
+			{
+				SUCCEED = 0;
+				FAIL = 1;
+			}
+			required E_MOVE_RESULT result = 1;
+		}
+		
+		message ASPKG_MOVE_NTF
+		{
+			required int32 playerId = 1;
+			required int32 mapX = 2;
+			required int32 mapY = 3;
+		}
+		
+		message ADD_PLAYER
+		{
+			required int32 playerId = 1;
+			required int32 mapX = 2;
+			required int32 mapY = 3;
+			required string username = 4;
+			required string clothing = 5;
+			required int32 HP = 6;
+			required int32 MP = 7;
+		}
+		
+		message ASPKG_ADD_PLAYER_NTF
+		{
+			repeated ADD_PLAYER addPlayer = 1;
+		}
+		
+		message ASPKG_REMOVE_PLAYER_NTF
+		{
+			required int32 playerId = 1;
+		}
+		
+		enum E_ATTACK_TYPE
+		{
+			PLALER = 0;	//攻击目标为玩家
+			POINT = 1;//攻击目标为位置
+		}
+		
+		message ASPKG_CAST_SKILL_REQ
+		{
+			required int32 skillId = 1;		//技能编号
+			required E_ATTACK_TYPE type = 2;//攻击类型
+			optional int32 targetId = 3;	//被攻击目标编号
+			optional int32 mapX = 4;
+			optional int32 mapY = 5;
+			
+		}
+		
+		message ASPKG_CAST_SKILL_ACK
+		{
+			enum E_CAST_SKILL_RESULT
+			{
+				SUCCEED = 0;
+				FAIL = 1;
+			}
+			required E_CAST_SKILL_RESULT result = 1;
+		}
+		
+		message ASPKG_CAST_SKILL_NTF
+		{
+			required int32 playerId = 1;
+			required int32 skillId = 2;				
+			required E_ATTACK_TYPE type = 3;
+			optional int32 targetId = 4;
+			optional int32 mapX = 5;
+			optional int32 mapY = 6;
+		}
+		
+		message ASPKG_HP_UPDATE_NTF
+		{
+			required int32 playerId = 1;
+			required int32 HP = 2;
+		}
+		
+		message ASPKG_MP_UPDATE_NTF
+		{
+			required int32 playerId = 1;
+			required int32 MP = 2;
+		}
+		
+    

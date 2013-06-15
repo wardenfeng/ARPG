@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<coder name="ARPGProto" version="1" >
+    <client processor="ARPGMsgProcessor" include="flash.utils.*;communication.arpg.ARPGMsgProcessor;protobuf.*"/>
+    <server processor="Session" include="session" />
+    <protocolbuffers>
+		
+		message ASPKG_LOGIN_REQ
+		{
+			required string account  = 1;
+			required string password = 2;
+		}
+
+		message ASPKG_LOGIN_ACK
+		{
+			enum E_LOGIN_RESULT
+			{
+				SUCCEED = 0;
+				FAIL = 1;
+				NO_REGISTER = 2;
+				PASSWORD_ERROR = 3;
+			}
+			required E_LOGIN_RESULT result = 1;
+			optional string username = 2; //用户名
+			optional int32 mapX = 3;	//地图坐标X
+			optional int32 mapY = 4;	//地图坐标Y
+			optional int32 playerId = 5;	//玩家编号
+			optional string clothing = 6;	//服装名称
+			optional int32 mapId = 7;//地图编号
+			optional int32 HP = 8;
+			optional int32 MP = 9;
+		}
+
+		message ASPKG_MOVE_REQ
+		{
+			required int32 mapX = 1;
+			required int32 mapY = 2;
+		}
+		
+		message ASPKG_MOVE_ACK
+		{
+			enum E_MOVE_RESULT
+			{
+				SUCCEED = 0;
+				FAIL = 1;
+			}
+			required E_MOVE_RESULT result = 1;
+		}
+		
+		message ASPKG_MOVE_NTF
+		{
+			required int32 playerId = 1;
+			required int32 mapX = 2;
+			required int32 mapY = 3;
+		}
+		
+		message ADD_PLAYER
+		{
+			required int32 playerId = 1;
+			required int32 mapX = 2;
+			required int32 mapY = 3;
+			required string username = 4;
+			required string clothing = 5;
+			required int32 HP = 6;
+			required int32 MP = 7;
+		}
+		
+		message ASPKG_ADD_PLAYER_NTF
+		{
+			repeated ADD_PLAYER addPlayer = 1;
+		}
+		
+		message ASPKG_REMOVE_PLAYER_NTF
+		{
+			required int32 playerId = 1;
+		}
+		
+		enum E_ATTACK_TYPE
+		{
+			PLALER = 0;	//攻击目标为玩家
+			POINT = 1;//攻击目标为位置
+		}
+		
+		message ASPKG_CAST_SKILL_REQ
+		{
+			required int32 skillId = 1;		//技能编号
+			required E_ATTACK_TYPE type = 2;//攻击类型
+			optional int32 targetId = 3;	//被攻击目标编号
+			optional int32 mapX = 4;
+			optional int32 mapY = 5;
+			
+		}
+		
+		message ASPKG_CAST_SKILL_ACK
+		{
+			enum E_CAST_SKILL_RESULT
+			{
+				SUCCEED = 0;
+				FAIL = 1;
+			}
+			required E_CAST_SKILL_RESULT result = 1;
+		}
+		
+		message ASPKG_CAST_SKILL_NTF
+		{
+			required int32 playerId = 1;
+			required int32 skillId = 2;				
+			required E_ATTACK_TYPE type = 3;
+			optional int32 targetId = 4;
+			optional int32 mapX = 5;
+			optional int32 mapY = 6;
+		}
+		
+		message ASPKG_HP_UPDATE_NTF
+		{
+			required int32 playerId = 1;
+			required int32 HP = 2;
+		}
+		
+		message ASPKG_MP_UPDATE_NTF
+		{
+			required int32 playerId = 1;
+			required int32 MP = 2;
+		}
+		
+    </protocolbuffers>
+    <messages>
+		<!-- 登录请求 -->
+        <message name="ASID_LOGIN_REQ" id="1" type="ASPKG_LOGIN_REQ" proc_fun="OnRecvLoginReq" by="server"/>
+		<!-- 登录响应 -->
+        <message name="ASID_LOGIN_ACK" id="2" type="ASPKG_LOGIN_ACK" proc_fun="OnRecvLoginAck" by="client"/>
+		<!-- 行走请求 -->
+		<message name="ASID_MOVE_REQ" id="3" type="ASPKG_MOVE_REQ" proc_fun="OnRecvMoveReq" by="server"/>
+		<!-- 行走响应 -->
+		<message name="ASID_MOVE_ACK" id="4" type="ASPKG_MOVE_ACK" proc_fun="OnRecvMoveAck" by="client"/>
+		<!-- 行走广播 -->
+		<message name="ASID_MOVE_NTF" id="5" type="ASPKG_MOVE_NTF" proc_fun="OnRecvMoveNtf" by="client"/>
+		<!-- 添加玩家 -->
+		<message name="ASID_ADD_PLAYER_NTF" id="6" type="ASPKG_ADD_PLAYER_NTF" proc_fun="OnRecvAddPlayerNtf" by="client"/>
+		<!-- 删除玩家 -->
+		<message name="ASID_REMOVE_PLAYER_NTF" id="7" type="ASPKG_REMOVE_PLAYER_NTF" proc_fun="OnRecvRemovePlayerNtf" by="client"/>
+		<!-- 释放技能请求 -->
+		<message name="ASID_CAST_SKILL_REQ" id="8" type="ASPKG_CAST_SKILL_REQ" proc_fun="OnRecvCastSkillReq" by="server"/>
+		<!-- 释放技能响应 -->
+		<message name="ASID_CAST_SKILL_ACK" id="9" type="ASPKG_CAST_SKILL_ACK" proc_fun="OnRecvCastSkillAck" by="client"/>
+		<!-- 释放技能广播 -->
+		<message name="ASID_CAST_SKILL_NTF" id="10" type="ASPKG_CAST_SKILL_NTF" proc_fun="OnRecvCastSkillNtf" by="client"/>
+		<!-- 血量更新广播 -->
+		<message name="ASID_HP_UPDATE_NTF" id="11" type="ASPKG_HP_UPDATE_NTF" proc_fun="OnRecvHPUpdateNtf" by="client"/>
+		<!-- 魔法值更新广播 -->
+		<message name="ASID_MP_UPDATE_NTF" id="12" type="ASPKG_MP_UPDATE_NTF" proc_fun="OnRecvMPUpdateNtf" by="client"/>
+		
+		
+    </messages>
+</coder>
