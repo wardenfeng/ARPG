@@ -9,5 +9,11 @@ package
 	public class GameData
 	{
 		public static var playerDic:Dictionary = new Dictionary();
+
+		public static var NPCNameDic:Dictionary;
+
+		public static var modelInfoDic:Dictionary;
+
+		public static var modelDic:Dictionary;
 	}
 }

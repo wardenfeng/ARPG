@@ -1,7 +1,8 @@
 package modules.preload
 {
-	import modules.GameDispatcher;
+	import modules.GameEvent;
 	import modules.ModulesManager;
+	import modules.load.Load;
 	import modules.load.LoadEvent;
 
 	/**
@@ -14,20 +15,23 @@ package modules.preload
 
 		private var loadings:Array;
 
+		private const mapDataPath:String = GlobalData.rootPath + "resources/gamedata/mapdata.swf";
+
+		private const modelPath:String = GlobalData.rootPath + "resources/gamedata/model.swf";
+
 		public function PrePoadManager()
 		{
-			urls = ["view/uilibrary.swf"];
-
-			for (var i:int = 0; i < urls.length; i++)
-			{
-				urls[i] = GlobalData.rootPath + urls[i];
-			}
+			urls = [ //
+				GlobalData.rootPath + "resources/view/uilibrary.swf", //
+				mapDataPath, //
+				modelPath, //
+				];
 
 			loadings = urls.concat();
 
 			var loadData:Object = {urls: urls, singleComplete: singleComplete, singleCompleteParam: {}, allItemsLoaded: completeHandler};
 
-			GameDispatcher.instance.dispatchEvent(new LoadEvent(LoadEvent.LOAD_RESOURCE, loadData));
+			dispatcher.dispatchEvent(new LoadEvent(LoadEvent.LOAD_RESOURCE, loadData));
 		}
 
 		private function singleComplete(param:Object):void
@@ -43,6 +47,16 @@ package modules.preload
 		public function completeHandler():void
 		{
 			logger("资源预先加载完成。");
+
+			var gamedata:* = Load.loader.get(mapDataPath).content;
+			GameData.NPCNameDic = gamedata.NPCNameDic;
+
+			var model:* = Load.loader.get(modelPath).content;
+			GameData.modelDic = model.modelDic;
+			GameData.modelInfoDic = model.modelInfoDic;
+
+			PreLoad.isPreloadCompleted = true;
+			dispatcher.dispatchEvent(new GameEvent(GameEvent.PRE_LOAD_COMPLETED));
 		}
 	}
 }

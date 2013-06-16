@@ -2,7 +2,7 @@ package modules.login
 {
 	public class Login
 	{
-		public static const viewPath:String = GlobalData.rootPath + "view/loginUI.swf";
+		public static const viewPath:String = GlobalData.rootPath + "resources/view/loginUI.swf";
 
 		public static var isInit:Boolean = false;
 

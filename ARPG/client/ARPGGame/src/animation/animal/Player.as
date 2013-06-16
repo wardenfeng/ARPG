@@ -4,7 +4,7 @@ package animation.animal
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Point;
-	
+
 	import animation.AnimationEvent;
 	import animation.ISceneItem;
 	import animation.actioncontroller.PlayerController;
@@ -12,7 +12,7 @@ package animation.animal
 	import animation.animationtypes.WeaponAnimation;
 	import animation.configs.ActionType;
 	import animation.configs.Direction;
-	
+
 	import modules.GameDispatcher;
 	import modules.findpath.MapTileModel;
 	import modules.gamescene.GameSceneConfig;
@@ -62,10 +62,6 @@ package animation.animal
 			_weaponAnimation.playerController = _playerController;
 
 			addListeners();
-
-			graphics.beginFill(0xff0000);
-			graphics.drawCircle(0, 0, 5);
-			graphics.endFill();
 		}
 
 		public function get playerinfo():MovieClip
@@ -78,7 +74,7 @@ package animation.animal
 					addChild(_playerinfo);
 					var playerModel:PlayerModel = GameData.playerDic[playerId];
 					_playerinfo.name_txt.text = playerModel.username;
-					_playerinfo.hp_txt.text = playerModel.HP +"/100";
+					_playerinfo.hp_txt.text = playerModel.HP + "/100";
 				}
 			}
 			return _playerinfo;
@@ -114,7 +110,7 @@ package animation.animal
 		{
 			addEventListener(Event.ADDED_TO_STAGE, addedHandler);
 
-			GameDispatcher.instance.addEventListener("config_load_completed", configLoadCompleted);
+			dispatcher.addEventListener("config_load_completed", configLoadCompleted);
 
 			_playerController.addEventListener(AnimationEvent.DIRECTION_CHANGE, onDirectionChange);
 		}

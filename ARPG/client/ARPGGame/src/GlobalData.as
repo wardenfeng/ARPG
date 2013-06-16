@@ -50,7 +50,7 @@ package
 		 */
 		public static function getPlayerWeaponPath(name:String):String
 		{
-			return rootPath + "player/weapon/" + name + ".swf";
+			return rootPath + "resources/player/weaoib/" + name + ".swf";
 		}
 		
 		/**
@@ -59,12 +59,17 @@ package
 		 */
 		public static function getPlayerClothingPath(name:String):String
 		{
-			return rootPath + "player/clothing/" + name + ".swf";
+			return rootPath + "resources/player/clothing/" + name + ".swf";
 		}
 
 		public static function geteffectPath(name:String):String
 		{
-			return rootPath + "effect/" + name + ".swf";
+			return rootPath + "resources/effect/" + name + ".swf";
+		}
+		
+		public static function getNPCPath(name:String):String
+		{
+			return rootPath + "resources/npc/" + name + ".swf";
 		}
 
 		/**

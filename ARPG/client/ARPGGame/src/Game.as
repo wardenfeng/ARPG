@@ -13,6 +13,7 @@ package
 	import flash.ui.ContextMenuItem;
 	
 	import animation.actioncontroller.PlayerController;
+	import animation.animationtypes.NPCAnimation;
 	import animation.animationtypes.PlayerAnimation;
 	import animation.animationtypes.WeaponAnimation;
 	
@@ -82,15 +83,15 @@ package
 
 			dispatcher.dispatchEvent(new LoginEvent(LoginEvent.LOGIN_SHOW));
 
-			var playerAnimation:PlayerAnimation = new WeaponAnimation("20021_2");
-			playerAnimation.floorPoint = new Point(200,200);
-			addChild(playerAnimation);
+			var npc:NPCAnimation = new NPCAnimation("19");
+			npc.floorPoint = new Point(200,200);
+			addChild(npc);
 			
-			playerAnimation.playerController = new PlayerController();
+//			playerAnimation.playerController = new PlayerController();
 			
 			addEventListener(Event.ENTER_FRAME,function(event:Event):void
 			{
-				playerAnimation.animationController.enterFrame();
+				npc.animationController.enterFrame();
 			});
 		}
 

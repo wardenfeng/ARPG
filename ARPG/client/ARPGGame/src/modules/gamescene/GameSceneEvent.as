@@ -9,9 +9,10 @@ package modules.gamescene
 	 */
 	public class GameSceneEvent extends GameEvent
 	{
-		/**
-		 * 场景初始化完成
-		 */
+		/** 场景配置完成 */
+		public static const SCENE_CONFIG_COMPLETED:String = "sceneConfigCompleted";
+		
+		/** 场景初始化完成*/
 		public static const SCENE_COMPLETED:String = "sceneCompleted";
 
 		public static const ADD_HERO:String = "addHero";

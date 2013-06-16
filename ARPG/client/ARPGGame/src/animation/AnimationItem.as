@@ -2,7 +2,7 @@ package animation
 {
 	import flash.events.EventDispatcher;
 	import flash.utils.Dictionary;
-	
+
 	import utils.Draw;
 
 	[Event(name = "change", type = "animation.AnimationEvent")]
@@ -50,7 +50,7 @@ package animation
 		 */
 		public function getAnimationFrame(frameIndex:int, turned:Boolean = false):AnimationFrame
 		{
-			if (geometry == null && totalFrame == 0)
+			if (geometry == null || totalFrame == 0)
 				return null;
 			if (frameIndex <= 0 || frameIndex > totalFrame)
 				return getAnimationFrame(1, turned);
@@ -61,7 +61,7 @@ package animation
 			animationFrame = new AnimationFrame();
 			frameBitmapDataItemDic[frameIndex + "" + turned] = animationFrame;
 
-			animationFrame.bitmapdata = bitmapdatas[frameIndex];
+			animationFrame.bitmapdata = bitmapdatas[frameIndex - 1];
 			if (turned)
 			{
 				animationFrame.bitmapdata = Draw.HorizontalTurn(animationFrame.bitmapdata);

@@ -76,9 +76,9 @@ package animation
 			var length:int = geometry.length / 2;
 			var bitmapdatas:Array = [];
 
-			for (var i:int = 1; i < length; i++)
+			for (var i:int = 0; i < length; i++)
 			{
-				bitmapdatas[i] = new (imageItem.getDefinitionByName("F" + i))();
+				bitmapdatas[i] = new (imageItem.getDefinitionByName("F" + (i+1)))();
 			}
 			var animationItem:AnimationItem = getAnimationItem(param.id);
 			animationItem.init(geometry, bitmapdatas);

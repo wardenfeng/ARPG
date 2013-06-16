@@ -10,6 +10,8 @@ package modules.preload
 	{
 		private static var preloadManager:PrePoadManager;
 		
+		public static var isPreloadCompleted:Boolean = false;
+		
 		public static function init():void
 		{
 			preloadManager = new PrePoadManager();

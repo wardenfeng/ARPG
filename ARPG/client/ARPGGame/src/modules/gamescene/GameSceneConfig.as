@@ -1,10 +1,10 @@
 package modules.gamescene
 {
 	import flash.events.Event;
-	
+
 	import br.com.stimuli.loading.loadingtypes.ImageItem;
 	import br.com.stimuli.loading.loadingtypes.LoadingItem;
-	
+
 	import modules.GameDispatcher;
 	import modules.load.Load;
 	import modules.load.LoadEvent;
@@ -32,10 +32,10 @@ package modules.gamescene
 		public static var mapHeight:int;
 
 		/** 格子宽度 */
-		public static var TILE_WIDTH:int = 60;
+		public static var TILE_WIDTH:int = 50;
 
 		/** 格子高度 */
-		public static var TILE_HEIGHT:int = 30;
+		public static var TILE_HEIGHT:int = 25;
 
 		/** 列数 */
 		public static var Row:int;
@@ -77,7 +77,7 @@ package modules.gamescene
 			GameSceneConfig.Col = configContent["Col"];
 			GameSceneConfig.mapData = configContent["mapData"];
 
-			GameDispatcher.instance.dispatchEvent(new Event("config_load_completed"));
+			GameDispatcher.instance.dispatchEvent(new GameSceneEvent(GameSceneEvent.SCENE_CONFIG_COMPLETED));
 		}
 	}
 }

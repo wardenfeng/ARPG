@@ -9,8 +9,7 @@ package modules.gamescene
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
-	import flash.utils.Dictionary;
-
+	
 	import animation.Animation;
 	import animation.AnimationEvent;
 	import animation.ISceneItem;
@@ -18,12 +17,12 @@ package modules.gamescene
 	import animation.animationtypes.EffectsAnimation;
 	import animation.configs.ActionType;
 	import animation.configs.Direction;
-
+	
 	import modules.ModulesManager;
 	import modules.findpath.FindpathEvent;
 	import modules.findpath.MapTileModel;
 	import modules.moveaction.MoveActionEvent;
-
+	
 	import protobuf.E_ATTACK_TYPE;
 
 	/**
@@ -41,20 +40,7 @@ package modules.gamescene
 		/** 路径层 */
 		private var pathlayer:Shape;
 
-		/** 场景物件层 */
-		private var sceneItemLayer:Sprite;
-
-		private var playerDic:Dictionary = new Dictionary();
-
-		/** 场景上物件 */
-		private var sceneItems:Array = [];
-
-		private var animalList:Array = [];
-
-		private var skillEffects:Array = [];
-
-		/** 准备特效与技能特效对应表 */
-		private var skillDic:Dictionary = new Dictionary();
+		private var npcManager:NPCManager;
 
 		public function get hero():Player
 		{
@@ -68,9 +54,6 @@ package modules.gamescene
 
 		public function GameSceneManager()
 		{
-			dispatcher.addEventListener("config_load_completed", configLoadCompleted);
-			dispatcher.addEventListener("map_show_completed", mapShowCompleted);
-
 			//初始化地图
 			gameSceneBackground = new GameSceneBackground();
 			sceneLayer.addChildAt(gameSceneBackground, 0);
@@ -79,10 +62,12 @@ package modules.gamescene
 			pathlayer.name = "pathlayer";
 			sceneLayer.addChild(pathlayer);
 
-			sceneItemLayer = new Sprite();
-			sceneItemLayer.name = "sceneItemLayer";
-			sceneLayer.addChild(sceneItemLayer);
-			sceneItemLayer.mouseEnabled = false;
+			GameScene.sceneItemLayer = new Sprite();
+			GameScene.sceneItemLayer.name = "GameScene.sceneItemLayer";
+			sceneLayer.addChild(GameScene.sceneItemLayer);
+			GameScene.sceneItemLayer.mouseEnabled = false;
+
+			npcManager = new NPCManager(GameScene.sceneItemLayer);
 
 			if (GlobalData.isShowGird)
 				drawGird();
@@ -90,17 +75,9 @@ package modules.gamescene
 			addListeners();
 		}
 
-		private function configLoadCompleted(event:Event):void
-		{
-			trace("地图配置加载完成");
-
-
-		}
-
 		private function mapShowCompleted(event:Event):void
 		{
 			trace("地图显示完成");
-			dispatcher.removeEventListener("map_show_completed", mapShowCompleted);
 
 			dispatcher.dispatchEvent(new GameSceneEvent(GameSceneEvent.SCENE_COMPLETED));
 		}
@@ -146,7 +123,7 @@ package modules.gamescene
 
 			setHeroCenter();
 
-			for each (var ani:Animation in skillEffects)
+			for each (var ani:Animation in GameScene.skillEffects)
 			{
 				ani.animationController.enterFrame();
 			}
@@ -166,16 +143,16 @@ package modules.gamescene
 
 		private function onRemovePlayer(event:GameSceneEvent):void
 		{
-			var animal:Player = playerDic[event.data.playerId];
+			var animal:Player = GameScene.playerDic[event.data.playerId];
 			removePlayer(animal);
 		}
 
-		private function addPlayer(animal:Player):void
+		private function addPlayer(player:Player):void
 		{
-			sceneItemLayer.addChild(animal);
-			playerDic[animal.playerId] = animal;
-			animalList.push(animal);
-			sceneItems.push(animal);
+			GameScene.sceneItemLayer.addChild(player);
+			GameScene.playerDic[player.playerId] = player;
+			GameScene.playerList.push(player);
+			GameScene.sceneItems.push(player);
 		}
 
 		private function removePlayer(animal:Player):void
@@ -186,21 +163,21 @@ package modules.gamescene
 			}
 
 			var index:int;
-			index = animalList.indexOf(animal);
+			index = GameScene.playerList.indexOf(animal);
 			if (index != -1)
 			{
-				animalList.splice(index, 1);
+				GameScene.playerList.splice(index, 1);
 			}
-			index = sceneItems.indexOf(animal);
+			index = GameScene.sceneItems.indexOf(animal);
 			if (index != -1)
 			{
-				sceneItems.splice(index, 1);
+				GameScene.sceneItems.splice(index, 1);
 			}
 		}
 
 		private function onPlayerWalk(event:GameSceneEvent):void
 		{
-			var animal:Player = playerDic[event.data.playerId];
+			var animal:Player = GameScene.playerDic[event.data.playerId];
 			animal.destination = new Point(event.data.mapX, event.data.mapY);
 		}
 
@@ -214,7 +191,7 @@ package modules.gamescene
 			//获取攻击目标编号
 			var targetAnimals:Array = [];
 
-			var stg:Stage = sceneItemLayer.stage;
+			var stg:Stage = GameScene.sceneItemLayer.stage;
 			var p:Point = new Point(stg.mouseX, stg.mouseY);
 			stg.areInaccessibleObjectsUnderPoint(p)
 
@@ -249,7 +226,7 @@ package modules.gamescene
 
 		private function onCastSkill(event:GameSceneEvent):void
 		{
-			var animal:Player = playerDic[event.data.playerId];
+			var animal:Player = GameScene.playerDic[event.data.playerId];
 
 			var targetPoint:Point = new Point();
 			switch (event.data.type)
@@ -259,7 +236,7 @@ package modules.gamescene
 					targetPoint.y = event.data.mapY;
 					break;
 				case E_ATTACK_TYPE.PLALER:
-					var targetPlayer:Player = playerDic[event.data.targetId];
+					var targetPlayer:Player = GameScene.playerDic[event.data.targetId];
 					if (targetPlayer)
 					{
 						targetPoint.x = targetPlayer.mapX;
@@ -279,7 +256,7 @@ package modules.gamescene
 			animal.addChild(sftxl);
 			sftxl.addEventListener(AnimationEvent.LOOPED, onSFTXLooped);
 
-			skillDic[sftxl] = {skillName: "lds", data: event.data};
+			GameScene.skillDic[sftxl] = {skillName: "lds", data: event.data};
 			addEffects(sftxl);
 		}
 
@@ -288,7 +265,7 @@ package modules.gamescene
 			var ani:EffectsAnimation = event.currentTarget as EffectsAnimation;
 			removeEffects(ani);
 
-			var skill:Object = skillDic[ani];
+			var skill:Object = GameScene.skillDic[ani];
 			if (skill)
 			{
 				var floorPoint:Point = new Point();
@@ -298,7 +275,7 @@ package modules.gamescene
 						floorPoint = MapTileModel.realCoordinate(skill.data.mapX, skill.data.mapY);
 						break;
 					case E_ATTACK_TYPE.PLALER:
-						var targetPlayer:Player = playerDic[skill.data.targetId];
+						var targetPlayer:Player = GameScene.playerDic[skill.data.targetId];
 						if (targetPlayer)
 						{
 							floorPoint.x = targetPlayer.floorX;
@@ -313,9 +290,9 @@ package modules.gamescene
 				lds.floorPoint = floorPoint;
 				lds.addEventListener(AnimationEvent.LOOPED, onLooped);
 
-				sceneItemLayer.addChild(lds);
+				GameScene.sceneItemLayer.addChild(lds);
 				addEffects(lds);
-				delete skillDic[ani];
+				delete GameScene.skillDic[ani];
 			}
 		}
 
@@ -327,8 +304,8 @@ package modules.gamescene
 
 		private function addEffects(effect:EffectsAnimation):void
 		{
-			skillEffects.push(effect);
-			sceneItems.push(effect);
+			GameScene.skillEffects.push(effect);
+			GameScene.sceneItems.push(effect);
 		}
 
 		private function removeEffects(effect:EffectsAnimation):void
@@ -337,12 +314,12 @@ package modules.gamescene
 				effect.parent.removeChild(effect);
 
 			var index:int;
-			index = skillEffects.indexOf(effect);
+			index = GameScene.skillEffects.indexOf(effect);
 			if (index != -1)
-				skillEffects.splice(index, 1);
-			index = sceneItems.indexOf(effect);
+				GameScene.skillEffects.splice(index, 1);
+			index = GameScene.sceneItems.indexOf(effect);
 			if (index != -1)
-				sceneItems.splice(index, 1);
+				GameScene.sceneItems.splice(index, 1);
 		}
 
 		/**
@@ -458,11 +435,11 @@ package modules.gamescene
 
 		private function depthSort():void
 		{
-			sceneItems.sortOn("floorY");
+			GameScene.sceneItems.sortOn("floorY");
 
-			for (var i:int = 0; i < sceneItems.length; i++)
+			for (var i:int = 0; i < GameScene.sceneItems.length; i++)
 			{
-				var sceneItem:ISceneItem = sceneItems[i];
+				var sceneItem:ISceneItem = GameScene.sceneItems[i];
 				var animal:DisplayObject = sceneItem as DisplayObject;
 				animal.parent.addChild(animal);
 			}
@@ -471,9 +448,9 @@ package modules.gamescene
 		private function checkTransparent():void
 		{
 			var mapData:Array = GameSceneConfig.mapData;
-			for (var i:int = 0; i < animalList.length; i++)
+			for (var i:int = 0; i < GameScene.playerList.length; i++)
 			{
-				var animal:Player = animalList[i];
+				var animal:Player = GameScene.playerList[i];
 
 				if (mapData[animal.mapX][animal.mapY] == MapTileModel.PATH_TRANSPARENT)
 				{
