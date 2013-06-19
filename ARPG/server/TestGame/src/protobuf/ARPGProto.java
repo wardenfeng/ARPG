@@ -77,6 +77,78 @@ public final class ARPGProto {
     // @@protoc_insertion_point(enum_scope:protobuf.E_ATTACK_TYPE)
   }
   
+  public enum E_OBJECT_TYPE
+      implements com.google.protobuf.ProtocolMessageEnum {
+    PLAYER(0, 0),
+    MONSTER(1, 1),
+    NPC(2, 2),
+    ;
+    
+    public static final int PLAYER_VALUE = 0;
+    public static final int MONSTER_VALUE = 1;
+    public static final int NPC_VALUE = 2;
+    
+    
+    public final int getNumber() { return value; }
+    
+    public static E_OBJECT_TYPE valueOf(int value) {
+      switch (value) {
+        case 0: return PLAYER;
+        case 1: return MONSTER;
+        case 2: return NPC;
+        default: return null;
+      }
+    }
+    
+    public static com.google.protobuf.Internal.EnumLiteMap<E_OBJECT_TYPE>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static com.google.protobuf.Internal.EnumLiteMap<E_OBJECT_TYPE>
+        internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<E_OBJECT_TYPE>() {
+            public E_OBJECT_TYPE findValueByNumber(int number) {
+              return E_OBJECT_TYPE.valueOf(number);
+            }
+          };
+    
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      return getDescriptor().getValues().get(index);
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return protobuf.ARPGProto.getDescriptor().getEnumTypes().get(1);
+    }
+    
+    private static final E_OBJECT_TYPE[] VALUES = {
+      PLAYER, MONSTER, NPC, 
+    };
+    
+    public static E_OBJECT_TYPE valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      return VALUES[desc.getIndex()];
+    }
+    
+    private final int index;
+    private final int value;
+    
+    private E_OBJECT_TYPE(int index, int value) {
+      this.index = index;
+      this.value = value;
+    }
+    
+    // @@protoc_insertion_point(enum_scope:protobuf.E_OBJECT_TYPE)
+  }
+  
   public interface ASPKG_LOGIN_REQOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
@@ -5567,6 +5639,491 @@ public final class ARPGProto {
     // @@protoc_insertion_point(class_scope:protobuf.ASPKG_CAST_SKILL_ACK)
   }
   
+  public interface SKILL_HARMOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required .protobuf.E_OBJECT_TYPE type = 1;
+    boolean hasType();
+    protobuf.ARPGProto.E_OBJECT_TYPE getType();
+    
+    // required int32 targetId = 2;
+    boolean hasTargetId();
+    int getTargetId();
+    
+    // required int32 harmValue = 3;
+    boolean hasHarmValue();
+    int getHarmValue();
+  }
+  public static final class SKILL_HARM extends
+      com.google.protobuf.GeneratedMessage
+      implements SKILL_HARMOrBuilder {
+    // Use SKILL_HARM.newBuilder() to construct.
+    private SKILL_HARM(Builder builder) {
+      super(builder);
+    }
+    private SKILL_HARM(boolean noInit) {}
+    
+    private static final SKILL_HARM defaultInstance;
+    public static SKILL_HARM getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public SKILL_HARM getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protobuf.ARPGProto.internal_static_protobuf_SKILL_HARM_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protobuf.ARPGProto.internal_static_protobuf_SKILL_HARM_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // required .protobuf.E_OBJECT_TYPE type = 1;
+    public static final int TYPE_FIELD_NUMBER = 1;
+    private protobuf.ARPGProto.E_OBJECT_TYPE type_;
+    public boolean hasType() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public protobuf.ARPGProto.E_OBJECT_TYPE getType() {
+      return type_;
+    }
+    
+    // required int32 targetId = 2;
+    public static final int TARGETID_FIELD_NUMBER = 2;
+    private int targetId_;
+    public boolean hasTargetId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getTargetId() {
+      return targetId_;
+    }
+    
+    // required int32 harmValue = 3;
+    public static final int HARMVALUE_FIELD_NUMBER = 3;
+    private int harmValue_;
+    public boolean hasHarmValue() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public int getHarmValue() {
+      return harmValue_;
+    }
+    
+    private void initFields() {
+      type_ = protobuf.ARPGProto.E_OBJECT_TYPE.PLAYER;
+      targetId_ = 0;
+      harmValue_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasType()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasTargetId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasHarmValue()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeEnum(1, type_.getNumber());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, targetId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, harmValue_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, type_.getNumber());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, targetId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, harmValue_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static protobuf.ARPGProto.SKILL_HARM parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static protobuf.ARPGProto.SKILL_HARM parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static protobuf.ARPGProto.SKILL_HARM parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static protobuf.ARPGProto.SKILL_HARM parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static protobuf.ARPGProto.SKILL_HARM parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static protobuf.ARPGProto.SKILL_HARM parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static protobuf.ARPGProto.SKILL_HARM parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static protobuf.ARPGProto.SKILL_HARM parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static protobuf.ARPGProto.SKILL_HARM parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static protobuf.ARPGProto.SKILL_HARM parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(protobuf.ARPGProto.SKILL_HARM prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements protobuf.ARPGProto.SKILL_HARMOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protobuf.ARPGProto.internal_static_protobuf_SKILL_HARM_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protobuf.ARPGProto.internal_static_protobuf_SKILL_HARM_fieldAccessorTable;
+      }
+      
+      // Construct using protobuf.ARPGProto.SKILL_HARM.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        type_ = protobuf.ARPGProto.E_OBJECT_TYPE.PLAYER;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        targetId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        harmValue_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protobuf.ARPGProto.SKILL_HARM.getDescriptor();
+      }
+      
+      public protobuf.ARPGProto.SKILL_HARM getDefaultInstanceForType() {
+        return protobuf.ARPGProto.SKILL_HARM.getDefaultInstance();
+      }
+      
+      public protobuf.ARPGProto.SKILL_HARM build() {
+        protobuf.ARPGProto.SKILL_HARM result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private protobuf.ARPGProto.SKILL_HARM buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        protobuf.ARPGProto.SKILL_HARM result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public protobuf.ARPGProto.SKILL_HARM buildPartial() {
+        protobuf.ARPGProto.SKILL_HARM result = new protobuf.ARPGProto.SKILL_HARM(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.type_ = type_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.targetId_ = targetId_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.harmValue_ = harmValue_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protobuf.ARPGProto.SKILL_HARM) {
+          return mergeFrom((protobuf.ARPGProto.SKILL_HARM)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(protobuf.ARPGProto.SKILL_HARM other) {
+        if (other == protobuf.ARPGProto.SKILL_HARM.getDefaultInstance()) return this;
+        if (other.hasType()) {
+          setType(other.getType());
+        }
+        if (other.hasTargetId()) {
+          setTargetId(other.getTargetId());
+        }
+        if (other.hasHarmValue()) {
+          setHarmValue(other.getHarmValue());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasType()) {
+          
+          return false;
+        }
+        if (!hasTargetId()) {
+          
+          return false;
+        }
+        if (!hasHarmValue()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              int rawValue = input.readEnum();
+              protobuf.ARPGProto.E_OBJECT_TYPE value = protobuf.ARPGProto.E_OBJECT_TYPE.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(1, rawValue);
+              } else {
+                bitField0_ |= 0x00000001;
+                type_ = value;
+              }
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              targetId_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              harmValue_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required .protobuf.E_OBJECT_TYPE type = 1;
+      private protobuf.ARPGProto.E_OBJECT_TYPE type_ = protobuf.ARPGProto.E_OBJECT_TYPE.PLAYER;
+      public boolean hasType() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public protobuf.ARPGProto.E_OBJECT_TYPE getType() {
+        return type_;
+      }
+      public Builder setType(protobuf.ARPGProto.E_OBJECT_TYPE value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000001;
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearType() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        type_ = protobuf.ARPGProto.E_OBJECT_TYPE.PLAYER;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 targetId = 2;
+      private int targetId_ ;
+      public boolean hasTargetId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getTargetId() {
+        return targetId_;
+      }
+      public Builder setTargetId(int value) {
+        bitField0_ |= 0x00000002;
+        targetId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearTargetId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        targetId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 harmValue = 3;
+      private int harmValue_ ;
+      public boolean hasHarmValue() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public int getHarmValue() {
+        return harmValue_;
+      }
+      public Builder setHarmValue(int value) {
+        bitField0_ |= 0x00000004;
+        harmValue_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearHarmValue() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        harmValue_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:protobuf.SKILL_HARM)
+    }
+    
+    static {
+      defaultInstance = new SKILL_HARM(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:protobuf.SKILL_HARM)
+  }
+  
   public interface ASPKG_CAST_SKILL_NTFOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
@@ -5593,6 +6150,16 @@ public final class ARPGProto {
     // optional int32 mapY = 6;
     boolean hasMapY();
     int getMapY();
+    
+    // repeated .protobuf.SKILL_HARM skillHarms = 7;
+    java.util.List<protobuf.ARPGProto.SKILL_HARM> 
+        getSkillHarmsList();
+    protobuf.ARPGProto.SKILL_HARM getSkillHarms(int index);
+    int getSkillHarmsCount();
+    java.util.List<? extends protobuf.ARPGProto.SKILL_HARMOrBuilder> 
+        getSkillHarmsOrBuilderList();
+    protobuf.ARPGProto.SKILL_HARMOrBuilder getSkillHarmsOrBuilder(
+        int index);
   }
   public static final class ASPKG_CAST_SKILL_NTF extends
       com.google.protobuf.GeneratedMessage
@@ -5683,6 +6250,27 @@ public final class ARPGProto {
       return mapY_;
     }
     
+    // repeated .protobuf.SKILL_HARM skillHarms = 7;
+    public static final int SKILLHARMS_FIELD_NUMBER = 7;
+    private java.util.List<protobuf.ARPGProto.SKILL_HARM> skillHarms_;
+    public java.util.List<protobuf.ARPGProto.SKILL_HARM> getSkillHarmsList() {
+      return skillHarms_;
+    }
+    public java.util.List<? extends protobuf.ARPGProto.SKILL_HARMOrBuilder> 
+        getSkillHarmsOrBuilderList() {
+      return skillHarms_;
+    }
+    public int getSkillHarmsCount() {
+      return skillHarms_.size();
+    }
+    public protobuf.ARPGProto.SKILL_HARM getSkillHarms(int index) {
+      return skillHarms_.get(index);
+    }
+    public protobuf.ARPGProto.SKILL_HARMOrBuilder getSkillHarmsOrBuilder(
+        int index) {
+      return skillHarms_.get(index);
+    }
+    
     private void initFields() {
       playerId_ = 0;
       skillId_ = 0;
@@ -5690,6 +6278,7 @@ public final class ARPGProto {
       targetId_ = 0;
       mapX_ = 0;
       mapY_ = 0;
+      skillHarms_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -5707,6 +6296,12 @@ public final class ARPGProto {
       if (!hasType()) {
         memoizedIsInitialized = 0;
         return false;
+      }
+      for (int i = 0; i < getSkillHarmsCount(); i++) {
+        if (!getSkillHarms(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
       }
       memoizedIsInitialized = 1;
       return true;
@@ -5732,6 +6327,9 @@ public final class ARPGProto {
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         output.writeInt32(6, mapY_);
+      }
+      for (int i = 0; i < skillHarms_.size(); i++) {
+        output.writeMessage(7, skillHarms_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -5765,6 +6363,10 @@ public final class ARPGProto {
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(6, mapY_);
+      }
+      for (int i = 0; i < skillHarms_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(7, skillHarms_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -5882,6 +6484,7 @@ public final class ARPGProto {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getSkillHarmsFieldBuilder();
         }
       }
       private static Builder create() {
@@ -5902,6 +6505,12 @@ public final class ARPGProto {
         bitField0_ = (bitField0_ & ~0x00000010);
         mapY_ = 0;
         bitField0_ = (bitField0_ & ~0x00000020);
+        if (skillHarmsBuilder_ == null) {
+          skillHarms_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000040);
+        } else {
+          skillHarmsBuilder_.clear();
+        }
         return this;
       }
       
@@ -5964,6 +6573,15 @@ public final class ARPGProto {
           to_bitField0_ |= 0x00000020;
         }
         result.mapY_ = mapY_;
+        if (skillHarmsBuilder_ == null) {
+          if (((bitField0_ & 0x00000040) == 0x00000040)) {
+            skillHarms_ = java.util.Collections.unmodifiableList(skillHarms_);
+            bitField0_ = (bitField0_ & ~0x00000040);
+          }
+          result.skillHarms_ = skillHarms_;
+        } else {
+          result.skillHarms_ = skillHarmsBuilder_.build();
+        }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -5998,6 +6616,32 @@ public final class ARPGProto {
         if (other.hasMapY()) {
           setMapY(other.getMapY());
         }
+        if (skillHarmsBuilder_ == null) {
+          if (!other.skillHarms_.isEmpty()) {
+            if (skillHarms_.isEmpty()) {
+              skillHarms_ = other.skillHarms_;
+              bitField0_ = (bitField0_ & ~0x00000040);
+            } else {
+              ensureSkillHarmsIsMutable();
+              skillHarms_.addAll(other.skillHarms_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.skillHarms_.isEmpty()) {
+            if (skillHarmsBuilder_.isEmpty()) {
+              skillHarmsBuilder_.dispose();
+              skillHarmsBuilder_ = null;
+              skillHarms_ = other.skillHarms_;
+              bitField0_ = (bitField0_ & ~0x00000040);
+              skillHarmsBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getSkillHarmsFieldBuilder() : null;
+            } else {
+              skillHarmsBuilder_.addAllMessages(other.skillHarms_);
+            }
+          }
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -6014,6 +6658,12 @@ public final class ARPGProto {
         if (!hasType()) {
           
           return false;
+        }
+        for (int i = 0; i < getSkillHarmsCount(); i++) {
+          if (!getSkillHarms(i).isInitialized()) {
+            
+            return false;
+          }
         }
         return true;
       }
@@ -6075,6 +6725,12 @@ public final class ARPGProto {
             case 48: {
               bitField0_ |= 0x00000020;
               mapY_ = input.readInt32();
+              break;
+            }
+            case 58: {
+              protobuf.ARPGProto.SKILL_HARM.Builder subBuilder = protobuf.ARPGProto.SKILL_HARM.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addSkillHarms(subBuilder.buildPartial());
               break;
             }
           }
@@ -6210,6 +6866,192 @@ public final class ARPGProto {
         mapY_ = 0;
         onChanged();
         return this;
+      }
+      
+      // repeated .protobuf.SKILL_HARM skillHarms = 7;
+      private java.util.List<protobuf.ARPGProto.SKILL_HARM> skillHarms_ =
+        java.util.Collections.emptyList();
+      private void ensureSkillHarmsIsMutable() {
+        if (!((bitField0_ & 0x00000040) == 0x00000040)) {
+          skillHarms_ = new java.util.ArrayList<protobuf.ARPGProto.SKILL_HARM>(skillHarms_);
+          bitField0_ |= 0x00000040;
+         }
+      }
+      
+      private com.google.protobuf.RepeatedFieldBuilder<
+          protobuf.ARPGProto.SKILL_HARM, protobuf.ARPGProto.SKILL_HARM.Builder, protobuf.ARPGProto.SKILL_HARMOrBuilder> skillHarmsBuilder_;
+      
+      public java.util.List<protobuf.ARPGProto.SKILL_HARM> getSkillHarmsList() {
+        if (skillHarmsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(skillHarms_);
+        } else {
+          return skillHarmsBuilder_.getMessageList();
+        }
+      }
+      public int getSkillHarmsCount() {
+        if (skillHarmsBuilder_ == null) {
+          return skillHarms_.size();
+        } else {
+          return skillHarmsBuilder_.getCount();
+        }
+      }
+      public protobuf.ARPGProto.SKILL_HARM getSkillHarms(int index) {
+        if (skillHarmsBuilder_ == null) {
+          return skillHarms_.get(index);
+        } else {
+          return skillHarmsBuilder_.getMessage(index);
+        }
+      }
+      public Builder setSkillHarms(
+          int index, protobuf.ARPGProto.SKILL_HARM value) {
+        if (skillHarmsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSkillHarmsIsMutable();
+          skillHarms_.set(index, value);
+          onChanged();
+        } else {
+          skillHarmsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      public Builder setSkillHarms(
+          int index, protobuf.ARPGProto.SKILL_HARM.Builder builderForValue) {
+        if (skillHarmsBuilder_ == null) {
+          ensureSkillHarmsIsMutable();
+          skillHarms_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          skillHarmsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addSkillHarms(protobuf.ARPGProto.SKILL_HARM value) {
+        if (skillHarmsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSkillHarmsIsMutable();
+          skillHarms_.add(value);
+          onChanged();
+        } else {
+          skillHarmsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      public Builder addSkillHarms(
+          int index, protobuf.ARPGProto.SKILL_HARM value) {
+        if (skillHarmsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSkillHarmsIsMutable();
+          skillHarms_.add(index, value);
+          onChanged();
+        } else {
+          skillHarmsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      public Builder addSkillHarms(
+          protobuf.ARPGProto.SKILL_HARM.Builder builderForValue) {
+        if (skillHarmsBuilder_ == null) {
+          ensureSkillHarmsIsMutable();
+          skillHarms_.add(builderForValue.build());
+          onChanged();
+        } else {
+          skillHarmsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addSkillHarms(
+          int index, protobuf.ARPGProto.SKILL_HARM.Builder builderForValue) {
+        if (skillHarmsBuilder_ == null) {
+          ensureSkillHarmsIsMutable();
+          skillHarms_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          skillHarmsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addAllSkillHarms(
+          java.lang.Iterable<? extends protobuf.ARPGProto.SKILL_HARM> values) {
+        if (skillHarmsBuilder_ == null) {
+          ensureSkillHarmsIsMutable();
+          super.addAll(values, skillHarms_);
+          onChanged();
+        } else {
+          skillHarmsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      public Builder clearSkillHarms() {
+        if (skillHarmsBuilder_ == null) {
+          skillHarms_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000040);
+          onChanged();
+        } else {
+          skillHarmsBuilder_.clear();
+        }
+        return this;
+      }
+      public Builder removeSkillHarms(int index) {
+        if (skillHarmsBuilder_ == null) {
+          ensureSkillHarmsIsMutable();
+          skillHarms_.remove(index);
+          onChanged();
+        } else {
+          skillHarmsBuilder_.remove(index);
+        }
+        return this;
+      }
+      public protobuf.ARPGProto.SKILL_HARM.Builder getSkillHarmsBuilder(
+          int index) {
+        return getSkillHarmsFieldBuilder().getBuilder(index);
+      }
+      public protobuf.ARPGProto.SKILL_HARMOrBuilder getSkillHarmsOrBuilder(
+          int index) {
+        if (skillHarmsBuilder_ == null) {
+          return skillHarms_.get(index);  } else {
+          return skillHarmsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      public java.util.List<? extends protobuf.ARPGProto.SKILL_HARMOrBuilder> 
+           getSkillHarmsOrBuilderList() {
+        if (skillHarmsBuilder_ != null) {
+          return skillHarmsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(skillHarms_);
+        }
+      }
+      public protobuf.ARPGProto.SKILL_HARM.Builder addSkillHarmsBuilder() {
+        return getSkillHarmsFieldBuilder().addBuilder(
+            protobuf.ARPGProto.SKILL_HARM.getDefaultInstance());
+      }
+      public protobuf.ARPGProto.SKILL_HARM.Builder addSkillHarmsBuilder(
+          int index) {
+        return getSkillHarmsFieldBuilder().addBuilder(
+            index, protobuf.ARPGProto.SKILL_HARM.getDefaultInstance());
+      }
+      public java.util.List<protobuf.ARPGProto.SKILL_HARM.Builder> 
+           getSkillHarmsBuilderList() {
+        return getSkillHarmsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          protobuf.ARPGProto.SKILL_HARM, protobuf.ARPGProto.SKILL_HARM.Builder, protobuf.ARPGProto.SKILL_HARMOrBuilder> 
+          getSkillHarmsFieldBuilder() {
+        if (skillHarmsBuilder_ == null) {
+          skillHarmsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              protobuf.ARPGProto.SKILL_HARM, protobuf.ARPGProto.SKILL_HARM.Builder, protobuf.ARPGProto.SKILL_HARMOrBuilder>(
+                  skillHarms_,
+                  ((bitField0_ & 0x00000040) == 0x00000040),
+                  getParentForChildren(),
+                  isClean());
+          skillHarms_ = null;
+        }
+        return skillHarmsBuilder_;
       }
       
       // @@protoc_insertion_point(builder_scope:protobuf.ASPKG_CAST_SKILL_NTF)
@@ -7096,6 +7938,11 @@ public final class ARPGProto {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_protobuf_ASPKG_CAST_SKILL_ACK_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_protobuf_SKILL_HARM_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_protobuf_SKILL_HARM_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_protobuf_ASPKG_CAST_SKILL_NTF_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -7145,15 +7992,19 @@ public final class ARPGProto {
       " \001(\005\022\014\n\004mapY\030\005 \001(\005\"\210\001\n\024ASPKG_CAST_SKILL_" +
       "ACK\022B\n\006result\030\001 \002(\01622.protobuf.ASPKG_CAS" +
       "T_SKILL_ACK.E_CAST_SKILL_RESULT\",\n\023E_CAS" +
-      "T_SKILL_RESULT\022\013\n\007SUCCEED\020\000\022\010\n\004FAIL\020\001\"\216\001" +
-      "\n\024ASPKG_CAST_SKILL_NTF\022\020\n\010playerId\030\001 \002(\005" +
-      "\022\017\n\007skillId\030\002 \002(\005\022%\n\004type\030\003 \002(\0162\027.protob" +
-      "uf.E_ATTACK_TYPE\022\020\n\010targetId\030\004 \001(\005\022\014\n\004ma",
-      "pX\030\005 \001(\005\022\014\n\004mapY\030\006 \001(\005\"3\n\023ASPKG_HP_UPDAT" +
-      "E_NTF\022\020\n\010playerId\030\001 \002(\005\022\n\n\002HP\030\002 \002(\005\"3\n\023A" +
-      "SPKG_MP_UPDATE_NTF\022\020\n\010playerId\030\001 \002(\005\022\n\n\002" +
-      "MP\030\002 \002(\005*&\n\rE_ATTACK_TYPE\022\n\n\006PLALER\020\000\022\t\n" +
-      "\005POINT\020\001"
+      "T_SKILL_RESULT\022\013\n\007SUCCEED\020\000\022\010\n\004FAIL\020\001\"X\n" +
+      "\nSKILL_HARM\022%\n\004type\030\001 \002(\0162\027.protobuf.E_O" +
+      "BJECT_TYPE\022\020\n\010targetId\030\002 \002(\005\022\021\n\tharmValu" +
+      "e\030\003 \002(\005\"\270\001\n\024ASPKG_CAST_SKILL_NTF\022\020\n\010play",
+      "erId\030\001 \002(\005\022\017\n\007skillId\030\002 \002(\005\022%\n\004type\030\003 \002(" +
+      "\0162\027.protobuf.E_ATTACK_TYPE\022\020\n\010targetId\030\004" +
+      " \001(\005\022\014\n\004mapX\030\005 \001(\005\022\014\n\004mapY\030\006 \001(\005\022(\n\nskil" +
+      "lHarms\030\007 \003(\0132\024.protobuf.SKILL_HARM\"3\n\023AS" +
+      "PKG_HP_UPDATE_NTF\022\020\n\010playerId\030\001 \002(\005\022\n\n\002H" +
+      "P\030\002 \002(\005\"3\n\023ASPKG_MP_UPDATE_NTF\022\020\n\010player" +
+      "Id\030\001 \002(\005\022\n\n\002MP\030\002 \002(\005*&\n\rE_ATTACK_TYPE\022\n\n" +
+      "\006PLALER\020\000\022\t\n\005POINT\020\001*1\n\rE_OBJECT_TYPE\022\n\n" +
+      "\006PLAYER\020\000\022\013\n\007MONSTER\020\001\022\007\n\003NPC\020\002"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -7240,16 +8091,24 @@ public final class ARPGProto {
               new java.lang.String[] { "Result", },
               protobuf.ARPGProto.ASPKG_CAST_SKILL_ACK.class,
               protobuf.ARPGProto.ASPKG_CAST_SKILL_ACK.Builder.class);
-          internal_static_protobuf_ASPKG_CAST_SKILL_NTF_descriptor =
+          internal_static_protobuf_SKILL_HARM_descriptor =
             getDescriptor().getMessageTypes().get(10);
+          internal_static_protobuf_SKILL_HARM_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_protobuf_SKILL_HARM_descriptor,
+              new java.lang.String[] { "Type", "TargetId", "HarmValue", },
+              protobuf.ARPGProto.SKILL_HARM.class,
+              protobuf.ARPGProto.SKILL_HARM.Builder.class);
+          internal_static_protobuf_ASPKG_CAST_SKILL_NTF_descriptor =
+            getDescriptor().getMessageTypes().get(11);
           internal_static_protobuf_ASPKG_CAST_SKILL_NTF_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_protobuf_ASPKG_CAST_SKILL_NTF_descriptor,
-              new java.lang.String[] { "PlayerId", "SkillId", "Type", "TargetId", "MapX", "MapY", },
+              new java.lang.String[] { "PlayerId", "SkillId", "Type", "TargetId", "MapX", "MapY", "SkillHarms", },
               protobuf.ARPGProto.ASPKG_CAST_SKILL_NTF.class,
               protobuf.ARPGProto.ASPKG_CAST_SKILL_NTF.Builder.class);
           internal_static_protobuf_ASPKG_HP_UPDATE_NTF_descriptor =
-            getDescriptor().getMessageTypes().get(11);
+            getDescriptor().getMessageTypes().get(12);
           internal_static_protobuf_ASPKG_HP_UPDATE_NTF_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_protobuf_ASPKG_HP_UPDATE_NTF_descriptor,
@@ -7257,7 +8116,7 @@ public final class ARPGProto {
               protobuf.ARPGProto.ASPKG_HP_UPDATE_NTF.class,
               protobuf.ARPGProto.ASPKG_HP_UPDATE_NTF.Builder.class);
           internal_static_protobuf_ASPKG_MP_UPDATE_NTF_descriptor =
-            getDescriptor().getMessageTypes().get(12);
+            getDescriptor().getMessageTypes().get(13);
           internal_static_protobuf_ASPKG_MP_UPDATE_NTF_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_protobuf_ASPKG_MP_UPDATE_NTF_descriptor,

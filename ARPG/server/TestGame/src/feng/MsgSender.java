@@ -12,8 +12,11 @@ import protobuf.ARPGProto.ASPKG_ADD_PLAYER_NTF;
 import protobuf.ARPGProto.ASPKG_CAST_SKILL_ACK;
 import protobuf.ARPGProto.ASPKG_CAST_SKILL_ACK.E_CAST_SKILL_RESULT;
 import protobuf.ARPGProto.ASPKG_CAST_SKILL_NTF;
+import protobuf.ARPGProto.ASPKG_HP_UPDATE_NTF;
 import protobuf.ARPGProto.ASPKG_LOGIN_ACK;
+import protobuf.ARPGProto.ASPKG_MP_UPDATE_NTF;
 import protobuf.ARPGProto.ASPKG_REMOVE_PLAYER_NTF;
+import protobuf.ARPGProto.SKILL_HARM;
 import protobuf.ARPGProto.ASPKG_LOGIN_ACK.E_LOGIN_RESULT;
 import protobuf.ARPGProto.ASPKG_MOVE_ACK;
 import protobuf.ARPGProto.ASPKG_MOVE_ACK.E_MOVE_RESULT;
@@ -132,17 +135,24 @@ public class MsgSender
 		send(Protocol.ASID_CAST_SKILL_ACK, castSkillAck);
 	}
 
-	public void OnRecvCastSkillNtf(int playerId, int skillId, int mapX, int mapY)
+	public void OnRecvCastSkillNtf(int playerId, int skillId, int targetId, int mapX, int mapY, E_ATTACK_TYPE type,
+			ArrayList<SKILL_HARM> skillHarmList)
 	{
-		ASPKG_CAST_SKILL_NTF castSkillNtf = ASPKG_CAST_SKILL_NTF.newBuilder().setPlayerId(playerId).setSkillId(skillId)
-				.setType(E_ATTACK_TYPE.POINT).setMapX(mapX).setMapY(mapY).build();
+		ASPKG_CAST_SKILL_NTF castSkillNtf = ASPKG_CAST_SKILL_NTF.newBuilder().setPlayerId(playerId)
+				.setSkillId(skillId).setType(type).setTargetId(targetId).setMapX(mapX).setMapY(mapY)
+				.addAllSkillHarms(skillHarmList).build();
 		send(Protocol.ASID_CAST_SKILL_NTF, castSkillNtf);
 	}
 
-	public void OnRecvCastSkillNtf(int playerId, int skillId, int targetId)
+	public void OnRecvHPUpdateNtf(int playerId, int hp)
 	{
-		ASPKG_CAST_SKILL_NTF castSkillNtf = ASPKG_CAST_SKILL_NTF.newBuilder().setPlayerId(playerId).setSkillId(skillId)
-				.setType(E_ATTACK_TYPE.PLALER).setTargetId(targetId).build();
-		send(Protocol.ASID_CAST_SKILL_NTF, castSkillNtf);
+		ASPKG_HP_UPDATE_NTF hpUpdateNf = ASPKG_HP_UPDATE_NTF.newBuilder().setPlayerId(playerId).setHP(hp).build();
+		send(Protocol.ASID_HP_UPDATE_NTF, hpUpdateNf);
+	}
+
+	public void OnRecvMPUpdateNtf(int playerId, int mp)
+	{
+		ASPKG_MP_UPDATE_NTF mpUpdateNf = ASPKG_MP_UPDATE_NTF.newBuilder().setPlayerId(playerId).setMP(mp).build();
+		send(Protocol.ASID_MP_UPDATE_NTF, mpUpdateNf);
 	}
 }

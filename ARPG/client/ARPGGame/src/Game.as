@@ -12,10 +12,7 @@ package
 	import flash.ui.ContextMenu;
 	import flash.ui.ContextMenuItem;
 	
-	import animation.actioncontroller.PlayerController;
-	import animation.animationtypes.NPCAnimation;
-	import animation.animationtypes.PlayerAnimation;
-	import animation.animationtypes.WeaponAnimation;
+	import animation.animationtypes.MonsterAnimation;
 	
 	import br.com.stimuli.loading.loadingtypes.LoadingItem;
 	
@@ -83,13 +80,11 @@ package
 
 			dispatcher.dispatchEvent(new LoginEvent(LoginEvent.LOGIN_SHOW));
 
-			var npc:NPCAnimation = new NPCAnimation("19");
-			npc.floorPoint = new Point(200,200);
+			var npc:MonsterAnimation = new MonsterAnimation("1001");
+			npc.floorPoint = new Point(200, 200);
 			addChild(npc);
-			
-//			playerAnimation.playerController = new PlayerController();
-			
-			addEventListener(Event.ENTER_FRAME,function(event:Event):void
+
+			addEventListener(Event.ENTER_FRAME, function(event:Event):void
 			{
 				npc.animationController.enterFrame();
 			});
@@ -127,7 +122,7 @@ package
 
 				//初始化登陆服务器列表
 				var server:ServerAddress;
-				for each (var j:* in config.server) 
+				for each (var j:* in config.server)
 				{
 					server = new ServerAddress();
 					server.host = j.host;
@@ -148,7 +143,7 @@ package
 			Login.init();
 
 			PreLoad.init();
-			
+
 			ArpgSocketManager.init();
 
 			GameScene.init();

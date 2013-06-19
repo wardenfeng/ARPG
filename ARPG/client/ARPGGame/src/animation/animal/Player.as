@@ -13,9 +13,12 @@ package animation.animal
 	import animation.configs.ActionType;
 	import animation.configs.Direction;
 
+	import communication.arpg.ArpgMsgEvent;
+
 	import modules.GameDispatcher;
 	import modules.findpath.MapTileModel;
 	import modules.gamescene.GameSceneConfig;
+	import modules.gamescene.GameSceneEvent;
 	import modules.gamescene.data.PlayerModel;
 	import modules.load.Load;
 
@@ -72,12 +75,22 @@ package animation.animal
 				if (_playerinfo)
 				{
 					addChild(_playerinfo);
-					var playerModel:PlayerModel = GameData.playerDic[playerId];
-					_playerinfo.name_txt.text = playerModel.username;
-					_playerinfo.hp_txt.text = playerModel.HP + "/100";
+					updateView()
 				}
 			}
 			return _playerinfo;
+		}
+
+		private function get playerModel():PlayerModel
+		{
+			return GameData.playerDic[playerId];
+		}
+
+		private function updateView():void
+		{
+			playerinfo.name_txt.text = playerModel.username;
+			playerinfo.hp_txt.text = playerModel.HP + "/100";
+			playerinfo.hpline.hpvalue.width = playerModel.HP / 100 * playerinfo.hpline.back.width;
 		}
 
 		public function get mapX():int
@@ -113,6 +126,16 @@ package animation.animal
 			dispatcher.addEventListener("config_load_completed", configLoadCompleted);
 
 			_playerController.addEventListener(AnimationEvent.DIRECTION_CHANGE, onDirectionChange);
+
+			dispatcher.addEventListener(ARPGProto.ASID_HP_UPDATE_NTF, onUpdateHp);
+		}
+
+		private function onUpdateHp(event:ArpgMsgEvent):void
+		{
+			if (event.data.playerId == playerId)
+			{
+				updateView();
+			}
 		}
 
 		private function addedHandler(event:Event):void

@@ -8,28 +8,33 @@ package animation.animationtypes
 	 */
 	public class NPCAnimation extends LoopAnimation
 	{
-		protected var _npcName:String;
+		protected var _mid:String;
 
-		public function NPCAnimation(npcName:String)
+		public function NPCAnimation(mid:String)
 		{
-			this.npcName = npcName;
+			this.mid = mid;
 			init();
 		}
 
-		public function get npcName():String
+		public function get mid():String
 		{
-			return _npcName;
+			return _mid;
 		}
 
-		public function set npcName(value:String):void
+		public function set mid(value:String):void
 		{
-			if (_npcName != value)
+			if (_mid != value)
 			{
 				var url:String = GlobalData.getNPCPath(value);
 
 				animationItem = AnimationItemFactory.getAnimationItem(url);
 			}
-			_npcName = value;
+			_mid = value;
+		}
+		
+		public function set turned(value:Boolean):void
+		{
+			loopController.animationAction.turned = value;
 		}
 	}
 }

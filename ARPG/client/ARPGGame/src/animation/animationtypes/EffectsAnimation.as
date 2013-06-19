@@ -10,6 +10,8 @@ package animation.animationtypes
 	{
 		protected var _effectsName:String;
 
+		public var skillIndex:int;
+		
 		public function EffectsAnimation(effectsName:String)
 		{
 			this.effectsName = effectsName;

@@ -19,4 +19,8 @@ public class CommonData
 	/** 登录成功的客户 */
 	public static Map<Integer,Client> loginedClientMap;
 	
+	/** 玩家编号，客户端编号 */
+	public static Map<Integer,Integer> playerClientMap;
+	
+	
 }

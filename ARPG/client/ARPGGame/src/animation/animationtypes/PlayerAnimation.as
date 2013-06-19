@@ -12,7 +12,7 @@ package animation.animationtypes
 	{
 		public function PlayerAnimation()
 		{
-
+			playerController = new PlayerController();
 		}
 
 		public function get playerController():PlayerController

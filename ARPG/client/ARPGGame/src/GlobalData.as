@@ -71,6 +71,11 @@ package
 		{
 			return rootPath + "resources/npc/" + name + ".swf";
 		}
+		
+		public static function getMonsterPath(name:String):String
+		{
+			return rootPath + "resources/enemy/" + name + ".swf";
+		}
 
 		/**
 		 * 获取地图资源路径

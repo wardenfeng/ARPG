@@ -73,10 +73,13 @@ package communication.arpg
 			{
 				castSkillReq.type = E_ATTACK_TYPE.PLALER;
 				castSkillReq.targetId = event.data.targetAnimals[0];
+				castSkillReq.mapX = 0;
+				castSkillReq.mapY = 0;
 			}
 			else
 			{
 				castSkillReq.type = E_ATTACK_TYPE.POINT;
+				castSkillReq.targetId = 0;
 				castSkillReq.mapX = event.data.mapX;
 				castSkillReq.mapY = event.data.mapY;
 			}

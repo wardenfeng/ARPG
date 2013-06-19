@@ -74,6 +74,8 @@ public class LoginManager
 			Client client = CommonData.connectedClientMap.get(clientId);
 			CommonData.loginedClientMap.put(clientId, client);
 
+			CommonData.playerClientMap.put(player.getId(), clientId);
+			
 			// 通知附近的玩家
 			ArrayList<PlayerData> arrayList = playerDataManager.getNearPlayers(clientId);
 			msgSender.OnRecvAddPlayerNtf(arrayList);

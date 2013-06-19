@@ -50,6 +50,7 @@ package modules.preload
 
 			var gamedata:* = Load.loader.get(mapDataPath).content;
 			GameData.NPCNameDic = gamedata.NPCNameDic;
+			GameData.enemyDic = gamedata.enemyDic;
 
 			var model:* = Load.loader.get(modelPath).content;
 			GameData.modelDic = model.modelDic;

@@ -34,6 +34,8 @@ public class LogoutManager
 
 			CommonData.loginedClientMap.remove(clientId);
 
+			CommonData.playerClientMap.remove(playerData.player.getId());
+			
 			// 广播删除玩家
 			BroadcastManager broadcastManager = AllReference.getBroadcastManager();
 			broadcastManager.removePlayer(clientId, playerData.player.getId());

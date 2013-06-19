@@ -29,10 +29,9 @@ package modules.gamescene
 		/** 获取技能目标 */
 		public static const GET_SKILL_TARGET:String = "getSkillTarget";
 
-		public static const UPDATE_HP:String = "updateHP";
+		/** 技能释放结束 */
+		public static const CAST_SKILL_END:String = "castSkillEnd";
 		
-		public static const UPDATE_MP:String = "updateMP";
-
 		/**
 		 * 场景事件
 		 * @param type 事件类型

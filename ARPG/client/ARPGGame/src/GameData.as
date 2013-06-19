@@ -15,5 +15,10 @@ package
 		public static var modelInfoDic:Dictionary;
 
 		public static var modelDic:Dictionary;
+		
+		public static var enemyDic:Dictionary;
+		
+		/** 释放中的技能字典 */
+		public static var castingSkillDic:Dictionary = new Dictionary();
 	}
 }

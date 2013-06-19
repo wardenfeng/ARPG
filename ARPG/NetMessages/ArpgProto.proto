@@ -84,7 +84,6 @@ package protobuf;
 			optional int32 targetId = 3;	//被攻击目标编号
 			optional int32 mapX = 4;
 			optional int32 mapY = 5;
-			
 		}
 		
 		message ASPKG_CAST_SKILL_ACK
@@ -97,6 +96,21 @@ package protobuf;
 			required E_CAST_SKILL_RESULT result = 1;
 		}
 		
+		//物体类型
+		enum E_OBJECT_TYPE
+		{
+			PLAYER = 0;
+			MONSTER = 1;
+			NPC = 2;
+		}
+		
+		message SKILL_HARM
+		{
+			required E_OBJECT_TYPE type = 1;
+			required int32 targetId = 2;
+			required int32 harmValue = 3;
+		}
+		
 		message ASPKG_CAST_SKILL_NTF
 		{
 			required int32 playerId = 1;
@@ -105,6 +119,7 @@ package protobuf;
 			optional int32 targetId = 4;
 			optional int32 mapX = 5;
 			optional int32 mapY = 6;
+			repeated SKILL_HARM skillHarms = 7;
 		}
 		
 		message ASPKG_HP_UPDATE_NTF

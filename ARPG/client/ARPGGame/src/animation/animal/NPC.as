@@ -3,11 +3,10 @@ package animation.animal
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.utils.Dictionary;
-
+	
 	import animation.ISceneItem;
 	import animation.animationtypes.NPCAnimation;
-
+	
 	import modules.gamescene.GameSceneConfig;
 	import modules.load.Load;
 
@@ -30,21 +29,21 @@ package animation.animal
 
 		public var npcId:String;
 
-		private var modelId:String;
-
 		private var modelInfo:Object;
+		
+		private var model:Object;
 
 		public function NPC(npcId:String)
 		{
 			this.npcId = npcId;
 
 			NPCName = GameData.NPCNameDic[npcId];
-
-			modelId = NPCName.modelId;
-
-			modelInfo = GameData.modelInfoDic[modelId];
+			modelInfo = GameData.modelInfoDic[NPCName.modelId];
+			model = GameData.modelDic["resources/npc/" + modelInfo.mid + ".swf"];
 
 			npcAnimation = new NPCAnimation(modelInfo.mid);
+			//如果方向为3则翻转图片
+			npcAnimation.turned = modelInfo.dir == 3;
 			addChild(npcAnimation);
 
 			addListeners();
@@ -61,7 +60,6 @@ package animation.animal
 					var npcObj:Object = GameData.NPCNameDic[npcId];
 					_npcinfo.name_txt.text = npcObj.name;
 
-					var model:Object = GameData.modelDic["resources/npc/" + modelInfo.mid + ".swf"];
 					_npcinfo.y = -model.h - 10;
 
 				}

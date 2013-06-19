@@ -29,8 +29,5 @@ package modules.gamescene
 		public static var npcList:Array = [];
 		
 		public static var skillEffects:Array = [];
-		
-		/** 准备特效与技能特效对应表 */
-		public static var skillDic:Dictionary = new Dictionary();
 	}
 }

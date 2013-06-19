@@ -1,6 +1,5 @@
 package modules.gamescene.data
 {
-
 	/**
 	 *
 	 * @author warden feng 2013-6-13

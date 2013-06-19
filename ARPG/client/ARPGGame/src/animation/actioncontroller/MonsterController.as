@@ -9,21 +9,21 @@ package animation.actioncontroller
 	[Event(name = "directionChange", type = "animation.AnimationEvent")]
 	[Event(name = "actionChange", type = "animation.AnimationEvent")]
 	/**
-	 * 玩家动作控制
+	 * 怪物动作控制
 	 * @author warden feng 2013-6-7
 	 */
-	public class PlayerController extends LoopController
+	public class MonsterController extends LoopController
 	{
 		private var _direction:int = Direction.DIR_DOWN;
 
 		private var _action:int = ActionType.STAND;
 		
-		private const modelType:int = ModelType.PLAYER;
+		private const modelType:int = ModelType.MONSTER;
 
 		/** 动作与速度 */
 		private var _actionSpeed:Array;
 
-		public function PlayerController()
+		public function MonsterController()
 		{
 			super();
 			//初始化方向与动作

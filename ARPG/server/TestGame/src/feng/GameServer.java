@@ -36,6 +36,7 @@ public class GameServer
 			System.out.println("服务器已启动，等待客户连接");
 			CommonData.connectedClientMap = new HashMap<Integer, Client>();
 			CommonData.loginedClientMap = new HashMap<Integer, Client>();
+			CommonData.playerClientMap = new HashMap<Integer, Integer>();
 
 			while (true)
 			{

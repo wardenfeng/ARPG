@@ -63,14 +63,7 @@ public class MsgProcessor
 		E_ATTACK_TYPE type = castSkillReq.getType();
 
 		SkillManager skillManager = AllReference.getSkillManager();
-		if (type == E_ATTACK_TYPE.PLALER)
-		{
-			skillManager.castSkill(clientId, skillId, castSkillReq.getTargetId());
-		}
-		else if (type == E_ATTACK_TYPE.POINT)
-		{
-			skillManager.castSkill(clientId, skillId, castSkillReq.getMapX(), castSkillReq.getMapY());
-		}
+		skillManager.castSkill(clientId, skillId, castSkillReq.getTargetId(),castSkillReq.getMapX(), castSkillReq.getMapY(),type);
 
 	}
 

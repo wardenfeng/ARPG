@@ -9,7 +9,7 @@ package modules.gamescene
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
-	
+
 	import animation.Animation;
 	import animation.AnimationEvent;
 	import animation.ISceneItem;
@@ -17,13 +17,19 @@ package modules.gamescene
 	import animation.animationtypes.EffectsAnimation;
 	import animation.configs.ActionType;
 	import animation.configs.Direction;
-	
+
+	import communication.arpg.ArpgMsgEvent;
+
 	import modules.ModulesManager;
 	import modules.findpath.FindpathEvent;
 	import modules.findpath.MapTileModel;
+	import modules.gamescene.data.PlayerModel;
 	import modules.moveaction.MoveActionEvent;
-	
+
+	import protobuf.ASPKG_CAST_SKILL_NTF;
 	import protobuf.E_ATTACK_TYPE;
+	import protobuf.E_OBJECT_TYPE;
+	import protobuf.SKILL_HARM;
 
 	/**
 	 * 操作真实地图
@@ -226,17 +232,20 @@ package modules.gamescene
 
 		private function onCastSkill(event:GameSceneEvent):void
 		{
-			var animal:Player = GameScene.playerDic[event.data.playerId];
+			var skillIndex:int = event.data.skillIndex;
+			var castSkillNtf:ASPKG_CAST_SKILL_NTF = GameData.castingSkillDic[skillIndex];
+
+			var animal:Player = GameScene.playerDic[castSkillNtf.playerId];
 
 			var targetPoint:Point = new Point();
-			switch (event.data.type)
+			switch (castSkillNtf.type)
 			{
 				case E_ATTACK_TYPE.POINT:
-					targetPoint.x = event.data.mapX;
-					targetPoint.y = event.data.mapY;
+					targetPoint.x = castSkillNtf.mapX;
+					targetPoint.y = castSkillNtf.mapY;
 					break;
 				case E_ATTACK_TYPE.PLALER:
-					var targetPlayer:Player = GameScene.playerDic[event.data.targetId];
+					var targetPlayer:Player = GameScene.playerDic[castSkillNtf.targetId];
 					if (targetPlayer)
 					{
 						targetPoint.x = targetPlayer.mapX;
@@ -252,11 +261,11 @@ package modules.gamescene
 			animal.direction = animalDir;
 
 			var sftxl:EffectsAnimation = new EffectsAnimation("sftxl");
+			sftxl.skillIndex = skillIndex;
 			sftxl.name = "sftxl";
 			animal.addChild(sftxl);
 			sftxl.addEventListener(AnimationEvent.LOOPED, onSFTXLooped);
 
-			GameScene.skillDic[sftxl] = {skillName: "lds", data: event.data};
 			addEffects(sftxl);
 		}
 
@@ -265,17 +274,18 @@ package modules.gamescene
 			var ani:EffectsAnimation = event.currentTarget as EffectsAnimation;
 			removeEffects(ani);
 
-			var skill:Object = GameScene.skillDic[ani];
-			if (skill)
+			var castSkillNtf:ASPKG_CAST_SKILL_NTF = GameData.castingSkillDic[ani.skillIndex];
+
+			if (castSkillNtf)
 			{
 				var floorPoint:Point = new Point();
-				switch (skill.data.type)
+				switch (castSkillNtf.type)
 				{
 					case E_ATTACK_TYPE.POINT:
-						floorPoint = MapTileModel.realCoordinate(skill.data.mapX, skill.data.mapY);
+						floorPoint = MapTileModel.realCoordinate(castSkillNtf.mapX, castSkillNtf.mapY);
 						break;
 					case E_ATTACK_TYPE.PLALER:
-						var targetPlayer:Player = GameScene.playerDic[skill.data.targetId];
+						var targetPlayer:Player = GameScene.playerDic[castSkillNtf.targetId];
 						if (targetPlayer)
 						{
 							floorPoint.x = targetPlayer.floorX;
@@ -285,14 +295,17 @@ package modules.gamescene
 
 				}
 
-				var lds:EffectsAnimation = new EffectsAnimation(skill.skillName);
-				lds.name = skill.skillName;
+				castSkillNtf.skillId; //通过skillid获得skillname
+				var skillName:String = "lds";
+
+				var lds:EffectsAnimation = new EffectsAnimation(skillName);
+				lds.skillIndex = ani.skillIndex;
+				lds.name = skillName;
 				lds.floorPoint = floorPoint;
 				lds.addEventListener(AnimationEvent.LOOPED, onLooped);
 
 				GameScene.sceneItemLayer.addChild(lds);
 				addEffects(lds);
-				delete GameScene.skillDic[ani];
 			}
 		}
 
@@ -300,6 +313,23 @@ package modules.gamescene
 		{
 			var ani:EffectsAnimation = event.currentTarget as EffectsAnimation;
 			removeEffects(ani);
+
+			dispatcher.dispatchEvent(new GameSceneEvent(GameSceneEvent.CAST_SKILL_END, {skillIndex: ani.skillIndex}));
+
+			var castSkillNtf:ASPKG_CAST_SKILL_NTF = GameData.castingSkillDic[ani.skillIndex];
+			for each (var skillHarm:SKILL_HARM in castSkillNtf.skillHarms)
+			{
+				switch (skillHarm.type)
+				{
+					case E_OBJECT_TYPE.PLAYER:
+						var playerModel:PlayerModel = GameData.playerDic[skillHarm.targetId];
+						playerModel.HP = playerModel.HP + skillHarm.harmValue;
+						dispatcher.dispatchEvent(new ArpgMsgEvent(ARPGProto.ASID_HP_UPDATE_NTF, {playerId: skillHarm.targetId}));
+						break;
+				}
+			}
+
+
 		}
 
 		private function addEffects(effect:EffectsAnimation):void

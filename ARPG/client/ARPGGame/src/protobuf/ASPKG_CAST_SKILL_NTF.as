@@ -8,6 +8,7 @@ package protobuf {
 	import flash.utils.IExternalizable;
 	import flash.errors.IOError;
 	import protobuf.E_ATTACK_TYPE;
+	import protobuf.SKILL_HARM;
 	// @@protoc_insertion_point(imports)
 
 	// @@protoc_insertion_point(class_metadata)
@@ -113,6 +114,14 @@ package protobuf {
 		/**
 		 *  @private
 		 */
+		public static const SKILLHARMS:RepeatedFieldDescriptor$TYPE_MESSAGE = new RepeatedFieldDescriptor$TYPE_MESSAGE("protobuf.ASPKG_CAST_SKILL_NTF.skillHarms", "skillHarms", (7 << 3) | com.netease.protobuf.WireType.LENGTH_DELIMITED, function():Class { return protobuf.SKILL_HARM; });
+
+		[ArrayElementType("protobuf.SKILL_HARM")]
+		public var skillHarms:Array = [];
+
+		/**
+		 *  @private
+		 */
 		override com.netease.protobuf.used_by_generated_code final function writeToBuffer(output:com.netease.protobuf.WritingBuffer):void {
 			com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.VARINT, 1);
 			com.netease.protobuf.WriteUtils.write$TYPE_INT32(output, this.playerId);
@@ -131,6 +140,10 @@ package protobuf {
 			if (hasMapY) {
 				com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.VARINT, 6);
 				com.netease.protobuf.WriteUtils.write$TYPE_INT32(output, mapY$field);
+			}
+			for (var skillHarms$index:uint = 0; skillHarms$index < this.skillHarms.length; ++skillHarms$index) {
+				com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.LENGTH_DELIMITED, 7);
+				com.netease.protobuf.WriteUtils.write$TYPE_MESSAGE(output, this.skillHarms[skillHarms$index]);
 			}
 			for (var fieldKey:* in this) {
 				super.writeUnknown(output, fieldKey);
@@ -191,6 +204,9 @@ package protobuf {
 					}
 					++mapY$count;
 					this.mapY = com.netease.protobuf.ReadUtils.read$TYPE_INT32(input);
+					break;
+				case 7:
+					this.skillHarms.push(com.netease.protobuf.ReadUtils.read$TYPE_MESSAGE(input, new protobuf.SKILL_HARM()));
 					break;
 				default:
 					super.readUnknown(input, tag);

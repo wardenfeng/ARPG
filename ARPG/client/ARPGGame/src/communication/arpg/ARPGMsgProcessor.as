@@ -1,5 +1,7 @@
 package communication.arpg
 {
+	import flash.utils.getTimer;
+
 	import modules.GameDispatcher;
 	import modules.gamescene.GameSceneEvent;
 	import modules.gamescene.data.PlayerModel;
@@ -137,32 +139,35 @@ package communication.arpg
 			switch (pkg.result)
 			{
 				case E_CAST_SKILL_RESULT.SUCCEED:
-
+					logger("释放技能成功");
 					break;
-				case E_CAST_SKILL_RESULT.SUCCEED:
+				case E_CAST_SKILL_RESULT.FAIL:
+					logger("释放技能失败");
 					break;
 			}
 		}
 
 		public function OnRecvCastSkillNtf(pkg:ASPKG_CAST_SKILL_NTF):void
 		{
+			var skillIndex:int = getTimer();
 			//释放技能
-			var data:Object = {playerId: pkg.playerId, type: pkg.type, skillId: pkg.skillId, mapX: pkg.mapX, mapY: pkg.mapY, targetId: pkg.targetId};
-			dispatcher.dispatchEvent(new GameSceneEvent(GameSceneEvent.CAST_SKILL, data));
+			var data:Object = {skillIndex: skillIndex, playerId: pkg.playerId, type: pkg.type, skillId: pkg.skillId, mapX: pkg.mapX, mapY: pkg.mapY, targetId: pkg.targetId};
+			GameData.castingSkillDic[skillIndex] = pkg;
+			dispatcher.dispatchEvent(new GameSceneEvent(GameSceneEvent.CAST_SKILL, {skillIndex: skillIndex}));
 		}
 
 		public function OnRecvHPUpdateNtf(pkg:ASPKG_HP_UPDATE_NTF):void
 		{
 			var playerModel:PlayerModel = GameData.playerDic[pkg.playerId];
 			playerModel.HP = pkg.hP;
-			dispatcher.dispatchEvent(new GameSceneEvent(GameSceneEvent.UPDATE_HP));
+			dispatcher.dispatchEvent(new ArpgMsgEvent(ARPGProto.ASID_HP_UPDATE_NTF, {playerId: pkg.playerId}));
 		}
 
 		public function OnRecvMPUpdateNtf(pkg:ASPKG_MP_UPDATE_NTF):void
 		{
 			var playerModel:PlayerModel = GameData.playerDic[pkg.playerId];
 			playerModel.MP = pkg.mP;
-			dispatcher.dispatchEvent(new GameSceneEvent(GameSceneEvent.UPDATE_MP));
+			dispatcher.dispatchEvent(new ArpgMsgEvent(ARPGProto.ASID_MP_UPDATE_NTF, {playerId: pkg.playerId}));
 		}
 	}
 }
