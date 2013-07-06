@@ -11,6 +11,17 @@ package animation.animationtypes
 	{
 		protected var _mid:String;
 
+		private static var _defaultAnimation:MonsterAnimation;
+		
+		public static function get defaultAnimation():MonsterAnimation
+		{
+			if(_defaultAnimation == null)
+			{
+				_defaultAnimation = new MonsterAnimation("1001");
+			}
+			return _defaultAnimation;
+		}
+		
 		public function MonsterAnimation(mid:String)
 		{
 			this.mid = mid;

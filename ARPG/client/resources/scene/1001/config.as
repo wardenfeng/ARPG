@@ -29,8 +29,8 @@ package
             this.pointArray = new Array();
             this.linePathDic = new Dictionary();
             this.mapName = "";
-            this.mapWidth = 4500;
-            this.mapHeight = 5100;
+            this.mapWidth = 4398;
+            this.mapHeight = 4998;
             this.offsetX = -102;
             this.offsetY = -102;
             this.scale = 0.2;

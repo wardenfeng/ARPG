@@ -60,7 +60,7 @@ package animation.animal
 					var npcObj:Object = GameData.NPCNameDic[npcId];
 					_npcinfo.name_txt.text = npcObj.name;
 
-					_npcinfo.y = -model.h - 10;
+					_npcinfo.y = -model.h;
 
 				}
 			}

@@ -8,6 +8,7 @@ package animation.animal
 	import animation.animationtypes.MonsterAnimation;
 
 	import modules.gamescene.GameSceneConfig;
+	import modules.gamescene.data.MonsterModel;
 	import modules.load.Load;
 
 	/**
@@ -16,8 +17,10 @@ package animation.animal
 	 */
 	public class Monster extends Sprite implements ISceneItem
 	{
-		/** npc信息 */
-		private var _npcinfo:MovieClip;
+		/** 怪物信息 */
+		private var _monsterinfo:MovieClip;
+
+		private var _monsterId:int;
 
 		private var _mapX:int;
 
@@ -25,9 +28,9 @@ package animation.animal
 
 		private var monsterAnimation:MonsterAnimation;
 
-		private var NPCName:Object;
+		private var _typeId:int;
 
-		public var monsterId:String;
+		private var enemyInfo:Object;
 
 		private var modelInfo:Object;
 
@@ -35,13 +38,7 @@ package animation.animal
 
 		public function Monster()
 		{
-//			this.monsterId = npcId;
-//
-//			NPCName = GameData.NPCNameDic[npcId];
-//			modelInfo = GameData.modelInfoDic[NPCName.modelId];
-//			model = GameData.modelDic["resources/npc/" + modelInfo.mid + ".swf"];
-
-			monsterAnimation = new MonsterAnimation("1001");
+			monsterAnimation = MonsterAnimation.defaultAnimation;
 
 			//如果方向为3则翻转图片
 			addChild(monsterAnimation);
@@ -49,22 +46,64 @@ package animation.animal
 			addListeners();
 		}
 
-		public function get npcinfo():MovieClip
+		public function get monsterId():int
 		{
-			if (_npcinfo == null)
-			{
-				_npcinfo = Load.getInstance("fla.uilibrary.NPCInfo");
-				if (_npcinfo)
-				{
-					addChild(_npcinfo);
-//					var npcObj:Object = GameData.NPCNameDic[monsterId];
-//					_npcinfo.name_txt.text = npcObj.name;
-//
-//					_npcinfo.y = -model.h - 10;
+			return _monsterId;
+		}
 
+		public function set monsterId(value:int):void
+		{
+			_monsterId = value;
+			name = "monster" + _monsterId;
+
+			mapX = monsterModel.mapX;
+			mapY = monsterModel.mapY;
+			typeId = monsterModel.typeId;
+		}
+
+		private function get monsterModel():MonsterModel
+		{
+			return GameData.monsterDic[_monsterId];
+		}
+
+		public function get typeId():int
+		{
+			return _typeId;
+		}
+
+		public function set typeId(value:int):void
+		{
+			_typeId = value;
+			enemyInfo = GameData.enemyDic[_typeId];
+			modelInfo = GameData.modelInfoDic[enemyInfo.skinid];
+			model = GameData.modelDic["resources/enemy/" + modelInfo.mid + ".swf"];
+
+			if (monsterAnimation)
+				removeChild(monsterAnimation);
+			monsterAnimation = new MonsterAnimation(modelInfo.mid);
+			addChild(monsterAnimation);
+		}
+
+		public function get monsterinfo():MovieClip
+		{
+			if (_monsterinfo == null)
+			{
+				_monsterinfo = Load.getInstance("fla.uilibrary.MonsterInfo");
+				if (_monsterinfo)
+				{
+					addChild(_monsterinfo);
+					_monsterinfo.y = -model.h;
+					updateView()
 				}
 			}
-			return _npcinfo;
+			return _monsterinfo;
+		}
+
+		private function updateView():void
+		{
+			monsterinfo.name_txt.text = enemyInfo.name;
+			monsterinfo.hp_txt.text = monsterModel.HP + "/100";
+			monsterinfo.hpline.hpvalue.width = monsterModel.HP / 100 * monsterinfo.hpline.back.width;
 		}
 
 		private function addListeners():void
@@ -76,8 +115,8 @@ package animation.animal
 		{
 			monsterAnimation.animationController.enterFrame();
 
-			if (npcinfo)
-				npcinfo.visible = true;
+			if (monsterinfo)
+				monsterinfo.visible = true;
 		}
 
 		public function get mapX():int

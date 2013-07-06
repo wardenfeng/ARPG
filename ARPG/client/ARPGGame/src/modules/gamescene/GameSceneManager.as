@@ -364,10 +364,7 @@ package modules.gamescene
 		private function onAddMonster(event:GameSceneEvent):void
 		{
 			var animal:Monster = new Monster();
-			animal.name = "monster" + event.data.monsterId;
-			animal.mapX = event.data.mapX;
-			animal.mapY = event.data.mapY;
-
+			animal.monsterId = event.data.monsterId;
 			addMonster(animal);
 		}
 

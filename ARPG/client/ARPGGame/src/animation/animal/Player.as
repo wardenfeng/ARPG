@@ -4,7 +4,7 @@ package animation.animal
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Point;
-
+	
 	import animation.AnimationEvent;
 	import animation.ISceneItem;
 	import animation.actioncontroller.PlayerController;
@@ -12,13 +12,12 @@ package animation.animal
 	import animation.animationtypes.WeaponAnimation;
 	import animation.configs.ActionType;
 	import animation.configs.Direction;
-
+	
 	import communication.arpg.ArpgMsgEvent;
-
+	
 	import modules.GameDispatcher;
 	import modules.findpath.MapTileModel;
 	import modules.gamescene.GameSceneConfig;
-	import modules.gamescene.GameSceneEvent;
 	import modules.gamescene.data.PlayerModel;
 	import modules.load.Load;
 
