@@ -5,13 +5,11 @@ import java.io.DataOutputStream;
 import feng.client.Client;
 import feng.data.PlayerDataManager;
 import feng.modules.BroadcastManager;
-import feng.modules.LogoutManager;
 import feng.modules.LoginManager;
+import feng.modules.LogoutManager;
 import feng.modules.ModulesManager;
 import feng.modules.SkillManager;
 import feng.network.SocketManager;
-import feng.sql.SQLManager;
-import feng.sql.dao.PlayerDao;
 
 /**
  * 
@@ -103,36 +101,6 @@ public class AllReference
 		if (modulesManager == null)
 			return null;
 		return modulesManager.getLoginManager();
-	}
-
-	/**
-	 * 根据客户编号返回数据库管理者
-	 * 
-	 * @param clientId
-	 *            客户编号
-	 * @return 数据库管理者
-	 */
-	public static SQLManager getSQLManager(int clientId)
-	{
-		Client client = getClient(clientId);
-		if (client == null)
-			return null;
-		return client.getSqlManager();
-	}
-
-	/**
-	 * 根据客户编号返回玩家信息数据处理者
-	 * 
-	 * @param clientId
-	 *            客户编号
-	 * @return 玩家信息数据处理者
-	 */
-	public static PlayerDao getPlayerDao(int clientId)
-	{
-		SQLManager sqlManager = getSQLManager(clientId);
-		if (sqlManager == null)
-			return null;
-		return sqlManager.getPlayerDao();
 	}
 
 	/**

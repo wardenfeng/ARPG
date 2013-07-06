@@ -6,7 +6,6 @@ import feng.MsgProcessor;
 import feng.MsgSender;
 import feng.modules.ModulesManager;
 import feng.network.SocketManager;
-import feng.sql.SQLManager;
 
 /**
  * 客户（玩家所以数据与操作）
@@ -25,9 +24,6 @@ public class Client
 		this.socket = socket;
 	}
 
-	/** 数据库管理者 */
-	private SQLManager sqlManager;
-
 	/** socket处理者 */
 	private SocketManager socketManager;
 
@@ -43,15 +39,6 @@ public class Client
 	public int getClientId()
 	{
 		return clientId;
-	}
-
-	public SQLManager getSqlManager()
-	{
-		if (sqlManager == null)
-		{
-			sqlManager = new SQLManager();
-		}
-		return sqlManager;
 	}
 
 	public SocketManager getSocketManager()

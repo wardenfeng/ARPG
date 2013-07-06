@@ -21,10 +21,14 @@ package modules.gamescene
 		
 		public static var playerDic:Dictionary = new Dictionary();
 		
+		public static var monsterDic:Dictionary = new Dictionary();
+		
 		/** 场景上物件 */
 		public static var sceneItems:Array = [];
 		
 		public static var playerList:Array = [];
+		
+		public static var monsterList:Array = [];
 		
 		public static var npcList:Array = [];
 		

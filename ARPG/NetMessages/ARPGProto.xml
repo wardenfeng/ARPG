@@ -137,6 +137,20 @@
 			required int32 MP = 2;
 		}
 		
+		message ADD_MONSTER
+		{
+			required int32 monsterId = 1;	//怪物编号
+			required int32 mapX = 2;
+			required int32 mapY = 3;
+			required int32 typeId = 4;		//类型编号，怪物类型
+			required int32 HP = 5;
+		}
+		
+		message ASPKG_ADD_MONSTER_NTF
+		{
+			repeated ADD_MONSTER addMonster = 1;
+		}
+		
     </protocolbuffers>
     <messages>
 		<!-- 登录请求 -->
@@ -163,7 +177,8 @@
 		<message name="ASID_HP_UPDATE_NTF" id="11" type="ASPKG_HP_UPDATE_NTF" proc_fun="OnRecvHPUpdateNtf" by="client"/>
 		<!-- 魔法值更新广播 -->
 		<message name="ASID_MP_UPDATE_NTF" id="12" type="ASPKG_MP_UPDATE_NTF" proc_fun="OnRecvMPUpdateNtf" by="client"/>
-		
+		<!-- 添加怪物 -->
+		<message name="ASID_ADD_MONSTER_NTF" id="13" type="ASPKG_ADD_MONSTER_NTF" proc_fun="OnRecvAddMonsterNtf" by="client"/>
 		
     </messages>
 </coder>

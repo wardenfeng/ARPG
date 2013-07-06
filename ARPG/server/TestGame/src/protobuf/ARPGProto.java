@@ -7887,6 +7887,1175 @@ public final class ARPGProto {
     // @@protoc_insertion_point(class_scope:protobuf.ASPKG_MP_UPDATE_NTF)
   }
   
+  public interface ADD_MONSTEROrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required int32 monsterId = 1;
+    boolean hasMonsterId();
+    int getMonsterId();
+    
+    // required int32 mapX = 2;
+    boolean hasMapX();
+    int getMapX();
+    
+    // required int32 mapY = 3;
+    boolean hasMapY();
+    int getMapY();
+    
+    // required int32 typeId = 4;
+    boolean hasTypeId();
+    int getTypeId();
+    
+    // required int32 HP = 5;
+    boolean hasHP();
+    int getHP();
+  }
+  public static final class ADD_MONSTER extends
+      com.google.protobuf.GeneratedMessage
+      implements ADD_MONSTEROrBuilder {
+    // Use ADD_MONSTER.newBuilder() to construct.
+    private ADD_MONSTER(Builder builder) {
+      super(builder);
+    }
+    private ADD_MONSTER(boolean noInit) {}
+    
+    private static final ADD_MONSTER defaultInstance;
+    public static ADD_MONSTER getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public ADD_MONSTER getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protobuf.ARPGProto.internal_static_protobuf_ADD_MONSTER_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protobuf.ARPGProto.internal_static_protobuf_ADD_MONSTER_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // required int32 monsterId = 1;
+    public static final int MONSTERID_FIELD_NUMBER = 1;
+    private int monsterId_;
+    public boolean hasMonsterId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public int getMonsterId() {
+      return monsterId_;
+    }
+    
+    // required int32 mapX = 2;
+    public static final int MAPX_FIELD_NUMBER = 2;
+    private int mapX_;
+    public boolean hasMapX() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getMapX() {
+      return mapX_;
+    }
+    
+    // required int32 mapY = 3;
+    public static final int MAPY_FIELD_NUMBER = 3;
+    private int mapY_;
+    public boolean hasMapY() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public int getMapY() {
+      return mapY_;
+    }
+    
+    // required int32 typeId = 4;
+    public static final int TYPEID_FIELD_NUMBER = 4;
+    private int typeId_;
+    public boolean hasTypeId() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    public int getTypeId() {
+      return typeId_;
+    }
+    
+    // required int32 HP = 5;
+    public static final int HP_FIELD_NUMBER = 5;
+    private int hP_;
+    public boolean hasHP() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    public int getHP() {
+      return hP_;
+    }
+    
+    private void initFields() {
+      monsterId_ = 0;
+      mapX_ = 0;
+      mapY_ = 0;
+      typeId_ = 0;
+      hP_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasMonsterId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMapX()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMapY()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasTypeId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasHP()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, monsterId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, mapX_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, mapY_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(4, typeId_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeInt32(5, hP_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, monsterId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, mapX_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, mapY_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, typeId_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, hP_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static protobuf.ARPGProto.ADD_MONSTER parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static protobuf.ARPGProto.ADD_MONSTER parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static protobuf.ARPGProto.ADD_MONSTER parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static protobuf.ARPGProto.ADD_MONSTER parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static protobuf.ARPGProto.ADD_MONSTER parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static protobuf.ARPGProto.ADD_MONSTER parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static protobuf.ARPGProto.ADD_MONSTER parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static protobuf.ARPGProto.ADD_MONSTER parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static protobuf.ARPGProto.ADD_MONSTER parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static protobuf.ARPGProto.ADD_MONSTER parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(protobuf.ARPGProto.ADD_MONSTER prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements protobuf.ARPGProto.ADD_MONSTEROrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protobuf.ARPGProto.internal_static_protobuf_ADD_MONSTER_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protobuf.ARPGProto.internal_static_protobuf_ADD_MONSTER_fieldAccessorTable;
+      }
+      
+      // Construct using protobuf.ARPGProto.ADD_MONSTER.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        monsterId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        mapX_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        mapY_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        typeId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        hP_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protobuf.ARPGProto.ADD_MONSTER.getDescriptor();
+      }
+      
+      public protobuf.ARPGProto.ADD_MONSTER getDefaultInstanceForType() {
+        return protobuf.ARPGProto.ADD_MONSTER.getDefaultInstance();
+      }
+      
+      public protobuf.ARPGProto.ADD_MONSTER build() {
+        protobuf.ARPGProto.ADD_MONSTER result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private protobuf.ARPGProto.ADD_MONSTER buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        protobuf.ARPGProto.ADD_MONSTER result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public protobuf.ARPGProto.ADD_MONSTER buildPartial() {
+        protobuf.ARPGProto.ADD_MONSTER result = new protobuf.ARPGProto.ADD_MONSTER(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.monsterId_ = monsterId_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.mapX_ = mapX_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.mapY_ = mapY_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.typeId_ = typeId_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.hP_ = hP_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protobuf.ARPGProto.ADD_MONSTER) {
+          return mergeFrom((protobuf.ARPGProto.ADD_MONSTER)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(protobuf.ARPGProto.ADD_MONSTER other) {
+        if (other == protobuf.ARPGProto.ADD_MONSTER.getDefaultInstance()) return this;
+        if (other.hasMonsterId()) {
+          setMonsterId(other.getMonsterId());
+        }
+        if (other.hasMapX()) {
+          setMapX(other.getMapX());
+        }
+        if (other.hasMapY()) {
+          setMapY(other.getMapY());
+        }
+        if (other.hasTypeId()) {
+          setTypeId(other.getTypeId());
+        }
+        if (other.hasHP()) {
+          setHP(other.getHP());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasMonsterId()) {
+          
+          return false;
+        }
+        if (!hasMapX()) {
+          
+          return false;
+        }
+        if (!hasMapY()) {
+          
+          return false;
+        }
+        if (!hasTypeId()) {
+          
+          return false;
+        }
+        if (!hasHP()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              monsterId_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              mapX_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              mapY_ = input.readInt32();
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              typeId_ = input.readInt32();
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000010;
+              hP_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required int32 monsterId = 1;
+      private int monsterId_ ;
+      public boolean hasMonsterId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public int getMonsterId() {
+        return monsterId_;
+      }
+      public Builder setMonsterId(int value) {
+        bitField0_ |= 0x00000001;
+        monsterId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearMonsterId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        monsterId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 mapX = 2;
+      private int mapX_ ;
+      public boolean hasMapX() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getMapX() {
+        return mapX_;
+      }
+      public Builder setMapX(int value) {
+        bitField0_ |= 0x00000002;
+        mapX_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearMapX() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        mapX_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 mapY = 3;
+      private int mapY_ ;
+      public boolean hasMapY() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public int getMapY() {
+        return mapY_;
+      }
+      public Builder setMapY(int value) {
+        bitField0_ |= 0x00000004;
+        mapY_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearMapY() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        mapY_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 typeId = 4;
+      private int typeId_ ;
+      public boolean hasTypeId() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public int getTypeId() {
+        return typeId_;
+      }
+      public Builder setTypeId(int value) {
+        bitField0_ |= 0x00000008;
+        typeId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearTypeId() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        typeId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 HP = 5;
+      private int hP_ ;
+      public boolean hasHP() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      public int getHP() {
+        return hP_;
+      }
+      public Builder setHP(int value) {
+        bitField0_ |= 0x00000010;
+        hP_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearHP() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        hP_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:protobuf.ADD_MONSTER)
+    }
+    
+    static {
+      defaultInstance = new ADD_MONSTER(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:protobuf.ADD_MONSTER)
+  }
+  
+  public interface ASPKG_ADD_MONSTER_NTFOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // repeated .protobuf.ADD_MONSTER addMonster = 1;
+    java.util.List<protobuf.ARPGProto.ADD_MONSTER> 
+        getAddMonsterList();
+    protobuf.ARPGProto.ADD_MONSTER getAddMonster(int index);
+    int getAddMonsterCount();
+    java.util.List<? extends protobuf.ARPGProto.ADD_MONSTEROrBuilder> 
+        getAddMonsterOrBuilderList();
+    protobuf.ARPGProto.ADD_MONSTEROrBuilder getAddMonsterOrBuilder(
+        int index);
+  }
+  public static final class ASPKG_ADD_MONSTER_NTF extends
+      com.google.protobuf.GeneratedMessage
+      implements ASPKG_ADD_MONSTER_NTFOrBuilder {
+    // Use ASPKG_ADD_MONSTER_NTF.newBuilder() to construct.
+    private ASPKG_ADD_MONSTER_NTF(Builder builder) {
+      super(builder);
+    }
+    private ASPKG_ADD_MONSTER_NTF(boolean noInit) {}
+    
+    private static final ASPKG_ADD_MONSTER_NTF defaultInstance;
+    public static ASPKG_ADD_MONSTER_NTF getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public ASPKG_ADD_MONSTER_NTF getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protobuf.ARPGProto.internal_static_protobuf_ASPKG_ADD_MONSTER_NTF_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protobuf.ARPGProto.internal_static_protobuf_ASPKG_ADD_MONSTER_NTF_fieldAccessorTable;
+    }
+    
+    // repeated .protobuf.ADD_MONSTER addMonster = 1;
+    public static final int ADDMONSTER_FIELD_NUMBER = 1;
+    private java.util.List<protobuf.ARPGProto.ADD_MONSTER> addMonster_;
+    public java.util.List<protobuf.ARPGProto.ADD_MONSTER> getAddMonsterList() {
+      return addMonster_;
+    }
+    public java.util.List<? extends protobuf.ARPGProto.ADD_MONSTEROrBuilder> 
+        getAddMonsterOrBuilderList() {
+      return addMonster_;
+    }
+    public int getAddMonsterCount() {
+      return addMonster_.size();
+    }
+    public protobuf.ARPGProto.ADD_MONSTER getAddMonster(int index) {
+      return addMonster_.get(index);
+    }
+    public protobuf.ARPGProto.ADD_MONSTEROrBuilder getAddMonsterOrBuilder(
+        int index) {
+      return addMonster_.get(index);
+    }
+    
+    private void initFields() {
+      addMonster_ = java.util.Collections.emptyList();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      for (int i = 0; i < getAddMonsterCount(); i++) {
+        if (!getAddMonster(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      for (int i = 0; i < addMonster_.size(); i++) {
+        output.writeMessage(1, addMonster_.get(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      for (int i = 0; i < addMonster_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, addMonster_.get(i));
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTFOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protobuf.ARPGProto.internal_static_protobuf_ASPKG_ADD_MONSTER_NTF_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protobuf.ARPGProto.internal_static_protobuf_ASPKG_ADD_MONSTER_NTF_fieldAccessorTable;
+      }
+      
+      // Construct using protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getAddMonsterFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        if (addMonsterBuilder_ == null) {
+          addMonster_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          addMonsterBuilder_.clear();
+        }
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF.getDescriptor();
+      }
+      
+      public protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF getDefaultInstanceForType() {
+        return protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF.getDefaultInstance();
+      }
+      
+      public protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF build() {
+        protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF buildPartial() {
+        protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF result = new protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF(this);
+        int from_bitField0_ = bitField0_;
+        if (addMonsterBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            addMonster_ = java.util.Collections.unmodifiableList(addMonster_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.addMonster_ = addMonster_;
+        } else {
+          result.addMonster_ = addMonsterBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF) {
+          return mergeFrom((protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF other) {
+        if (other == protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF.getDefaultInstance()) return this;
+        if (addMonsterBuilder_ == null) {
+          if (!other.addMonster_.isEmpty()) {
+            if (addMonster_.isEmpty()) {
+              addMonster_ = other.addMonster_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureAddMonsterIsMutable();
+              addMonster_.addAll(other.addMonster_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.addMonster_.isEmpty()) {
+            if (addMonsterBuilder_.isEmpty()) {
+              addMonsterBuilder_.dispose();
+              addMonsterBuilder_ = null;
+              addMonster_ = other.addMonster_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              addMonsterBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getAddMonsterFieldBuilder() : null;
+            } else {
+              addMonsterBuilder_.addAllMessages(other.addMonster_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        for (int i = 0; i < getAddMonsterCount(); i++) {
+          if (!getAddMonster(i).isInitialized()) {
+            
+            return false;
+          }
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              protobuf.ARPGProto.ADD_MONSTER.Builder subBuilder = protobuf.ARPGProto.ADD_MONSTER.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addAddMonster(subBuilder.buildPartial());
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // repeated .protobuf.ADD_MONSTER addMonster = 1;
+      private java.util.List<protobuf.ARPGProto.ADD_MONSTER> addMonster_ =
+        java.util.Collections.emptyList();
+      private void ensureAddMonsterIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          addMonster_ = new java.util.ArrayList<protobuf.ARPGProto.ADD_MONSTER>(addMonster_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      
+      private com.google.protobuf.RepeatedFieldBuilder<
+          protobuf.ARPGProto.ADD_MONSTER, protobuf.ARPGProto.ADD_MONSTER.Builder, protobuf.ARPGProto.ADD_MONSTEROrBuilder> addMonsterBuilder_;
+      
+      public java.util.List<protobuf.ARPGProto.ADD_MONSTER> getAddMonsterList() {
+        if (addMonsterBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(addMonster_);
+        } else {
+          return addMonsterBuilder_.getMessageList();
+        }
+      }
+      public int getAddMonsterCount() {
+        if (addMonsterBuilder_ == null) {
+          return addMonster_.size();
+        } else {
+          return addMonsterBuilder_.getCount();
+        }
+      }
+      public protobuf.ARPGProto.ADD_MONSTER getAddMonster(int index) {
+        if (addMonsterBuilder_ == null) {
+          return addMonster_.get(index);
+        } else {
+          return addMonsterBuilder_.getMessage(index);
+        }
+      }
+      public Builder setAddMonster(
+          int index, protobuf.ARPGProto.ADD_MONSTER value) {
+        if (addMonsterBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureAddMonsterIsMutable();
+          addMonster_.set(index, value);
+          onChanged();
+        } else {
+          addMonsterBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      public Builder setAddMonster(
+          int index, protobuf.ARPGProto.ADD_MONSTER.Builder builderForValue) {
+        if (addMonsterBuilder_ == null) {
+          ensureAddMonsterIsMutable();
+          addMonster_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          addMonsterBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addAddMonster(protobuf.ARPGProto.ADD_MONSTER value) {
+        if (addMonsterBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureAddMonsterIsMutable();
+          addMonster_.add(value);
+          onChanged();
+        } else {
+          addMonsterBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      public Builder addAddMonster(
+          int index, protobuf.ARPGProto.ADD_MONSTER value) {
+        if (addMonsterBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureAddMonsterIsMutable();
+          addMonster_.add(index, value);
+          onChanged();
+        } else {
+          addMonsterBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      public Builder addAddMonster(
+          protobuf.ARPGProto.ADD_MONSTER.Builder builderForValue) {
+        if (addMonsterBuilder_ == null) {
+          ensureAddMonsterIsMutable();
+          addMonster_.add(builderForValue.build());
+          onChanged();
+        } else {
+          addMonsterBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addAddMonster(
+          int index, protobuf.ARPGProto.ADD_MONSTER.Builder builderForValue) {
+        if (addMonsterBuilder_ == null) {
+          ensureAddMonsterIsMutable();
+          addMonster_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          addMonsterBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addAllAddMonster(
+          java.lang.Iterable<? extends protobuf.ARPGProto.ADD_MONSTER> values) {
+        if (addMonsterBuilder_ == null) {
+          ensureAddMonsterIsMutable();
+          super.addAll(values, addMonster_);
+          onChanged();
+        } else {
+          addMonsterBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      public Builder clearAddMonster() {
+        if (addMonsterBuilder_ == null) {
+          addMonster_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          addMonsterBuilder_.clear();
+        }
+        return this;
+      }
+      public Builder removeAddMonster(int index) {
+        if (addMonsterBuilder_ == null) {
+          ensureAddMonsterIsMutable();
+          addMonster_.remove(index);
+          onChanged();
+        } else {
+          addMonsterBuilder_.remove(index);
+        }
+        return this;
+      }
+      public protobuf.ARPGProto.ADD_MONSTER.Builder getAddMonsterBuilder(
+          int index) {
+        return getAddMonsterFieldBuilder().getBuilder(index);
+      }
+      public protobuf.ARPGProto.ADD_MONSTEROrBuilder getAddMonsterOrBuilder(
+          int index) {
+        if (addMonsterBuilder_ == null) {
+          return addMonster_.get(index);  } else {
+          return addMonsterBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      public java.util.List<? extends protobuf.ARPGProto.ADD_MONSTEROrBuilder> 
+           getAddMonsterOrBuilderList() {
+        if (addMonsterBuilder_ != null) {
+          return addMonsterBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(addMonster_);
+        }
+      }
+      public protobuf.ARPGProto.ADD_MONSTER.Builder addAddMonsterBuilder() {
+        return getAddMonsterFieldBuilder().addBuilder(
+            protobuf.ARPGProto.ADD_MONSTER.getDefaultInstance());
+      }
+      public protobuf.ARPGProto.ADD_MONSTER.Builder addAddMonsterBuilder(
+          int index) {
+        return getAddMonsterFieldBuilder().addBuilder(
+            index, protobuf.ARPGProto.ADD_MONSTER.getDefaultInstance());
+      }
+      public java.util.List<protobuf.ARPGProto.ADD_MONSTER.Builder> 
+           getAddMonsterBuilderList() {
+        return getAddMonsterFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          protobuf.ARPGProto.ADD_MONSTER, protobuf.ARPGProto.ADD_MONSTER.Builder, protobuf.ARPGProto.ADD_MONSTEROrBuilder> 
+          getAddMonsterFieldBuilder() {
+        if (addMonsterBuilder_ == null) {
+          addMonsterBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              protobuf.ARPGProto.ADD_MONSTER, protobuf.ARPGProto.ADD_MONSTER.Builder, protobuf.ARPGProto.ADD_MONSTEROrBuilder>(
+                  addMonster_,
+                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  getParentForChildren(),
+                  isClean());
+          addMonster_ = null;
+        }
+        return addMonsterBuilder_;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:protobuf.ASPKG_ADD_MONSTER_NTF)
+    }
+    
+    static {
+      defaultInstance = new ASPKG_ADD_MONSTER_NTF(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:protobuf.ASPKG_ADD_MONSTER_NTF)
+  }
+  
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_protobuf_ASPKG_LOGIN_REQ_descriptor;
   private static
@@ -7957,6 +9126,16 @@ public final class ARPGProto {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_protobuf_ASPKG_MP_UPDATE_NTF_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_protobuf_ADD_MONSTER_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_protobuf_ADD_MONSTER_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_protobuf_ASPKG_ADD_MONSTER_NTF_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_protobuf_ASPKG_ADD_MONSTER_NTF_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -8002,9 +9181,13 @@ public final class ARPGProto {
       "lHarms\030\007 \003(\0132\024.protobuf.SKILL_HARM\"3\n\023AS" +
       "PKG_HP_UPDATE_NTF\022\020\n\010playerId\030\001 \002(\005\022\n\n\002H" +
       "P\030\002 \002(\005\"3\n\023ASPKG_MP_UPDATE_NTF\022\020\n\010player" +
-      "Id\030\001 \002(\005\022\n\n\002MP\030\002 \002(\005*&\n\rE_ATTACK_TYPE\022\n\n" +
-      "\006PLALER\020\000\022\t\n\005POINT\020\001*1\n\rE_OBJECT_TYPE\022\n\n" +
-      "\006PLAYER\020\000\022\013\n\007MONSTER\020\001\022\007\n\003NPC\020\002"
+      "Id\030\001 \002(\005\022\n\n\002MP\030\002 \002(\005\"X\n\013ADD_MONSTER\022\021\n\tm" +
+      "onsterId\030\001 \002(\005\022\014\n\004mapX\030\002 \002(\005\022\014\n\004mapY\030\003 \002" +
+      "(\005\022\016\n\006typeId\030\004 \002(\005\022\n\n\002HP\030\005 \002(\005\"B\n\025ASPKG_" +
+      "ADD_MONSTER_NTF\022)\n\naddMonster\030\001 \003(\0132\025.pr",
+      "otobuf.ADD_MONSTER*&\n\rE_ATTACK_TYPE\022\n\n\006P" +
+      "LALER\020\000\022\t\n\005POINT\020\001*1\n\rE_OBJECT_TYPE\022\n\n\006P" +
+      "LAYER\020\000\022\013\n\007MONSTER\020\001\022\007\n\003NPC\020\002"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -8123,6 +9306,22 @@ public final class ARPGProto {
               new java.lang.String[] { "PlayerId", "MP", },
               protobuf.ARPGProto.ASPKG_MP_UPDATE_NTF.class,
               protobuf.ARPGProto.ASPKG_MP_UPDATE_NTF.Builder.class);
+          internal_static_protobuf_ADD_MONSTER_descriptor =
+            getDescriptor().getMessageTypes().get(14);
+          internal_static_protobuf_ADD_MONSTER_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_protobuf_ADD_MONSTER_descriptor,
+              new java.lang.String[] { "MonsterId", "MapX", "MapY", "TypeId", "HP", },
+              protobuf.ARPGProto.ADD_MONSTER.class,
+              protobuf.ARPGProto.ADD_MONSTER.Builder.class);
+          internal_static_protobuf_ASPKG_ADD_MONSTER_NTF_descriptor =
+            getDescriptor().getMessageTypes().get(15);
+          internal_static_protobuf_ASPKG_ADD_MONSTER_NTF_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_protobuf_ASPKG_ADD_MONSTER_NTF_descriptor,
+              new java.lang.String[] { "AddMonster", },
+              protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF.class,
+              protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF.Builder.class);
           return null;
         }
       };

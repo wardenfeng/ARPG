@@ -4,10 +4,13 @@ package communication.arpg
 
 	import modules.GameDispatcher;
 	import modules.gamescene.GameSceneEvent;
+	import modules.gamescene.data.MonsterModel;
 	import modules.gamescene.data.PlayerModel;
 	import modules.login.LoginEvent;
 
+	import protobuf.ADD_MONSTER;
 	import protobuf.ADD_PLAYER;
+	import protobuf.ASPKG_ADD_MONSTER_NTF;
 	import protobuf.ASPKG_ADD_PLAYER_NTF;
 	import protobuf.ASPKG_CAST_SKILL_ACK;
 	import protobuf.ASPKG_CAST_SKILL_NTF;
@@ -168,6 +171,26 @@ package communication.arpg
 			var playerModel:PlayerModel = GameData.playerDic[pkg.playerId];
 			playerModel.MP = pkg.mP;
 			dispatcher.dispatchEvent(new ArpgMsgEvent(ARPGProto.ASID_MP_UPDATE_NTF, {playerId: pkg.playerId}));
+		}
+
+		public function OnRecvAddMonsterNtf(pkg:ASPKG_ADD_MONSTER_NTF):void
+		{
+			for each (var addMonster:ADD_MONSTER in pkg.addMonster)
+			{
+				if (addMonster.playerId != GlobalData.roleId)
+				{
+					var monsterModel:MonsterModel = new MonsterModel();
+					monsterModel.monsterId = addMonster.monsterId;
+					monsterModel.typeId = addMonster.typeId;
+					monsterModel.mapX = addMonster.mapX;
+					monsterModel.mapY = addMonster.mapY;
+					monsterModel.HP = addMonster.hP;
+					GameData.monsterDic[monsterModel.monsterId] = monsterModel;
+
+					var data:Object = monsterModel;
+					dispatcher.dispatchEvent(new GameSceneEvent(GameSceneEvent.ADD_MONSTER, data));
+				}
+			}
 		}
 	}
 }

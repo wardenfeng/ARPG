@@ -50,7 +50,6 @@ public class SkillManager
 				Player target = AllReference.getPlayerDataManager().getPlayerData(targetClinetId).player;
 				int harmValue = Math.max(-10, -target.getHp());
 				target.setHp(target.getHp() + harmValue);
-				// broadcastManager.HpUpdate(target.getId(), target.getHp());
 				SKILL_HARM skillHarm = SKILL_HARM.newBuilder().setType(E_OBJECT_TYPE.PLAYER).setTargetId(targetId)
 						.setHarmValue(harmValue).build();
 				skillHarmList.add(skillHarm);

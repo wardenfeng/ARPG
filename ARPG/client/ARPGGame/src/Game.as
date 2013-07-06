@@ -44,7 +44,7 @@ package
 		{
 			Security.allowDomain("*");
 
-			var menu0:ContextMenuItem = new ContextMenuItem("Gobang\t" + GlobalData.VERSION, true, true, true);
+			var menu0:ContextMenuItem = new ContextMenuItem("ARPG\t" + GlobalData.VERSION, true, true, true);
 			var viewContextMenu:ContextMenu = new ContextMenu();
 			viewContextMenu.customItems = [menu0];
 			contextMenu = viewContextMenu;

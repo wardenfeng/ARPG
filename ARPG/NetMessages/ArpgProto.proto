@@ -134,4 +134,18 @@ package protobuf;
 			required int32 MP = 2;
 		}
 		
+		message ADD_MONSTER
+		{
+			required int32 monsterId = 1;	//怪物编号
+			required int32 mapX = 2;
+			required int32 mapY = 3;
+			required int32 typeId = 4;		//类型编号，怪物类型
+			required int32 HP = 5;
+		}
+		
+		message ASPKG_ADD_MONSTER_NTF
+		{
+			repeated ADD_MONSTER addMonster = 1;
+		}
+		
     

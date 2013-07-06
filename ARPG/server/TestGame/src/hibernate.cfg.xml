@@ -48,6 +48,8 @@
 		<!-- Drop and re-create the database schema on startup <property name="hbm2ddl.auto">update</property> -->
 
 		<mapping class="feng.sql.model.Player" />
+		<mapping class="feng.sql.model.MonsterConfig" />
+		<mapping class="feng.sql.model.Monster" />
 
 	</session-factory>
 

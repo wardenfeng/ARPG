@@ -13,8 +13,10 @@ package modules.gamescene
 	import animation.Animation;
 	import animation.AnimationEvent;
 	import animation.ISceneItem;
+	import animation.animal.Monster;
 	import animation.animal.Player;
 	import animation.animationtypes.EffectsAnimation;
+	import animation.animationtypes.MonsterAnimation;
 	import animation.configs.ActionType;
 	import animation.configs.Direction;
 
@@ -24,6 +26,7 @@ package modules.gamescene
 	import modules.findpath.FindpathEvent;
 	import modules.findpath.MapTileModel;
 	import modules.gamescene.data.PlayerModel;
+	import modules.moveaction.MoveActionController;
 	import modules.moveaction.MoveActionEvent;
 
 	import protobuf.ASPKG_CAST_SKILL_NTF;
@@ -97,6 +100,7 @@ package modules.gamescene
 			dispatcher.addEventListener(GameSceneEvent.CAST_SKILL, onCastSkill);
 			dispatcher.addEventListener(GameSceneEvent.GET_SKILL_TARGET, onGetSkillTarget);
 
+			dispatcher.addEventListener(GameSceneEvent.ADD_MONSTER, onAddMonster);
 		}
 
 		private function onAddHero(event:GameSceneEvent):void
@@ -237,6 +241,11 @@ package modules.gamescene
 
 			var animal:Player = GameScene.playerDic[castSkillNtf.playerId];
 
+			if (castSkillNtf.playerId == GlobalData.roleId)
+			{
+				MoveActionController.findPathArr = null;
+			}
+
 			var targetPoint:Point = new Point();
 			switch (castSkillNtf.type)
 			{
@@ -350,6 +359,24 @@ package modules.gamescene
 			index = GameScene.sceneItems.indexOf(effect);
 			if (index != -1)
 				GameScene.sceneItems.splice(index, 1);
+		}
+
+		private function onAddMonster(event:GameSceneEvent):void
+		{
+			var animal:Monster = new Monster();
+			animal.name = "monster" + event.data.monsterId;
+			animal.mapX = event.data.mapX;
+			animal.mapY = event.data.mapY;
+
+			addMonster(animal);
+		}
+
+		private function addMonster(monster:Monster):void
+		{
+			GameScene.sceneItemLayer.addChild(monster);
+			GameScene.monsterDic[monster.monsterId] = monster;
+			GameScene.monsterList.push(monster);
+			GameScene.sceneItems.push(monster);
 		}
 
 		/**

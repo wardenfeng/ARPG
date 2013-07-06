@@ -32,6 +32,8 @@ package modules.gamescene
 		/** 技能释放结束 */
 		public static const CAST_SKILL_END:String = "castSkillEnd";
 		
+		public static const ADD_MONSTER:String = "addMonster";
+		
 		/**
 		 * 场景事件
 		 * @param type 事件类型

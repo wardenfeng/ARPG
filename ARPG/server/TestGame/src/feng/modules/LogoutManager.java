@@ -2,7 +2,6 @@ package feng.modules;
 
 import feng.AllReference;
 import feng.CommonData;
-import feng.client.Client;
 import feng.data.PlayerData;
 import feng.data.PlayerDataManager;
 import feng.sql.SQLManager;
@@ -20,14 +19,12 @@ public class LogoutManager
 		// 登出
 		if (CommonData.loginedClientMap.containsKey(clientId))
 		{
-			Client client = AllReference.getClient(clientId);
-			SQLManager sqlManager = client.getSqlManager();
 			PlayerDataManager playerDataManager = AllReference.getPlayerDataManager();
 
 			PlayerData playerData = playerDataManager.getPlayerData(clientId);
 
 			// 保存玩家数据
-			saveData(sqlManager, playerData);
+			saveData(playerData);
 
 			// 删除玩家数据
 			playerDataManager.removePlayerData(clientId);
@@ -35,7 +32,7 @@ public class LogoutManager
 			CommonData.loginedClientMap.remove(clientId);
 
 			CommonData.playerClientMap.remove(playerData.player.getId());
-			
+
 			// 广播删除玩家
 			BroadcastManager broadcastManager = AllReference.getBroadcastManager();
 			broadcastManager.removePlayer(clientId, playerData.player.getId());
@@ -45,12 +42,10 @@ public class LogoutManager
 	/**
 	 * 保存数据
 	 */
-	private void saveData(SQLManager sqlManager, PlayerData playerDataCenter)
+	private void saveData(PlayerData playerDataCenter)
 	{
-		if (sqlManager != null)
-		{
-			PlayerDao playerDao = sqlManager.getPlayerDao();
-			playerDao.update(playerDataCenter.player);
-		}
+		SQLManager sqlManager = SQLManager.getInstance();
+		PlayerDao playerDao = sqlManager.getPlayerDao();
+		playerDao.update(playerDataCenter.player);
 	}
 }

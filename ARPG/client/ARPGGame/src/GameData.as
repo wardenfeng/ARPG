@@ -10,6 +10,8 @@ package
 	{
 		public static var playerDic:Dictionary = new Dictionary();
 
+		public static var monsterDic:Dictionary = new Dictionary();
+		
 		public static var NPCNameDic:Dictionary;
 
 		public static var modelInfoDic:Dictionary;

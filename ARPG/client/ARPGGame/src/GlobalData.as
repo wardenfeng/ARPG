@@ -9,7 +9,7 @@ package
 	public class GlobalData
 	{
 		/** 版本号 */
-		public static const VERSION:String = "2013.5.28 14:34";
+		public static const VERSION:String = "2013.7.5 13:08";
 
 		public static const rootPath:String = "http://localhost:8080/arpg/";
 

@@ -23,33 +23,13 @@ package
         static public var ASID_CAST_SKILL_NTF:String = "10";
         static public var ASID_HP_UPDATE_NTF:String = "11";
         static public var ASID_MP_UPDATE_NTF:String = "12";
-        
-        private function DecodeASID_CAST_SKILL_ACK(buf:ByteArray, proc:ARPGMsgProcessor):void
-        {
-            var pkg:ASPKG_CAST_SKILL_ACK=new ASPKG_CAST_SKILL_ACK;
-            pkg.mergeFrom(buf);
-            proc.OnRecvCastSkillAck(pkg);
-        }
-        
-        private function DecodeASID_MOVE_NTF(buf:ByteArray, proc:ARPGMsgProcessor):void
-        {
-            var pkg:ASPKG_MOVE_NTF=new ASPKG_MOVE_NTF;
-            pkg.mergeFrom(buf);
-            proc.OnRecvMoveNtf(pkg);
-        }
+        static public var ASID_ADD_MONSTER_NTF:String = "13";
         
         private function DecodeASID_MOVE_ACK(buf:ByteArray, proc:ARPGMsgProcessor):void
         {
             var pkg:ASPKG_MOVE_ACK=new ASPKG_MOVE_ACK;
             pkg.mergeFrom(buf);
             proc.OnRecvMoveAck(pkg);
-        }
-        
-        private function DecodeASID_REMOVE_PLAYER_NTF(buf:ByteArray, proc:ARPGMsgProcessor):void
-        {
-            var pkg:ASPKG_REMOVE_PLAYER_NTF=new ASPKG_REMOVE_PLAYER_NTF;
-            pkg.mergeFrom(buf);
-            proc.OnRecvRemovePlayerNtf(pkg);
         }
         
         private function DecodeASID_HP_UPDATE_NTF(buf:ByteArray, proc:ARPGMsgProcessor):void
@@ -59,11 +39,25 @@ package
             proc.OnRecvHPUpdateNtf(pkg);
         }
         
-        private function DecodeASID_ADD_PLAYER_NTF(buf:ByteArray, proc:ARPGMsgProcessor):void
+        private function DecodeASID_CAST_SKILL_NTF(buf:ByteArray, proc:ARPGMsgProcessor):void
         {
-            var pkg:ASPKG_ADD_PLAYER_NTF=new ASPKG_ADD_PLAYER_NTF;
+            var pkg:ASPKG_CAST_SKILL_NTF=new ASPKG_CAST_SKILL_NTF;
             pkg.mergeFrom(buf);
-            proc.OnRecvAddPlayerNtf(pkg);
+            proc.OnRecvCastSkillNtf(pkg);
+        }
+        
+        private function DecodeASID_MOVE_NTF(buf:ByteArray, proc:ARPGMsgProcessor):void
+        {
+            var pkg:ASPKG_MOVE_NTF=new ASPKG_MOVE_NTF;
+            pkg.mergeFrom(buf);
+            proc.OnRecvMoveNtf(pkg);
+        }
+        
+        private function DecodeASID_REMOVE_PLAYER_NTF(buf:ByteArray, proc:ARPGMsgProcessor):void
+        {
+            var pkg:ASPKG_REMOVE_PLAYER_NTF=new ASPKG_REMOVE_PLAYER_NTF;
+            pkg.mergeFrom(buf);
+            proc.OnRecvRemovePlayerNtf(pkg);
         }
         
         private function DecodeASID_LOGIN_ACK(buf:ByteArray, proc:ARPGMsgProcessor):void
@@ -73,13 +67,6 @@ package
             proc.OnRecvLoginAck(pkg);
         }
         
-        private function DecodeASID_CAST_SKILL_NTF(buf:ByteArray, proc:ARPGMsgProcessor):void
-        {
-            var pkg:ASPKG_CAST_SKILL_NTF=new ASPKG_CAST_SKILL_NTF;
-            pkg.mergeFrom(buf);
-            proc.OnRecvCastSkillNtf(pkg);
-        }
-        
         private function DecodeASID_MP_UPDATE_NTF(buf:ByteArray, proc:ARPGMsgProcessor):void
         {
             var pkg:ASPKG_MP_UPDATE_NTF=new ASPKG_MP_UPDATE_NTF;
@@ -87,19 +74,41 @@ package
             proc.OnRecvMPUpdateNtf(pkg);
         }
         
+        private function DecodeASID_ADD_PLAYER_NTF(buf:ByteArray, proc:ARPGMsgProcessor):void
+        {
+            var pkg:ASPKG_ADD_PLAYER_NTF=new ASPKG_ADD_PLAYER_NTF;
+            pkg.mergeFrom(buf);
+            proc.OnRecvAddPlayerNtf(pkg);
+        }
+        
+        private function DecodeASID_ADD_MONSTER_NTF(buf:ByteArray, proc:ARPGMsgProcessor):void
+        {
+            var pkg:ASPKG_ADD_MONSTER_NTF=new ASPKG_ADD_MONSTER_NTF;
+            pkg.mergeFrom(buf);
+            proc.OnRecvAddMonsterNtf(pkg);
+        }
+        
+        private function DecodeASID_CAST_SKILL_ACK(buf:ByteArray, proc:ARPGMsgProcessor):void
+        {
+            var pkg:ASPKG_CAST_SKILL_ACK=new ASPKG_CAST_SKILL_ACK;
+            pkg.mergeFrom(buf);
+            proc.OnRecvCastSkillAck(pkg);
+        }
+        
         private var DecodeFuncArray:Dictionary = new Dictionary();
         
         public function Init():void
         {
-            DecodeFuncArray[ASID_CAST_SKILL_ACK] = DecodeASID_CAST_SKILL_ACK;
-            DecodeFuncArray[ASID_MOVE_NTF] = DecodeASID_MOVE_NTF;
             DecodeFuncArray[ASID_MOVE_ACK] = DecodeASID_MOVE_ACK;
-            DecodeFuncArray[ASID_REMOVE_PLAYER_NTF] = DecodeASID_REMOVE_PLAYER_NTF;
             DecodeFuncArray[ASID_HP_UPDATE_NTF] = DecodeASID_HP_UPDATE_NTF;
-            DecodeFuncArray[ASID_ADD_PLAYER_NTF] = DecodeASID_ADD_PLAYER_NTF;
-            DecodeFuncArray[ASID_LOGIN_ACK] = DecodeASID_LOGIN_ACK;
             DecodeFuncArray[ASID_CAST_SKILL_NTF] = DecodeASID_CAST_SKILL_NTF;
+            DecodeFuncArray[ASID_MOVE_NTF] = DecodeASID_MOVE_NTF;
+            DecodeFuncArray[ASID_REMOVE_PLAYER_NTF] = DecodeASID_REMOVE_PLAYER_NTF;
+            DecodeFuncArray[ASID_LOGIN_ACK] = DecodeASID_LOGIN_ACK;
             DecodeFuncArray[ASID_MP_UPDATE_NTF] = DecodeASID_MP_UPDATE_NTF;
+            DecodeFuncArray[ASID_ADD_PLAYER_NTF] = DecodeASID_ADD_PLAYER_NTF;
+            DecodeFuncArray[ASID_ADD_MONSTER_NTF] = DecodeASID_ADD_MONSTER_NTF;
+            DecodeFuncArray[ASID_CAST_SKILL_ACK] = DecodeASID_CAST_SKILL_ACK;
         }
         
         public function Decode(MsgID:uint, buf:ByteArray, proc:ARPGMsgProcessor):void

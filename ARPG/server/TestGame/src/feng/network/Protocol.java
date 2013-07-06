@@ -29,6 +29,7 @@ public class Protocol
 	static public final int ASID_CAST_SKILL_NTF = 10;
 	static public final int ASID_HP_UPDATE_NTF = 11;
 	static public final int ASID_MP_UPDATE_NTF = 12;
+	public static final int ASID_ADD_MONSTER_NTF = 13;
 	
 
 	public static void Decode(int MsgID, ByteBuffer byteBuffer, MsgProcessor proc)

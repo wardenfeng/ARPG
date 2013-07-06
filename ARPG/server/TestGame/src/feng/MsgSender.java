@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import protobuf.ARPGProto;
+import protobuf.ARPGProto.ADD_MONSTER;
 import protobuf.ARPGProto.ADD_PLAYER;
+import protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF;
 import protobuf.ARPGProto.ASPKG_ADD_PLAYER_NTF;
 import protobuf.ARPGProto.ASPKG_CAST_SKILL_ACK;
 import protobuf.ARPGProto.ASPKG_CAST_SKILL_ACK.E_CAST_SKILL_RESULT;
@@ -28,6 +31,7 @@ import com.google.protobuf.Message;
 import feng.data.PlayerData;
 import feng.network.Protocol;
 import feng.network.SocketManager;
+import feng.sql.model.Monster;
 import feng.sql.model.Player;
 
 /**
@@ -154,5 +158,18 @@ public class MsgSender
 	{
 		ASPKG_MP_UPDATE_NTF mpUpdateNf = ASPKG_MP_UPDATE_NTF.newBuilder().setPlayerId(playerId).setMP(mp).build();
 		send(Protocol.ASID_MP_UPDATE_NTF, mpUpdateNf);
+	}
+
+	public void OnRecvAddMonsterNtf(List<Monster> monsterList)
+	{
+		ASPKG_ADD_MONSTER_NTF.Builder builder = ASPKG_ADD_MONSTER_NTF.newBuilder();
+				
+		for (Iterator<Monster> i = monsterList.iterator(); i.hasNext();)
+		{
+			Monster monster = i.next();
+			ADD_MONSTER addMonster = ADD_MONSTER.newBuilder().setMonsterId(monster.getId()).setTypeId(monster.getTypeId()).setMapX(monster.getMapX()).setMapY(monster.getMapY()).setHP(monster.getHp()).build();
+			builder.addAddMonster(addMonster);
+		}
+		send(Protocol.ASID_ADD_MONSTER_NTF,builder.build());
 	}
 }

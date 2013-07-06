@@ -7,8 +7,10 @@ import feng.AllReference;
 import feng.CommonData;
 import feng.MsgSender;
 import feng.client.Client;
+import feng.config.MonsterManager;
 import feng.data.PlayerData;
 import feng.data.PlayerDataManager;
+import feng.sql.SQLManager;
 import feng.sql.dao.PlayerDao;
 import feng.sql.model.Player;
 
@@ -35,7 +37,7 @@ public class LoginManager
 
 		PlayerDao playerDao;
 		Player player = null;
-		playerDao = AllReference.getPlayerDao(clientId);
+		playerDao = SQLManager.getInstance().getPlayerDao();
 		if (playerDao == null)
 		{
 			result = E_LOGIN_RESULT.FAIL;
@@ -80,6 +82,9 @@ public class LoginManager
 			ArrayList<PlayerData> arrayList = playerDataManager.getNearPlayers(clientId);
 			msgSender.OnRecvAddPlayerNtf(arrayList);
 
+			// 通知附件的怪物
+			msgSender.OnRecvAddMonsterNtf(MonsterManager.monsterList);
+			
 			// 广播添加玩家
 			BroadcastManager broadcastManager = AllReference.getBroadcastManager();
 			broadcastManager.addPlayer(clientId, player);

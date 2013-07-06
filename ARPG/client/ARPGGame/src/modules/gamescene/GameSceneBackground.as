@@ -58,7 +58,7 @@ package modules.gamescene
 				{
 					if(i >= 0 && j >=0)
 					{
-						var url:String = GlobalData.getMapPath(mapId, "" + i + "_" + j + ".jpg")
+						var url:String = GlobalData.getMapPath(mapId, "" + i + "_" + j + ".jpg");
 						var loadData:Object = {urls: [url], singleComplete: singleComplete, singleCompleteParam: {id: url, mapId: mapId, i: i, j: j, startX: startX, startY: startY}};
 	
 						GameDispatcher.instance.dispatchEvent(new LoadEvent(LoadEvent.LOAD_RESOURCE, loadData));

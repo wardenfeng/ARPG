@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.util.HashMap;
 
 import feng.client.Client;
+import feng.config.MonsterManager;
 
 /**
  * 
@@ -18,7 +19,7 @@ public class GameServer
 	 */
 	public static void main(String[] args)
 	{
-		//flash 访问java的socket交互安全策略问题
+		// flash 访问java的socket交互安全策略问题
 		try
 		{
 			new XMLServer().start();
@@ -27,7 +28,9 @@ public class GameServer
 		{
 			System.out.println("socket异常:" + e);
 		}
-		
+
+		MonsterManager.init();
+
 		// 启动游戏服务器socket
 		ServerSocket socketServer;
 		try
@@ -47,10 +50,11 @@ public class GameServer
 				// 实例化一个 Client 对象，并启动该线程
 				ClientFactory.createClient(socket);
 			}
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			e.printStackTrace();
-			
+
 		}
 	}
 
