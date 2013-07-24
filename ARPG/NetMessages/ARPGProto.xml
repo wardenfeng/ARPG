@@ -20,12 +20,12 @@
 				PASSWORD_ERROR = 3;
 			}
 			required E_LOGIN_RESULT result = 1;
-			optional string username = 2; //ÓÃ»§Ãû
-			optional int32 mapX = 3;	//µØÍ¼×ø±êX
-			optional int32 mapY = 4;	//µØÍ¼×ø±êY
-			optional int32 playerId = 5;	//Íæ¼Ò±àºÅ
-			optional string clothing = 6;	//·ş×°Ãû³Æ
-			optional int32 mapId = 7;//µØÍ¼±àºÅ
+			optional string username = 2; //ç”¨æˆ·å
+			optional int32 mapX = 3;	//åœ°å›¾åæ ‡X
+			optional int32 mapY = 4;	//åœ°å›¾åæ ‡Y
+			optional int32 playerId = 5;	//ç©å®¶ç¼–å·
+			optional string clothing = 6;	//æœè£…åç§°
+			optional int32 mapId = 7;//åœ°å›¾ç¼–å·
 			optional int32 HP = 8;
 			optional int32 MP = 9;
 		}
@@ -76,15 +76,15 @@
 		
 		enum E_ATTACK_TYPE
 		{
-			PLALER = 0;	//¹¥»÷Ä¿±êÎªÍæ¼Ò
-			POINT = 1;//¹¥»÷Ä¿±êÎªÎ»ÖÃ
+			PLALER = 0;	//æ”»å‡»ç›®æ ‡ä¸ºç©å®¶
+			POINT = 1;//æ”»å‡»ç›®æ ‡ä¸ºä½ç½®
 		}
 		
 		message ASPKG_CAST_SKILL_REQ
 		{
-			required int32 skillId = 1;		//¼¼ÄÜ±àºÅ
-			required E_ATTACK_TYPE type = 2;//¹¥»÷ÀàĞÍ
-			optional int32 targetId = 3;	//±»¹¥»÷Ä¿±ê±àºÅ
+			required int32 skillId = 1;		//æŠ€èƒ½ç¼–å·
+			required E_ATTACK_TYPE type = 2;//æ”»å‡»ç±»å‹
+			optional int32 targetId = 3;	//è¢«æ”»å‡»ç›®æ ‡ç¼–å·
 			optional int32 mapX = 4;
 			optional int32 mapY = 5;
 		}
@@ -99,7 +99,7 @@
 			required E_CAST_SKILL_RESULT result = 1;
 		}
 		
-		//ÎïÌåÀàĞÍ
+		//ç‰©ä½“ç±»å‹
 		enum E_OBJECT_TYPE
 		{
 			PLAYER = 0;
@@ -139,10 +139,10 @@
 		
 		message ADD_MONSTER
 		{
-			required int32 monsterId = 1;	//¹ÖÎï±àºÅ
+			required int32 monsterId = 1;	//æ€ªç‰©ç¼–å·
 			required int32 mapX = 2;
 			required int32 mapY = 3;
-			required int32 typeId = 4;		//ÀàĞÍ±àºÅ£¬¹ÖÎïÀàĞÍ
+			required int32 typeId = 4;		//ç±»å‹ç¼–å·ï¼Œæ€ªç‰©ç±»å‹
 			required int32 HP = 5;
 		}
 		
@@ -153,31 +153,31 @@
 		
     </protocolbuffers>
     <messages>
-		<!-- µÇÂ¼ÇëÇó -->
+		<!-- ç™»å½•è¯·æ±‚ -->
         <message name="ASID_LOGIN_REQ" id="1" type="ASPKG_LOGIN_REQ" proc_fun="OnRecvLoginReq" by="server"/>
-		<!-- µÇÂ¼ÏìÓ¦ -->
+		<!-- ç™»å½•å“åº” -->
         <message name="ASID_LOGIN_ACK" id="2" type="ASPKG_LOGIN_ACK" proc_fun="OnRecvLoginAck" by="client"/>
-		<!-- ĞĞ×ßÇëÇó -->
+		<!-- è¡Œèµ°è¯·æ±‚ -->
 		<message name="ASID_MOVE_REQ" id="3" type="ASPKG_MOVE_REQ" proc_fun="OnRecvMoveReq" by="server"/>
-		<!-- ĞĞ×ßÏìÓ¦ -->
+		<!-- è¡Œèµ°å“åº” -->
 		<message name="ASID_MOVE_ACK" id="4" type="ASPKG_MOVE_ACK" proc_fun="OnRecvMoveAck" by="client"/>
-		<!-- ĞĞ×ß¹ã²¥ -->
+		<!-- è¡Œèµ°å¹¿æ’­ -->
 		<message name="ASID_MOVE_NTF" id="5" type="ASPKG_MOVE_NTF" proc_fun="OnRecvMoveNtf" by="client"/>
-		<!-- Ìí¼ÓÍæ¼Ò -->
+		<!-- æ·»åŠ ç©å®¶ -->
 		<message name="ASID_ADD_PLAYER_NTF" id="6" type="ASPKG_ADD_PLAYER_NTF" proc_fun="OnRecvAddPlayerNtf" by="client"/>
-		<!-- É¾³ıÍæ¼Ò -->
+		<!-- åˆ é™¤ç©å®¶ -->
 		<message name="ASID_REMOVE_PLAYER_NTF" id="7" type="ASPKG_REMOVE_PLAYER_NTF" proc_fun="OnRecvRemovePlayerNtf" by="client"/>
-		<!-- ÊÍ·Å¼¼ÄÜÇëÇó -->
+		<!-- é‡Šæ”¾æŠ€èƒ½è¯·æ±‚ -->
 		<message name="ASID_CAST_SKILL_REQ" id="8" type="ASPKG_CAST_SKILL_REQ" proc_fun="OnRecvCastSkillReq" by="server"/>
-		<!-- ÊÍ·Å¼¼ÄÜÏìÓ¦ -->
+		<!-- é‡Šæ”¾æŠ€èƒ½å“åº” -->
 		<message name="ASID_CAST_SKILL_ACK" id="9" type="ASPKG_CAST_SKILL_ACK" proc_fun="OnRecvCastSkillAck" by="client"/>
-		<!-- ÊÍ·Å¼¼ÄÜ¹ã²¥ -->
+		<!-- é‡Šæ”¾æŠ€èƒ½å¹¿æ’­ -->
 		<message name="ASID_CAST_SKILL_NTF" id="10" type="ASPKG_CAST_SKILL_NTF" proc_fun="OnRecvCastSkillNtf" by="client"/>
-		<!-- ÑªÁ¿¸üĞÂ¹ã²¥ -->
+		<!-- è¡€é‡æ›´æ–°å¹¿æ’­ -->
 		<message name="ASID_HP_UPDATE_NTF" id="11" type="ASPKG_HP_UPDATE_NTF" proc_fun="OnRecvHPUpdateNtf" by="client"/>
-		<!-- Ä§·¨Öµ¸üĞÂ¹ã²¥ -->
+		<!-- é­”æ³•å€¼æ›´æ–°å¹¿æ’­ -->
 		<message name="ASID_MP_UPDATE_NTF" id="12" type="ASPKG_MP_UPDATE_NTF" proc_fun="OnRecvMPUpdateNtf" by="client"/>
-		<!-- Ìí¼Ó¹ÖÎï -->
+		<!-- æ·»åŠ æ€ªç‰© -->
 		<message name="ASID_ADD_MONSTER_NTF" id="13" type="ASPKG_ADD_MONSTER_NTF" proc_fun="OnRecvAddMonsterNtf" by="client"/>
 		
     </messages>
