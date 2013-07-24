@@ -10,7 +10,7 @@
 			com.mysql.jdbc.Driver
 		</property>
 		<property name="connection.url">
-			jdbc:mysql://localhost:3306/gobang
+			jdbc:mysql://localhost:3306/arpg
 		</property>
 		<property name="connection.username">root</property>
 		<property name="connection.password">root</property>
