@@ -29,6 +29,9 @@
         </excludedEntries>
       </libraryPathEntry>
       <libraryPathEntry kind="1" linkType="1" path="libs"/>
+      <libraryPathEntry kind="3" linkType="1" path="/FlashConsole/bin/FlashConsole.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/bulkloader/bin/bulkloader.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/fui/bin/fui.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
