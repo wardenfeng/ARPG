@@ -15,14 +15,14 @@ package modules.preload
 
 		private var loadings:Array;
 
+		private const uilibPath:String = GlobalData.rootPath + "resources/view/uilibrary.swf";
 		private const mapDataPath:String = GlobalData.rootPath + "resources/gamedata/mapdata.swf";
-
 		private const modelPath:String = GlobalData.rootPath + "resources/gamedata/model.swf";
 
 		public function PrePoadManager()
 		{
 			urls = [ //
-				GlobalData.rootPath + "resources/view/uilibrary.swf", //
+				uilibPath, //
 				mapDataPath, //
 				modelPath, //
 				];

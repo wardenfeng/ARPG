@@ -9,30 +9,25 @@ package modules.gamescene
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
-
+	
 	import animation.Animation;
 	import animation.AnimationEvent;
 	import animation.ISceneItem;
 	import animation.animal.Monster;
 	import animation.animal.Player;
 	import animation.animationtypes.EffectsAnimation;
-	import animation.animationtypes.MonsterAnimation;
 	import animation.configs.ActionType;
 	import animation.configs.Direction;
-
-	import communication.arpg.ArpgMsgEvent;
-
+	
+	import modules.GameEvent;
 	import modules.ModulesManager;
 	import modules.findpath.FindpathEvent;
 	import modules.findpath.MapTileModel;
+	import modules.gamescene.data.ATTACK_TYPE;
+	import modules.gamescene.data.OBJECT_TYPE;
 	import modules.gamescene.data.PlayerModel;
 	import modules.moveaction.MoveActionController;
 	import modules.moveaction.MoveActionEvent;
-
-	import protobuf.ASPKG_CAST_SKILL_NTF;
-	import protobuf.E_ATTACK_TYPE;
-	import protobuf.E_OBJECT_TYPE;
-	import protobuf.SKILL_HARM;
 
 	/**
 	 * 操作真实地图
@@ -237,7 +232,7 @@ package modules.gamescene
 		private function onCastSkill(event:GameSceneEvent):void
 		{
 			var skillIndex:int = event.data.skillIndex;
-			var castSkillNtf:ASPKG_CAST_SKILL_NTF = GameData.castingSkillDic[skillIndex];
+			var castSkillNtf:Object = GameData.castingSkillDic[skillIndex];
 
 			var animal:Player = GameScene.playerDic[castSkillNtf.playerId];
 
@@ -249,11 +244,11 @@ package modules.gamescene
 			var targetPoint:Point = new Point();
 			switch (castSkillNtf.type)
 			{
-				case E_ATTACK_TYPE.POINT:
+				case ATTACK_TYPE.POINT:
 					targetPoint.x = castSkillNtf.mapX;
 					targetPoint.y = castSkillNtf.mapY;
 					break;
-				case E_ATTACK_TYPE.PLALER:
+				case ATTACK_TYPE.PLALER:
 					var targetPlayer:Player = GameScene.playerDic[castSkillNtf.targetId];
 					if (targetPlayer)
 					{
@@ -283,17 +278,17 @@ package modules.gamescene
 			var ani:EffectsAnimation = event.currentTarget as EffectsAnimation;
 			removeEffects(ani);
 
-			var castSkillNtf:ASPKG_CAST_SKILL_NTF = GameData.castingSkillDic[ani.skillIndex];
+			var castSkillNtf:Object = GameData.castingSkillDic[ani.skillIndex];
 
 			if (castSkillNtf)
 			{
 				var floorPoint:Point = new Point();
 				switch (castSkillNtf.type)
 				{
-					case E_ATTACK_TYPE.POINT:
+					case ATTACK_TYPE.POINT:
 						floorPoint = MapTileModel.realCoordinate(castSkillNtf.mapX, castSkillNtf.mapY);
 						break;
-					case E_ATTACK_TYPE.PLALER:
+					case ATTACK_TYPE.PLALER:
 						var targetPlayer:Player = GameScene.playerDic[castSkillNtf.targetId];
 						if (targetPlayer)
 						{
@@ -325,15 +320,15 @@ package modules.gamescene
 
 			dispatcher.dispatchEvent(new GameSceneEvent(GameSceneEvent.CAST_SKILL_END, {skillIndex: ani.skillIndex}));
 
-			var castSkillNtf:ASPKG_CAST_SKILL_NTF = GameData.castingSkillDic[ani.skillIndex];
-			for each (var skillHarm:SKILL_HARM in castSkillNtf.skillHarms)
+			var castSkillNtf:Object = GameData.castingSkillDic[ani.skillIndex];
+			for each (var skillHarm:Object in castSkillNtf.skillHarms)
 			{
 				switch (skillHarm.type)
 				{
-					case E_OBJECT_TYPE.PLAYER:
+					case OBJECT_TYPE.PLAYER:
 						var playerModel:PlayerModel = GameData.playerDic[skillHarm.targetId];
 						playerModel.HP = playerModel.HP + skillHarm.harmValue;
-						dispatcher.dispatchEvent(new ArpgMsgEvent(ARPGProto.ASID_HP_UPDATE_NTF, {playerId: skillHarm.targetId}));
+						dispatcher.dispatchEvent(new GameEvent(GameEvent.HP_UPDATE_NTF, {playerId: skillHarm.targetId}));
 						break;
 				}
 			}

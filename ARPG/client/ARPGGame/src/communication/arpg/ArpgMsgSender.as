@@ -3,6 +3,7 @@ package communication.arpg
 	import com.netease.protobuf.Message;
 	
 	import modules.GameDispatcher;
+	import modules.moveaction.MoveActionEvent;
 	
 	import protobuf.ASPKG_CAST_SKILL_REQ;
 	import protobuf.ASPKG_MOVE_REQ;
@@ -50,12 +51,12 @@ package communication.arpg
 
 		private function addListeners():void
 		{
-			dispatcher.addEventListener(ARPGProto.ASID_MOVE_REQ, OnRecvMoveReq);
+			dispatcher.addEventListener(MoveActionEvent.HERO_MOVE_REQ, OnHeroMoveReq);
 			dispatcher.addEventListener(ARPGProto.ASID_CAST_SKILL_REQ, OnRecvCastSkillReq);
 
 		}
 
-		private function OnRecvMoveReq(event:ArpgMsgEvent):void
+		private function OnHeroMoveReq(event:MoveActionEvent):void
 		{
 			var moveReq:ASPKG_MOVE_REQ = new ASPKG_MOVE_REQ();
 			moveReq.mapX = event.data.mapX;

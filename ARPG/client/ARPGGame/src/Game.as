@@ -2,7 +2,7 @@ package
 {
 	import com.feng.FUI;
 	import com.junkbyte.console.Cc;
-	
+
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
@@ -11,14 +11,14 @@ package
 	import flash.system.Security;
 	import flash.ui.ContextMenu;
 	import flash.ui.ContextMenuItem;
-	
+
 	import animation.animationtypes.MonsterAnimation;
-	
+
 	import br.com.stimuli.loading.loadingtypes.LoadingItem;
-	
+
 	import communication.ServerAddress;
 	import communication.arpg.ArpgSocketManager;
-	
+
 	import modules.GameDispatcher;
 	import modules.findpath.FindpathController;
 	import modules.gamescene.GameScene;
@@ -28,6 +28,7 @@ package
 	import modules.login.LoginEvent;
 	import modules.moveaction.MoveActionController;
 	import modules.preload.PreLoad;
+	import modules.prompt.Prompt;
 	import modules.scenemap.Scenemap;
 	import modules.shortcuts.ShortcutsController;
 
@@ -67,6 +68,7 @@ package
 			//			GlobalData.logFunc = trace;
 
 			UIAllRefer.stage = this.stage;
+			UIAllRefer.game = this;
 
 			FUI.init(stage);
 
@@ -93,17 +95,17 @@ package
 		private function initLayers():void
 		{
 			UIAllRefer.backLayer.name = "backLayer";
-			this.stage.addChild(UIAllRefer.backLayer);
+			this.addChild(UIAllRefer.backLayer);
 			UIAllRefer.sceneLayer.name = "sceneLayer";
-			this.stage.addChild(UIAllRefer.sceneLayer);
+			this.addChild(UIAllRefer.sceneLayer);
 			UIAllRefer.contentLayer.name = "contentLayer";
-			this.stage.addChild(UIAllRefer.contentLayer);
-			UIAllRefer.popLayer.name = "popLayer";
-			this.stage.addChild(UIAllRefer.popLayer);
+			this.addChild(UIAllRefer.contentLayer);
+			UIAllRefer.promptBoxLayer.name = "promptBoxLayer";
+			this.addChild(UIAllRefer.promptBoxLayer);
 			UIAllRefer.infoLayer.name = "infoLayer";
-			this.stage.addChild(UIAllRefer.infoLayer);
-			UIAllRefer.tipLayer.name = "tipLayer";
-			this.stage.addChild(UIAllRefer.tipLayer);
+			this.addChild(UIAllRefer.infoLayer);
+			UIAllRefer.tooltipLayer.name = "tooltipLayer";
+			this.addChild(UIAllRefer.tooltipLayer);
 		}
 
 		private function loadConfig():void
@@ -158,6 +160,8 @@ package
 			MoveActionController.start();
 
 			Scenemap.init();
+
+			Prompt.init();
 		}
 
 	}

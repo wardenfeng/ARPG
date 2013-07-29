@@ -2,11 +2,9 @@ package modules.moveaction
 {
 	import flash.events.Event;
 	import flash.geom.Point;
-
+	
 	import animation.animal.Player;
-
-	import communication.arpg.ArpgMsgEvent;
-
+	
 	import modules.GameDispatcher;
 
 	/**
@@ -57,7 +55,7 @@ package modules.moveaction
 				var destination:Array = findPathArr[currentStep];
 
 				//通知服务器行走
-				dispatcher.dispatchEvent(new ArpgMsgEvent(ARPGProto.ASID_MOVE_REQ, {mapX: destination[0], mapY: destination[1]}));
+				dispatcher.dispatchEvent(new MoveActionEvent(MoveActionEvent.HERO_MOVE_REQ, {mapX: destination[0], mapY: destination[1]}));
 
 				//
 				hero.destination = new Point(destination[0], destination[1]);

@@ -8,9 +8,9 @@ package modules.scenemap
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
-
+	
 	import animation.animal.Player;
-
+	
 	import modules.GameEvent;
 	import modules.ViewManager;
 	import modules.findpath.MapTileModel;
@@ -18,6 +18,8 @@ package modules.scenemap
 	import modules.load.Load;
 	import modules.load.LoadEvent;
 	import modules.moveaction.MoveActionEvent;
+	
+	import utils.PopupManager;
 
 	/**
 	 * 场景地图
@@ -110,7 +112,7 @@ package modules.scenemap
 			playerLayer.mouseEnabled = false;
 			mainUI.addChild(playerLayer);
 
-			resize();
+			PopupManager.centerPopUp(mainUI);
 
 			Scenemap.isInit = true;
 
@@ -145,9 +147,9 @@ package modules.scenemap
 
 			Scenemap.isShow = true;
 
-			UIAllRefer.popLayer.addChild(mainUI);
+			PopupManager.addContentUI(mainUI,true);
 
-			resize();
+			PopupManager.centerPopUp(mainUI);
 		}
 
 		override protected function updateView():void
@@ -160,9 +162,8 @@ package modules.scenemap
 		{
 			if (mainUI == null)
 				return;
-
-			if (mainUI.parent)
-				mainUI.parent.removeChild(mainUI);
+			
+			PopupManager.removePopUp(mainUI);
 
 			Scenemap.isShow = false;
 		}
@@ -180,18 +181,6 @@ package modules.scenemap
 			mainUI.stage.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 			mainUI.removeEventListener(MouseEvent.CLICK, onClick);
 			dispatcher.removeEventListener(MoveActionEvent.HERO_STEP_COMPLETED, onHeroStepCompleted);
-		}
-
-		/**
-		 * 界面居中
-		 */
-		public function resize():void
-		{
-			if (mainUI.stage)
-			{
-				mainUI.x = (mainUI.stage.stageWidth - mainUI.width) / 2;
-				mainUI.y = (mainUI.stage.stageHeight - mainUI.height) / 2;
-			}
 		}
 
 		public function onEnterFrame(event:Event):void

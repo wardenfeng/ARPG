@@ -12,6 +12,8 @@ package modules.login
 	import modules.ViewManager;
 	import modules.load.Load;
 	import modules.load.LoadEvent;
+	
+	import utils.PopupManager;
 
 	public class LoginUIManager extends ViewManager
 	{
@@ -49,9 +51,6 @@ package modules.login
 			mainUI.addEventListener(Event.ADDED_TO_STAGE, onAddToStage);
 			mainUI.removeEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
 
-			mainUI.x = (UIAllRefer.stage.stageWidth - mainUI.width) / 2;
-			mainUI.y = (UIAllRefer.stage.stageHeight - mainUI.height) / 2;
-
 			mainUI.infoTxt.text = "Please to login.";
 			mainUI.usernameTxt.text = "test" + int(Math.random() * 999 + 1);
 
@@ -72,7 +71,7 @@ package modules.login
 
 			Login.isShow = true;
 
-			UIAllRefer.contentLayer.addChild(mainUI);
+			PopupManager.addContentUI(mainUI,true);
 		}
 
 		override protected function updateView():void
@@ -84,8 +83,7 @@ package modules.login
 
 		override protected function close():void
 		{
-			if (mainUI.parent)
-				mainUI.parent.removeChild(mainUI);
+			PopupManager.removePopUp(mainUI);
 
 			Login.isShow = false;
 		}

@@ -13,9 +13,8 @@ package animation.animal
 	import animation.configs.ActionType;
 	import animation.configs.Direction;
 	
-	import communication.arpg.ArpgMsgEvent;
-	
 	import modules.GameDispatcher;
+	import modules.GameEvent;
 	import modules.findpath.MapTileModel;
 	import modules.gamescene.GameSceneConfig;
 	import modules.gamescene.data.PlayerModel;
@@ -126,10 +125,10 @@ package animation.animal
 
 			_playerController.addEventListener(AnimationEvent.DIRECTION_CHANGE, onDirectionChange);
 
-			dispatcher.addEventListener(ARPGProto.ASID_HP_UPDATE_NTF, onUpdateHp);
+			dispatcher.addEventListener(GameEvent.HP_UPDATE_NTF, onUpdateHp);
 		}
 
-		private function onUpdateHp(event:ArpgMsgEvent):void
+		private function onUpdateHp(event:GameEvent):void
 		{
 			if (event.data.playerId == playerId)
 			{

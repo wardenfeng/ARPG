@@ -8,6 +8,9 @@ package communication.arpg
 	 */
 	public class ArpgMsgEvent extends GameEvent
 	{
+		/** 失去连接 */		
+		public static const LOST_CONNECTION:String = "lostConnection";
+		
 		public function ArpgMsgEvent(type:String, data:* = null)
 		{
 			super(type,data);

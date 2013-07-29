@@ -1,13 +1,14 @@
 package communication.arpg
 {
 	import flash.utils.getTimer;
-
+	
 	import modules.GameDispatcher;
+	import modules.GameEvent;
 	import modules.gamescene.GameSceneEvent;
 	import modules.gamescene.data.MonsterModel;
 	import modules.gamescene.data.PlayerModel;
 	import modules.login.LoginEvent;
-
+	
 	import protobuf.ADD_MONSTER;
 	import protobuf.ADD_PLAYER;
 	import protobuf.ASPKG_ADD_MONSTER_NTF;
@@ -164,6 +165,7 @@ package communication.arpg
 			var playerModel:PlayerModel = GameData.playerDic[pkg.playerId];
 			playerModel.HP = pkg.hP;
 			dispatcher.dispatchEvent(new ArpgMsgEvent(ARPGProto.ASID_HP_UPDATE_NTF, {playerId: pkg.playerId}));
+			dispatcher.dispatchEvent(new GameEvent(GameEvent.HP_UPDATE_NTF, {playerId: pkg.playerId}));
 		}
 
 		public function OnRecvMPUpdateNtf(pkg:ASPKG_MP_UPDATE_NTF):void

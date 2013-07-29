@@ -8,6 +8,8 @@ package modules.moveaction
 	 */
 	public class MoveActionEvent extends GameEvent
 	{
+		public static const HERO_MOVE_REQ:String = "heroMoveReq";
+		
 		/**
 		 * 主角开始移动
 		 */
@@ -22,6 +24,7 @@ package modules.moveaction
 		 * 主角到达目的地移动结束
 		 */
 		public static const HERO_END_MOVE : String = "heroEndMove";
+		
 		
 		/**
 		 * 移动动作事件

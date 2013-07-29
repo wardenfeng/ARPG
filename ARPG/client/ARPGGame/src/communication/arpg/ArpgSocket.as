@@ -1,12 +1,13 @@
 package communication.arpg
 {
 	import com.netease.protobuf.Message;
-
+	
+	import flash.events.Event;
 	import flash.utils.ByteArray;
-
+	
 	import communication.ProtoFactory;
 	import communication.SocketConnected;
-
+	
 	import modules.GameDispatcher;
 	import modules.login.LoginEvent;
 
@@ -16,6 +17,8 @@ package communication.arpg
 	{
 		private static var _instance:ArpgSocket;
 
+		public static var dispatcher:GameDispatcher = GameDispatcher.instance;
+		
 		public static function init():void
 		{
 			if (_instance == null)
@@ -58,7 +61,7 @@ package communication.arpg
 		{
 			super.connectFailed();
 
-			GameDispatcher.instance.dispatchEvent(new LoginEvent(LoginEvent.LOGIN_FAIL));
+			dispatcher.dispatchEvent(new LoginEvent(LoginEvent.LOGIN_FAIL));
 
 			logger("登录服务器连接失败");
 		}
@@ -68,6 +71,11 @@ package communication.arpg
 			super.dispatchMessage(messageId, data)
 			ProtoFactory.getSlotProto().Decode(messageId, data, msgProcesser);
 		}
-
+		
+		override protected function closeHandler(event:Event):void
+		{
+			super.closeHandler(event);
+			dispatcher.dispatchEvent(new ArpgMsgEvent(ArpgMsgEvent.LOST_CONNECTION));
+		}
 	}
 }

@@ -11,7 +11,7 @@ package
 	{
 		public static var stage:Stage;
 		
-		public static var game:Game;
+		public static var game:Sprite;
 
 		/** 悬浮框层 */
 		public static const tooltipLayer:Sprite = new Sprite();
