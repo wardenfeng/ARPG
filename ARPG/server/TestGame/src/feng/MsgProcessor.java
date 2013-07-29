@@ -11,7 +11,7 @@ import feng.modules.SkillManager;
 /**
  * 处理接收到的协议
  * 
- * @author 风之守望者 2013-2-20
+ * @author warden_feng 2013-2-20
  */
 public class MsgProcessor
 {

@@ -6,7 +6,7 @@ package animation.animationtypes
 
 	/**
 	 * 玩家动画
-	 * @author warden feng 2013-6-7
+	 * @author warden_feng 2013-6-7
 	 */
 	public class PlayerAnimation extends LoopAnimation
 	{

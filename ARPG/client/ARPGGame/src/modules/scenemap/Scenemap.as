@@ -3,7 +3,7 @@ package modules.scenemap
 
 	/**
 	 *
-	 * @author 风之守望者 2012-7-2
+	 * @author warden_feng 2012-7-2
 	 */
 	public class Scenemap
 	{

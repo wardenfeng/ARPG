@@ -5,7 +5,7 @@ package animation
 	[Event(name = "change", type = "animation.AnimationEvent")]
 	/**
 	 * 动画控制
-	 * @author warden feng 2013-6-7
+	 * @author warden_feng 2013-6-7
 	 */
 	public class AnimationController extends EventDispatcher
 	{

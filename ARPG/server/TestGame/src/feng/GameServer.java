@@ -10,7 +10,7 @@ import feng.config.MonsterManager;
 
 /**
  * 
- * @author 风之守望者 2011-11-4
+ * @author warden_feng 2011-11-4
  */
 public class GameServer
 {

@@ -9,7 +9,7 @@ package modules.moveaction
 
 	/**
 	 * 处理动物的移动
-	 * @author 风之守望者 2012-7-3
+	 * @author warden_feng 2012-7-3
 	 */
 	public class MoveActionController
 	{

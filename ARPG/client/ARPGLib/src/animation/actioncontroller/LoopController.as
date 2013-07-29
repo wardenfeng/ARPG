@@ -6,7 +6,7 @@ package animation.actioncontroller
 	[Event(name = "looped", type = "animation.AnimationEvent")]
 	/**
 	 * 循环动画控制
-	 * @author warden feng 2013-6-7
+	 * @author warden_feng 2013-6-7
 	 */
 	public class LoopController extends AnimationController
 	{

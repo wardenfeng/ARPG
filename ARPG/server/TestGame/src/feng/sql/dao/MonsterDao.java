@@ -6,7 +6,7 @@ import feng.sql.model.Monster;
 
 /**
  * 
- * @author 风之守望者 2013-6-28
+ * @author warden_feng 2013-6-28
  */
 public interface MonsterDao
 {

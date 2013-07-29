@@ -3,6 +3,7 @@
   <includeClasses>
     <classEntry path="modules.gamescene.data.ATTACK_TYPE"/>
     <classEntry path="modules.gamescene.data.OBJECT_TYPE"/>
+    <classEntry path="Game"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

@@ -3,7 +3,7 @@ package modules.gamescene.data
 	
 	/**
 	 * 
-	 * @author warden feng 2013-7-29
+	 * @author warden_feng 2013-7-29
 	 */
 	public class ATTACK_TYPE
 	{

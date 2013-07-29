@@ -4,7 +4,7 @@ package
 
 	/**
 	 *
-	 * @author warden feng 2013-5-28
+	 * @author warden_feng 2013-5-28
 	 */
 	public class GlobalData
 	{

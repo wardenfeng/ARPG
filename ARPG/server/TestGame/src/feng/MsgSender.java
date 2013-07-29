@@ -36,7 +36,7 @@ import feng.sql.model.Player;
 
 /**
  * 
- * @author 风之守望者 2013-2-24
+ * @author warden_feng 2013-2-24
  */
 public class MsgSender
 {

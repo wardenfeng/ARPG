@@ -5,13 +5,13 @@ package
 
 	/**
 	 *
-	 * @author warden feng 2013-5-28
+	 * @author warden_feng 2013-5-28
 	 */
 	public class UIAllRefer
 	{
 		public static var stage:Stage;
 		
-		public static var game:Sprite;
+		public static var game:Game;
 
 		/** 悬浮框层 */
 		public static const tooltipLayer:Sprite = new Sprite();

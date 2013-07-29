@@ -5,7 +5,7 @@ package modules.findpath
 
 	/**
 	 *
-	 * @author 风之守望者 2012-7-3
+	 * @author warden_feng 2012-7-3
 	 */
 	public class FindpathEvent extends Event
 	{

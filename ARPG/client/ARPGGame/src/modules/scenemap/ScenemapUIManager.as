@@ -23,7 +23,7 @@ package modules.scenemap
 
 	/**
 	 * 场景地图
-	 * @author 风之守望者 2012-6-25
+	 * @author warden_feng 2012-6-25
 	 */
 	public class ScenemapUIManager extends ViewManager
 	{

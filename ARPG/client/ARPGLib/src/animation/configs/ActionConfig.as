@@ -4,7 +4,7 @@ package animation.configs
 
 	/**
 	 * 动作配置
-	 * @author warden feng 2013-6-8
+	 * @author warden_feng 2013-6-8
 	 */
 	public class ActionConfig
 	{

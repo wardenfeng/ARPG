@@ -13,7 +13,7 @@ import feng.MsgProcessor;
 
 /**
  * 
- * @author 风之守望者 2013-2-20
+ * @author warden_feng 2013-2-20
  */
 public class Protocol
 {

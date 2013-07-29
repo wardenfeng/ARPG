@@ -9,7 +9,7 @@ package modules.gamescene
 
 	/**
 	 *
-	 * @author warden feng 2013-6-16
+	 * @author warden_feng 2013-6-16
 	 */
 	public class NPCManager extends ModulesManager
 	{

@@ -31,7 +31,7 @@ package modules.gamescene
 
 	/**
 	 * 操作真实地图
-	 * @author 风之守望者 2012-7-1
+	 * @author warden_feng 2012-7-1
 	 */
 	public class GameSceneManager extends ModulesManager
 	{

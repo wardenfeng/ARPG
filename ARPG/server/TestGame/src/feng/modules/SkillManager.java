@@ -14,7 +14,7 @@ import feng.sql.model.Player;
 
 /**
  * 
- * @author 风之守望者 2013-6-6
+ * @author warden_feng 2013-6-6
  */
 public class SkillManager
 {

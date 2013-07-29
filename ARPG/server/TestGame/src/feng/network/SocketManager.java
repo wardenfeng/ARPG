@@ -15,7 +15,7 @@ import feng.modules.LogoutManager;
 /**
  * socket管理者
  * 
- * @author 风之守望者 2011-11-23
+ * @author warden_feng 2011-11-23
  */
 public class SocketManager extends Thread
 {

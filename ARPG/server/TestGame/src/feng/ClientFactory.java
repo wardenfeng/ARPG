@@ -6,7 +6,7 @@ import feng.client.Client;
 
 /**
  * 
- * @author 风之守望者 2011-11-23
+ * @author warden_feng 2011-11-23
  */
 public class ClientFactory
 {

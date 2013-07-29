@@ -8,7 +8,7 @@ package modules.findpath
 
 	/**
 	 * 处理寻路逻辑
-	 * @author 风之守望者 2012-7-3
+	 * @author warden_feng 2012-7-3
 	 */
 	public class FindpathController
 	{

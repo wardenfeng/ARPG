@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 /**
  * 
- * @author 风之守望者 2013-6-20
+ * @author warden_feng 2013-6-20
  */
 
 @Entity

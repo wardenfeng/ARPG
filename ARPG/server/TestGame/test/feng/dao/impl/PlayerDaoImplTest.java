@@ -10,7 +10,7 @@ import feng.sql.model.Player;
 
 /**
  * 
- * @author 风之守望者 2011-11-11
+ * @author warden_feng 2011-11-11
  */
 public class PlayerDaoImplTest
 {

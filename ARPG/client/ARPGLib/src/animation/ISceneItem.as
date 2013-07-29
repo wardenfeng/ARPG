@@ -3,7 +3,7 @@ package animation
 
 	/**
 	 *
-	 * @author warden feng 2013-6-9
+	 * @author warden_feng 2013-6-9
 	 */
 	public interface ISceneItem
 	{

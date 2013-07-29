@@ -2,7 +2,7 @@ package
 {
 	import com.feng.FUI;
 	import com.junkbyte.console.Cc;
-
+	
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
@@ -11,14 +11,14 @@ package
 	import flash.system.Security;
 	import flash.ui.ContextMenu;
 	import flash.ui.ContextMenuItem;
-
+	
 	import animation.animationtypes.MonsterAnimation;
-
+	
 	import br.com.stimuli.loading.loadingtypes.LoadingItem;
-
+	
 	import communication.ServerAddress;
 	import communication.arpg.ArpgSocketManager;
-
+	
 	import modules.GameDispatcher;
 	import modules.findpath.FindpathController;
 	import modules.gamescene.GameScene;
@@ -34,45 +34,27 @@ package
 
 	/**
 	 *
-	 * @author 风之守望者 2013-5-28
+	 * @author warden_feng 2013-5-28
 	 */
 	[SWF(width = "1000", height = "580", frameRate = "30", backgroundColor = "0x000000")]
-	public class Game extends Sprite
+	public class ARPGGame extends Game
 	{
 		private var dispatcher:GameDispatcher = GameDispatcher.instance;
 
-		public function Game()
+		public function ARPGGame()
 		{
-			Security.allowDomain("*");
-
-			var menu0:ContextMenuItem = new ContextMenuItem("ARPG\t" + GlobalData.VERSION, true, true, true);
-			var viewContextMenu:ContextMenu = new ContextMenu();
-			viewContextMenu.customItems = [menu0];
-			contextMenu = viewContextMenu;
-
-			addEventListener(Event.ADDED_TO_STAGE, onAddToStage);
-
+			super();
 		}
-
-		private function onAddToStage(event:Event):void
+		
+		override protected function onAddToStage(event:Event):void
 		{
-			removeEventListener(Event.ADDED_TO_STAGE, onAddToStage);
-
-			this.stage.tabChildren = false;
-			this.stage.align = StageAlign.TOP_LEFT;
-			this.stage.scaleMode = StageScaleMode.NO_SCALE;
-
+			super.onAddToStage(event);
 
 			MyCC.initFlashConsole(this);
 			GlobalData.logFunc = Cc.log;
 			//			GlobalData.logFunc = trace;
 
-			UIAllRefer.stage = this.stage;
-			UIAllRefer.game = this;
-
 			FUI.init(stage);
-
-			initLayers();
 
 			logger("客户端版本：" + GlobalData.VERSION);
 
@@ -90,22 +72,6 @@ package
 			{
 				npc.animationController.enterFrame();
 			});
-		}
-
-		private function initLayers():void
-		{
-			UIAllRefer.backLayer.name = "backLayer";
-			this.addChild(UIAllRefer.backLayer);
-			UIAllRefer.sceneLayer.name = "sceneLayer";
-			this.addChild(UIAllRefer.sceneLayer);
-			UIAllRefer.contentLayer.name = "contentLayer";
-			this.addChild(UIAllRefer.contentLayer);
-			UIAllRefer.promptBoxLayer.name = "promptBoxLayer";
-			this.addChild(UIAllRefer.promptBoxLayer);
-			UIAllRefer.infoLayer.name = "infoLayer";
-			this.addChild(UIAllRefer.infoLayer);
-			UIAllRefer.tooltipLayer.name = "tooltipLayer";
-			this.addChild(UIAllRefer.tooltipLayer);
 		}
 
 		private function loadConfig():void

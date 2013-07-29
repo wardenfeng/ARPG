@@ -22,7 +22,7 @@ package modules.prompt
 
 		/**
 		 * 提示界面管理类
-		 * @author warden feng 2013-7-25
+		 * @author warden_feng 2013-7-25
 		 */
 		public function PromptUIManager()
 		{

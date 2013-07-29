@@ -3,7 +3,7 @@ package animation.configs
 	
 	/**
 	 * 
-	 * @author warden feng 2013-6-8
+	 * @author warden_feng 2013-6-8
 	 */
 	public class ActionType
 	{

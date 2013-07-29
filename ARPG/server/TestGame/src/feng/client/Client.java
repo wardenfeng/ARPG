@@ -10,7 +10,7 @@ import feng.network.SocketManager;
 /**
  * 客户（玩家所以数据与操作）
  * 
- * @author 风之守望者 2011-11-4
+ * @author warden_feng 2011-11-4
  */
 public class Client
 {

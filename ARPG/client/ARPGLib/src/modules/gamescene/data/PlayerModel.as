@@ -2,7 +2,7 @@ package modules.gamescene.data
 {
 	/**
 	 *
-	 * @author warden feng 2013-6-13
+	 * @author warden_feng 2013-6-13
 	 */
 	public class PlayerModel
 	{

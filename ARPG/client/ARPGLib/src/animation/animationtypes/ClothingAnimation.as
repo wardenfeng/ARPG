@@ -4,7 +4,7 @@ package animation.animationtypes
 
 	/**
 	 * 玩家皮肤动画
-	 * @author warden feng 2013-6-14
+	 * @author warden_feng 2013-6-14
 	 */
 	public class ClothingAnimation extends PlayerAnimation
 	{

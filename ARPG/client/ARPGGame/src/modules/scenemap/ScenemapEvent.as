@@ -4,7 +4,7 @@ package modules.scenemap
 
 	/**
 	 * 场景地图事件
-	 * @author 风之守望者 2012-7-2
+	 * @author warden_feng 2012-7-2
 	 */
 	public class ScenemapEvent extends GameEvent
 	{

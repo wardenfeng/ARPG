@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 /**
  * 玩家数据管理
  * 
- * @author 风之守望者 2013-6-3
+ * @author warden_feng 2013-6-3
  */
 public class PlayerDataManager
 {

@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 /**
  * 
- * @author 风之守望者 2013-7-5
+ * @author warden_feng 2013-7-5
  */
 @Entity
 @Table(name = "monster")

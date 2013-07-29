@@ -9,7 +9,7 @@ import feng.sql.dao.impl.PlayerDaoImpl;
 
 /**
  * 
- * @author 风之守望者 2011-11-12
+ * @author warden_feng 2011-11-12
  */
 public class SQLManager
 {

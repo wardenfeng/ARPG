@@ -4,7 +4,7 @@ package modules.moveaction
 
 	/**
 	 * 移动动作事件
-	 * @author 风之守望者 2012-7-3
+	 * @author warden_feng 2012-7-3
 	 */
 	public class MoveActionEvent extends GameEvent
 	{

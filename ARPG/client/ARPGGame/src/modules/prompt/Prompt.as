@@ -2,7 +2,7 @@ package modules.prompt
 {
 	/**
 	 * 
-	 * @author warden feng 2013-7-25
+	 * @author warden_feng 2013-7-25
 	 */
 	public class Prompt
 	{

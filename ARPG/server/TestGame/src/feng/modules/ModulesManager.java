@@ -3,7 +3,7 @@ package feng.modules;
 
 /**
  * 
- * @author 风之守望者 2011-11-24
+ * @author warden_feng 2011-11-24
  */
 public class ModulesManager
 {

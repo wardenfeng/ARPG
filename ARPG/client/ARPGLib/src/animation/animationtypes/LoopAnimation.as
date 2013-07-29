@@ -9,7 +9,7 @@ package animation.animationtypes
 
 	/**
 	 * 循环动画
-	 * @author warden feng 2013-6-7
+	 * @author warden_feng 2013-6-7
 	 */
 	public class LoopAnimation extends Animation
 	{

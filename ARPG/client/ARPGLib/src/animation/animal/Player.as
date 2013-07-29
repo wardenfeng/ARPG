@@ -22,7 +22,7 @@ package animation.animal
 
 	/**
 	 * 动物
-	 * @author 风之守望者 2012-6-17
+	 * @author warden_feng 2012-6-17
 	 */
 	public class Player extends Sprite implements ISceneItem
 	{

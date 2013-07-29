@@ -13,7 +13,7 @@ import feng.network.SocketManager;
 
 /**
  * 
- * @author 风之守望者 2012-1-4
+ * @author warden_feng 2012-1-4
  */
 public class AllReference
 {

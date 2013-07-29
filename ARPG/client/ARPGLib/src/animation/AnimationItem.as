@@ -8,7 +8,7 @@ package animation
 	[Event(name = "change", type = "animation.AnimationEvent")]
 	/**
 	 *
-	 * @author warden feng 2013-6-6
+	 * @author warden_feng 2013-6-6
 	 */
 	public class AnimationItem extends EventDispatcher
 	{

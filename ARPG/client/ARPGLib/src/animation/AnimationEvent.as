@@ -5,7 +5,7 @@ package animation
 	
 	/**
 	 * 
-	 * @author warden feng 2013-6-7
+	 * @author warden_feng 2013-6-7
 	 */
 	public class AnimationEvent extends GameEvent
 	{

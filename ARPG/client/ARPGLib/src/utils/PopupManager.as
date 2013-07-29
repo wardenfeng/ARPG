@@ -7,7 +7,7 @@ package utils
 	/**
 	 * ui管理类
 	 * PopUpManager singleton 类用于创建新的顶级窗口，还可以在位于所有其他可见窗口上面的层次中放置或删除这些窗口。
-	 * @author warden feng 2013-7-25
+	 * @author warden_feng 2013-7-25
 	 */
 	public class PopupManager
 	{

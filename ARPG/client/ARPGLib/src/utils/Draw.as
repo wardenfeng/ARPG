@@ -5,7 +5,7 @@ package utils
 
 	/**
 	 *
-	 * @author 风之守望者 2012-6-17
+	 * @author warden_feng 2012-6-17
 	 */
 	public class Draw
 	{

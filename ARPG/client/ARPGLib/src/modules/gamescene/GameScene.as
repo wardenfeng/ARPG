@@ -5,7 +5,7 @@ package modules.gamescene
 
 	/**
 	 *
-	 * @author warden feng 2013-6-4
+	 * @author warden_feng 2013-6-4
 	 */
 	public class GameScene
 	{

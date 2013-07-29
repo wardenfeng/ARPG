@@ -13,7 +13,7 @@ package animation.animal
 
 	/**
 	 *
-	 * @author warden feng 2013-7-6
+	 * @author warden_feng 2013-7-6
 	 */
 	public class Monster extends Sprite implements ISceneItem
 	{

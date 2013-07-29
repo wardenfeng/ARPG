@@ -4,7 +4,7 @@ package animation.configs
 
 	/**
 	 * 方向
-	 * @author warden feng 2013-6-3
+	 * @author warden_feng 2013-6-3
 	 */
 	public class Direction
 	{

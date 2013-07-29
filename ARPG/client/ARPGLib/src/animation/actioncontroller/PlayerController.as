@@ -10,7 +10,7 @@ package animation.actioncontroller
 	[Event(name = "actionChange", type = "animation.AnimationEvent")]
 	/**
 	 * 玩家动作控制
-	 * @author warden feng 2013-6-7
+	 * @author warden_feng 2013-6-7
 	 */
 	public class PlayerController extends LoopController
 	{

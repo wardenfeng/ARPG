@@ -3,7 +3,7 @@ package animation.configs
 	
 	/**
 	 * 模型类型
-	 * @author warden feng 2013-6-8
+	 * @author warden_feng 2013-6-8
 	 */
 	public class ModelType
 	{
