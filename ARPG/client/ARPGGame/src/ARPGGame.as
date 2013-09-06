@@ -45,7 +45,7 @@ package
 
 			MyCC.initFlashConsole(this);
 			GlobalData.logFunc = Cc.log;
-			//GlobalData.logFunc = trace;
+//			GlobalData.logFunc = trace;
 
 			FUI.init(stage);
 

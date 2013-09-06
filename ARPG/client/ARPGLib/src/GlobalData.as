@@ -9,7 +9,7 @@ package
 	public class GlobalData
 	{
 		/** 版本号 */
-		public static const VERSION:String = "2013.7.25 16:44";
+		public static const VERSION:String = "2013.9.6 20.01";
 
 		public static const rootPath:String = "http://localhost:8080/arpg/";
 
@@ -50,36 +50,36 @@ package
 		 */
 		public static function getPlayerWeaponPath(name:String):String
 		{
-			return rootPath + "resources/player/weaoib/" + name + ".swf";
+			return realPath("resources/player/weaoib/" + name + ".swf");
 		}
-		
+
 		/**
 		 * 获取角色皮肤路径
 		 * @param name 皮肤名称
 		 */
 		public static function getPlayerClothingPath(name:String):String
 		{
-			return rootPath + "resources/player/clothing/" + name + ".swf";
+			return realPath("resources/player/clothing/" + name + ".swf");
 		}
 
 		public static function geteffectPath(name:String):String
 		{
-			return rootPath + "resources/effect/" + name + ".swf";
+			return realPath("resources/effect/" + name + ".swf");
 		}
-		
+
 		public static function getNPCPath(name:String):String
 		{
-			return rootPath + "resources/npc/" + name + ".swf";
+			return realPath("resources/npc/" + name + ".swf");
 		}
-		
+
 		public static function getMonsterPath(name:String):String
 		{
-			return rootPath + "resources/enemy/" + name + ".swf";
+			return realPath("resources/enemy/" + name + ".swf");
 		}
-		
-		public static function realPath():String
+
+		public static function realPath(path:String):String
 		{
-			return  + "?version=" + VERSION;
+			return rootPath + path + "?version=" + VERSION;
 		}
 
 		/**
@@ -90,7 +90,7 @@ package
 		public static function getMapPath(mapId:int, name:String):String
 		{
 //			var rootPath : String = "http://tmst-cdnres.me4399.com/s1_4399/";
-			return rootPath + "scene/" + mapId + "/" + name;
+			return realPath("scene/" + mapId + "/" + name);
 		}
 
 		public static function get currentSmallMapPath():String
