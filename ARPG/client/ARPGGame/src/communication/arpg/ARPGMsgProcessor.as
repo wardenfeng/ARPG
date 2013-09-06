@@ -4,6 +4,7 @@ package communication.arpg
 	
 	import modules.GameDispatcher;
 	import modules.GameEvent;
+	import modules.chat.ChatEvent;
 	import modules.gamescene.GameSceneEvent;
 	import modules.gamescene.data.MonsterModel;
 	import modules.gamescene.data.PlayerModel;
@@ -65,6 +66,8 @@ package communication.arpg
 					playerModel.HP = pkg.hP;
 					playerModel.MP = pkg.mP;
 					GameData.playerDic[playerModel.playerId] = playerModel;
+					
+					dispatcher.dispatchEvent(new ChatEvent(ChatEvent.CHAT_SHOW));
 
 					dispatcher.dispatchEvent(new GameSceneEvent(GameSceneEvent.ADD_HERO, {mapX: pkg.mapX, mapY: pkg.mapY, clothing: pkg.clothing}));
 					break;

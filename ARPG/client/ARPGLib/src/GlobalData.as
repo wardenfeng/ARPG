@@ -76,6 +76,11 @@ package
 		{
 			return rootPath + "resources/enemy/" + name + ".swf";
 		}
+		
+		public static function realPath():String
+		{
+			return  + "?version=" + VERSION;
+		}
 
 		/**
 		 * 获取地图资源路径

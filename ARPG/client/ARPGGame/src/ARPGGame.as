@@ -3,23 +3,16 @@ package
 	import com.feng.FUI;
 	import com.junkbyte.console.Cc;
 	
-	import flash.display.Sprite;
-	import flash.display.StageAlign;
-	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.geom.Point;
-	import flash.system.Security;
-	import flash.ui.ContextMenu;
-	import flash.ui.ContextMenuItem;
 	
 	import animation.animationtypes.MonsterAnimation;
-	
-	import br.com.stimuli.loading.loadingtypes.LoadingItem;
 	
 	import communication.ServerAddress;
 	import communication.arpg.ArpgSocketManager;
 	
 	import modules.GameDispatcher;
+	import modules.chat.Chat;
 	import modules.findpath.FindpathController;
 	import modules.gamescene.GameScene;
 	import modules.load.Load;
@@ -45,14 +38,14 @@ package
 		{
 			super();
 		}
-		
+
 		override protected function onAddToStage(event:Event):void
 		{
 			super.onAddToStage(event);
 
 			MyCC.initFlashConsole(this);
 			GlobalData.logFunc = Cc.log;
-			//			GlobalData.logFunc = trace;
+			//GlobalData.logFunc = trace;
 
 			FUI.init(stage);
 
@@ -76,13 +69,12 @@ package
 
 		private function loadConfig():void
 		{
-			dispatcher.dispatchEvent(new LoadEvent(LoadEvent.LOAD_RESOURCE, {urls: [GlobalData.configPath], allItemsLoaded: onLoadSingleComplete}));
+			dispatcher.dispatchEvent(new LoadEvent(LoadEvent.LOAD_RESOURCE, {urls: [GlobalData.configPath], singleComplete: singleComplete, singleCompleteParam: {}}));
 		}
 
-		private function onLoadSingleComplete():void
+		private function singleComplete(param:Object):void
 		{
-			var loadingItem:LoadingItem = Load.loader.get(GlobalData.configPath);
-			if (GlobalData.configPath == loadingItem.url.url)
+			if (GlobalData.configPath == param.url)
 			{
 				var config:XML = Load.loader.getXML(GlobalData.configPath);
 
@@ -128,6 +120,8 @@ package
 			Scenemap.init();
 
 			Prompt.init();
+			
+			Chat.init();
 		}
 
 	}

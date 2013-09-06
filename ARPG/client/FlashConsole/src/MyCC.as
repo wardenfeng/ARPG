@@ -3,26 +3,11 @@ package
 	import com.junkbyte.console.Cc;
 	import com.junkbyte.console.addons.autoFocus.CommandLineAutoFocusAddon;
 	import com.junkbyte.console.addons.displaymap.DisplayMapAddon;
-
+	
 	import flash.display.DisplayObject;
-	import flash.utils.Dictionary;
 
 	public class MyCC
 	{
-		public static var funcMarkDic : Dictionary = new Dictionary();
-
-		public static function printFuncMarkDic() : void
-		{
-			for (var key1 : String in funcMarkDic)
-			{
-				trace(key1);
-				for (var key2 : String in funcMarkDic[key1])
-				{
-					trace("\t" + key2 + "\t" + funcMarkDic[key1][key2]);
-				}
-			}
-		}
-
 		/**
 		 * 初始化控制台
 		 **/
