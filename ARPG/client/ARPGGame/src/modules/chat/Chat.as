@@ -6,7 +6,7 @@ package modules.chat
 	 */
 	public class Chat
 	{
-		public static const viewPath:String = GlobalData.rootPath + "resources/view/chatUI.swf";
+		public static const viewPath:String = GlobalData.getUIPath("chatUI.swf");;
 		
 		public static var isInit:Boolean = false;
 		

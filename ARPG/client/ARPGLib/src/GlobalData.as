@@ -77,6 +77,11 @@ package
 			return realPath("resources/enemy/" + name + ".swf");
 		}
 
+		public static function getUIPath(path):String
+		{
+			return realPath("resources/view/" + path);
+		}
+
 		public static function realPath(path:String):String
 		{
 			return rootPath + path + "?version=" + VERSION;

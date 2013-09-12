@@ -6,6 +6,7 @@ package communication.arpg
 	import modules.moveaction.MoveActionEvent;
 	
 	import protobuf.ASPKG_CAST_SKILL_REQ;
+	import protobuf.ASPKG_CHAT_REQ;
 	import protobuf.ASPKG_MOVE_REQ;
 	import protobuf.E_ATTACK_TYPE;
 
@@ -53,6 +54,7 @@ package communication.arpg
 		{
 			dispatcher.addEventListener(MoveActionEvent.HERO_MOVE_REQ, OnHeroMoveReq);
 			dispatcher.addEventListener(ARPGProto.ASID_CAST_SKILL_REQ, OnRecvCastSkillReq);
+			dispatcher.addEventListener(ARPGProto.ASID_CHAT_REQ, OnRecvChatReq);
 
 		}
 
@@ -87,5 +89,12 @@ package communication.arpg
 			send(ARPGProto.ASID_CAST_SKILL_REQ, castSkillReq);
 		}
 
+		private function OnRecvChatReq(event:ArpgMsgEvent):void
+		{
+			var chatReq:ASPKG_CHAT_REQ = new ASPKG_CHAT_REQ();
+			chatReq.msg = event.data.msg;
+			send(ARPGProto.ASID_CHAT_REQ,chatReq);
+		}
+		
 	}
 }

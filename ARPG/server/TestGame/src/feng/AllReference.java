@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import feng.client.Client;
 import feng.data.PlayerDataManager;
 import feng.modules.BroadcastManager;
+import feng.modules.ChatManager;
 import feng.modules.LoginManager;
 import feng.modules.LogoutManager;
 import feng.modules.ModulesManager;
@@ -71,6 +72,17 @@ public class AllReference
 			skillManager = new SkillManager();
 		}
 		return skillManager;
+	}
+	
+	private static ChatManager chatManager;
+	
+	public static ChatManager getChatManager()
+	{
+		if (chatManager == null)
+		{
+			chatManager = new ChatManager();
+		}
+		return chatManager;
 	}
 	
 	/**

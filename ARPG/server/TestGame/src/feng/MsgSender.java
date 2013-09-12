@@ -15,16 +15,17 @@ import protobuf.ARPGProto.ASPKG_ADD_PLAYER_NTF;
 import protobuf.ARPGProto.ASPKG_CAST_SKILL_ACK;
 import protobuf.ARPGProto.ASPKG_CAST_SKILL_ACK.E_CAST_SKILL_RESULT;
 import protobuf.ARPGProto.ASPKG_CAST_SKILL_NTF;
+import protobuf.ARPGProto.ASPKG_CHAT_NTF;
 import protobuf.ARPGProto.ASPKG_HP_UPDATE_NTF;
 import protobuf.ARPGProto.ASPKG_LOGIN_ACK;
-import protobuf.ARPGProto.ASPKG_MP_UPDATE_NTF;
-import protobuf.ARPGProto.ASPKG_REMOVE_PLAYER_NTF;
-import protobuf.ARPGProto.SKILL_HARM;
 import protobuf.ARPGProto.ASPKG_LOGIN_ACK.E_LOGIN_RESULT;
 import protobuf.ARPGProto.ASPKG_MOVE_ACK;
 import protobuf.ARPGProto.ASPKG_MOVE_ACK.E_MOVE_RESULT;
 import protobuf.ARPGProto.ASPKG_MOVE_NTF;
+import protobuf.ARPGProto.ASPKG_MP_UPDATE_NTF;
+import protobuf.ARPGProto.ASPKG_REMOVE_PLAYER_NTF;
 import protobuf.ARPGProto.E_ATTACK_TYPE;
+import protobuf.ARPGProto.SKILL_HARM;
 
 import com.google.protobuf.Message;
 
@@ -171,5 +172,11 @@ public class MsgSender
 			builder.addAddMonster(addMonster);
 		}
 		send(Protocol.ASID_ADD_MONSTER_NTF,builder.build());
+	}
+	
+	public void OnRecvChatNtf(int playerId, String username, String msg)
+	{
+		ASPKG_CHAT_NTF chatNtf = ASPKG_CHAT_NTF.newBuilder().setPlayerId(playerId).setUsername(username).setMsg(msg).build();
+		send(Protocol.ASID_CHAT_Ntf, chatNtf);
 	}
 }

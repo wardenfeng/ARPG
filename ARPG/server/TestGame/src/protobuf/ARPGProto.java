@@ -9056,6 +9056,939 @@ public final class ARPGProto {
     // @@protoc_insertion_point(class_scope:protobuf.ASPKG_ADD_MONSTER_NTF)
   }
   
+  public interface ASPKG_CHAT_REQOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required string msg = 1;
+    boolean hasMsg();
+    String getMsg();
+  }
+  public static final class ASPKG_CHAT_REQ extends
+      com.google.protobuf.GeneratedMessage
+      implements ASPKG_CHAT_REQOrBuilder {
+    // Use ASPKG_CHAT_REQ.newBuilder() to construct.
+    private ASPKG_CHAT_REQ(Builder builder) {
+      super(builder);
+    }
+    private ASPKG_CHAT_REQ(boolean noInit) {}
+    
+    private static final ASPKG_CHAT_REQ defaultInstance;
+    public static ASPKG_CHAT_REQ getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public ASPKG_CHAT_REQ getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protobuf.ARPGProto.internal_static_protobuf_ASPKG_CHAT_REQ_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protobuf.ARPGProto.internal_static_protobuf_ASPKG_CHAT_REQ_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // required string msg = 1;
+    public static final int MSG_FIELD_NUMBER = 1;
+    private java.lang.Object msg_;
+    public boolean hasMsg() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public String getMsg() {
+      java.lang.Object ref = msg_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          msg_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getMsgBytes() {
+      java.lang.Object ref = msg_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        msg_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    
+    private void initFields() {
+      msg_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasMsg()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getMsgBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getMsgBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static protobuf.ARPGProto.ASPKG_CHAT_REQ parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static protobuf.ARPGProto.ASPKG_CHAT_REQ parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static protobuf.ARPGProto.ASPKG_CHAT_REQ parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static protobuf.ARPGProto.ASPKG_CHAT_REQ parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static protobuf.ARPGProto.ASPKG_CHAT_REQ parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static protobuf.ARPGProto.ASPKG_CHAT_REQ parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static protobuf.ARPGProto.ASPKG_CHAT_REQ parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static protobuf.ARPGProto.ASPKG_CHAT_REQ parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static protobuf.ARPGProto.ASPKG_CHAT_REQ parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static protobuf.ARPGProto.ASPKG_CHAT_REQ parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(protobuf.ARPGProto.ASPKG_CHAT_REQ prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements protobuf.ARPGProto.ASPKG_CHAT_REQOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protobuf.ARPGProto.internal_static_protobuf_ASPKG_CHAT_REQ_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protobuf.ARPGProto.internal_static_protobuf_ASPKG_CHAT_REQ_fieldAccessorTable;
+      }
+      
+      // Construct using protobuf.ARPGProto.ASPKG_CHAT_REQ.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        msg_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protobuf.ARPGProto.ASPKG_CHAT_REQ.getDescriptor();
+      }
+      
+      public protobuf.ARPGProto.ASPKG_CHAT_REQ getDefaultInstanceForType() {
+        return protobuf.ARPGProto.ASPKG_CHAT_REQ.getDefaultInstance();
+      }
+      
+      public protobuf.ARPGProto.ASPKG_CHAT_REQ build() {
+        protobuf.ARPGProto.ASPKG_CHAT_REQ result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private protobuf.ARPGProto.ASPKG_CHAT_REQ buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        protobuf.ARPGProto.ASPKG_CHAT_REQ result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public protobuf.ARPGProto.ASPKG_CHAT_REQ buildPartial() {
+        protobuf.ARPGProto.ASPKG_CHAT_REQ result = new protobuf.ARPGProto.ASPKG_CHAT_REQ(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.msg_ = msg_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protobuf.ARPGProto.ASPKG_CHAT_REQ) {
+          return mergeFrom((protobuf.ARPGProto.ASPKG_CHAT_REQ)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(protobuf.ARPGProto.ASPKG_CHAT_REQ other) {
+        if (other == protobuf.ARPGProto.ASPKG_CHAT_REQ.getDefaultInstance()) return this;
+        if (other.hasMsg()) {
+          setMsg(other.getMsg());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasMsg()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              bitField0_ |= 0x00000001;
+              msg_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required string msg = 1;
+      private java.lang.Object msg_ = "";
+      public boolean hasMsg() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public String getMsg() {
+        java.lang.Object ref = msg_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          msg_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      public Builder setMsg(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        msg_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearMsg() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        msg_ = getDefaultInstance().getMsg();
+        onChanged();
+        return this;
+      }
+      void setMsg(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000001;
+        msg_ = value;
+        onChanged();
+      }
+      
+      // @@protoc_insertion_point(builder_scope:protobuf.ASPKG_CHAT_REQ)
+    }
+    
+    static {
+      defaultInstance = new ASPKG_CHAT_REQ(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:protobuf.ASPKG_CHAT_REQ)
+  }
+  
+  public interface ASPKG_CHAT_NTFOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required int32 playerId = 1;
+    boolean hasPlayerId();
+    int getPlayerId();
+    
+    // required string username = 2;
+    boolean hasUsername();
+    String getUsername();
+    
+    // required string msg = 3;
+    boolean hasMsg();
+    String getMsg();
+  }
+  public static final class ASPKG_CHAT_NTF extends
+      com.google.protobuf.GeneratedMessage
+      implements ASPKG_CHAT_NTFOrBuilder {
+    // Use ASPKG_CHAT_NTF.newBuilder() to construct.
+    private ASPKG_CHAT_NTF(Builder builder) {
+      super(builder);
+    }
+    private ASPKG_CHAT_NTF(boolean noInit) {}
+    
+    private static final ASPKG_CHAT_NTF defaultInstance;
+    public static ASPKG_CHAT_NTF getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public ASPKG_CHAT_NTF getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protobuf.ARPGProto.internal_static_protobuf_ASPKG_CHAT_NTF_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protobuf.ARPGProto.internal_static_protobuf_ASPKG_CHAT_NTF_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // required int32 playerId = 1;
+    public static final int PLAYERID_FIELD_NUMBER = 1;
+    private int playerId_;
+    public boolean hasPlayerId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public int getPlayerId() {
+      return playerId_;
+    }
+    
+    // required string username = 2;
+    public static final int USERNAME_FIELD_NUMBER = 2;
+    private java.lang.Object username_;
+    public boolean hasUsername() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public String getUsername() {
+      java.lang.Object ref = username_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          username_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getUsernameBytes() {
+      java.lang.Object ref = username_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        username_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    
+    // required string msg = 3;
+    public static final int MSG_FIELD_NUMBER = 3;
+    private java.lang.Object msg_;
+    public boolean hasMsg() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public String getMsg() {
+      java.lang.Object ref = msg_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          msg_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getMsgBytes() {
+      java.lang.Object ref = msg_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        msg_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    
+    private void initFields() {
+      playerId_ = 0;
+      username_ = "";
+      msg_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasPlayerId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasUsername()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMsg()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, playerId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getUsernameBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBytes(3, getMsgBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, playerId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getUsernameBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, getMsgBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static protobuf.ARPGProto.ASPKG_CHAT_NTF parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static protobuf.ARPGProto.ASPKG_CHAT_NTF parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static protobuf.ARPGProto.ASPKG_CHAT_NTF parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static protobuf.ARPGProto.ASPKG_CHAT_NTF parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static protobuf.ARPGProto.ASPKG_CHAT_NTF parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static protobuf.ARPGProto.ASPKG_CHAT_NTF parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static protobuf.ARPGProto.ASPKG_CHAT_NTF parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static protobuf.ARPGProto.ASPKG_CHAT_NTF parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static protobuf.ARPGProto.ASPKG_CHAT_NTF parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static protobuf.ARPGProto.ASPKG_CHAT_NTF parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(protobuf.ARPGProto.ASPKG_CHAT_NTF prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements protobuf.ARPGProto.ASPKG_CHAT_NTFOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protobuf.ARPGProto.internal_static_protobuf_ASPKG_CHAT_NTF_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protobuf.ARPGProto.internal_static_protobuf_ASPKG_CHAT_NTF_fieldAccessorTable;
+      }
+      
+      // Construct using protobuf.ARPGProto.ASPKG_CHAT_NTF.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        playerId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        username_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        msg_ = "";
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protobuf.ARPGProto.ASPKG_CHAT_NTF.getDescriptor();
+      }
+      
+      public protobuf.ARPGProto.ASPKG_CHAT_NTF getDefaultInstanceForType() {
+        return protobuf.ARPGProto.ASPKG_CHAT_NTF.getDefaultInstance();
+      }
+      
+      public protobuf.ARPGProto.ASPKG_CHAT_NTF build() {
+        protobuf.ARPGProto.ASPKG_CHAT_NTF result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private protobuf.ARPGProto.ASPKG_CHAT_NTF buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        protobuf.ARPGProto.ASPKG_CHAT_NTF result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public protobuf.ARPGProto.ASPKG_CHAT_NTF buildPartial() {
+        protobuf.ARPGProto.ASPKG_CHAT_NTF result = new protobuf.ARPGProto.ASPKG_CHAT_NTF(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.playerId_ = playerId_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.username_ = username_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.msg_ = msg_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protobuf.ARPGProto.ASPKG_CHAT_NTF) {
+          return mergeFrom((protobuf.ARPGProto.ASPKG_CHAT_NTF)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(protobuf.ARPGProto.ASPKG_CHAT_NTF other) {
+        if (other == protobuf.ARPGProto.ASPKG_CHAT_NTF.getDefaultInstance()) return this;
+        if (other.hasPlayerId()) {
+          setPlayerId(other.getPlayerId());
+        }
+        if (other.hasUsername()) {
+          setUsername(other.getUsername());
+        }
+        if (other.hasMsg()) {
+          setMsg(other.getMsg());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasPlayerId()) {
+          
+          return false;
+        }
+        if (!hasUsername()) {
+          
+          return false;
+        }
+        if (!hasMsg()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              playerId_ = input.readInt32();
+              break;
+            }
+            case 18: {
+              bitField0_ |= 0x00000002;
+              username_ = input.readBytes();
+              break;
+            }
+            case 26: {
+              bitField0_ |= 0x00000004;
+              msg_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required int32 playerId = 1;
+      private int playerId_ ;
+      public boolean hasPlayerId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public int getPlayerId() {
+        return playerId_;
+      }
+      public Builder setPlayerId(int value) {
+        bitField0_ |= 0x00000001;
+        playerId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearPlayerId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        playerId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required string username = 2;
+      private java.lang.Object username_ = "";
+      public boolean hasUsername() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public String getUsername() {
+        java.lang.Object ref = username_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          username_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      public Builder setUsername(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        username_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearUsername() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        username_ = getDefaultInstance().getUsername();
+        onChanged();
+        return this;
+      }
+      void setUsername(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000002;
+        username_ = value;
+        onChanged();
+      }
+      
+      // required string msg = 3;
+      private java.lang.Object msg_ = "";
+      public boolean hasMsg() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public String getMsg() {
+        java.lang.Object ref = msg_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          msg_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      public Builder setMsg(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        msg_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearMsg() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        msg_ = getDefaultInstance().getMsg();
+        onChanged();
+        return this;
+      }
+      void setMsg(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000004;
+        msg_ = value;
+        onChanged();
+      }
+      
+      // @@protoc_insertion_point(builder_scope:protobuf.ASPKG_CHAT_NTF)
+    }
+    
+    static {
+      defaultInstance = new ASPKG_CHAT_NTF(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:protobuf.ASPKG_CHAT_NTF)
+  }
+  
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_protobuf_ASPKG_LOGIN_REQ_descriptor;
   private static
@@ -9136,6 +10069,16 @@ public final class ARPGProto {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_protobuf_ASPKG_ADD_MONSTER_NTF_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_protobuf_ASPKG_CHAT_REQ_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_protobuf_ASPKG_CHAT_REQ_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_protobuf_ASPKG_CHAT_NTF_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_protobuf_ASPKG_CHAT_NTF_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -9185,9 +10128,12 @@ public final class ARPGProto {
       "onsterId\030\001 \002(\005\022\014\n\004mapX\030\002 \002(\005\022\014\n\004mapY\030\003 \002" +
       "(\005\022\016\n\006typeId\030\004 \002(\005\022\n\n\002HP\030\005 \002(\005\"B\n\025ASPKG_" +
       "ADD_MONSTER_NTF\022)\n\naddMonster\030\001 \003(\0132\025.pr",
-      "otobuf.ADD_MONSTER*&\n\rE_ATTACK_TYPE\022\n\n\006P" +
-      "LALER\020\000\022\t\n\005POINT\020\001*1\n\rE_OBJECT_TYPE\022\n\n\006P" +
-      "LAYER\020\000\022\013\n\007MONSTER\020\001\022\007\n\003NPC\020\002"
+      "otobuf.ADD_MONSTER\"\035\n\016ASPKG_CHAT_REQ\022\013\n\003" +
+      "msg\030\001 \002(\t\"A\n\016ASPKG_CHAT_NTF\022\020\n\010playerId\030" +
+      "\001 \002(\005\022\020\n\010username\030\002 \002(\t\022\013\n\003msg\030\003 \002(\t*&\n\r" +
+      "E_ATTACK_TYPE\022\n\n\006PLALER\020\000\022\t\n\005POINT\020\001*1\n\r" +
+      "E_OBJECT_TYPE\022\n\n\006PLAYER\020\000\022\013\n\007MONSTER\020\001\022\007" +
+      "\n\003NPC\020\002"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -9322,6 +10268,22 @@ public final class ARPGProto {
               new java.lang.String[] { "AddMonster", },
               protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF.class,
               protobuf.ARPGProto.ASPKG_ADD_MONSTER_NTF.Builder.class);
+          internal_static_protobuf_ASPKG_CHAT_REQ_descriptor =
+            getDescriptor().getMessageTypes().get(16);
+          internal_static_protobuf_ASPKG_CHAT_REQ_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_protobuf_ASPKG_CHAT_REQ_descriptor,
+              new java.lang.String[] { "Msg", },
+              protobuf.ARPGProto.ASPKG_CHAT_REQ.class,
+              protobuf.ARPGProto.ASPKG_CHAT_REQ.Builder.class);
+          internal_static_protobuf_ASPKG_CHAT_NTF_descriptor =
+            getDescriptor().getMessageTypes().get(17);
+          internal_static_protobuf_ASPKG_CHAT_NTF_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_protobuf_ASPKG_CHAT_NTF_descriptor,
+              new java.lang.String[] { "PlayerId", "Username", "Msg", },
+              protobuf.ARPGProto.ASPKG_CHAT_NTF.class,
+              protobuf.ARPGProto.ASPKG_CHAT_NTF.Builder.class);
           return null;
         }
       };

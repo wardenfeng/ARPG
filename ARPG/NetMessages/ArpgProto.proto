@@ -148,4 +148,16 @@ package protobuf;
 			repeated ADD_MONSTER addMonster = 1;
 		}
 		
+		message ASPKG_CHAT_REQ
+		{
+			required string msg = 1;
+		}
+		
+		message ASPKG_CHAT_NTF
+		{
+			required int32 playerId = 1;
+			required string username = 2;
+			required string msg = 3;
+		}
+		
     

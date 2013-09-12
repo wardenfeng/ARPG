@@ -1,14 +1,19 @@
 package modules.chat
 {
-	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
-
+	import flash.text.TextField;
+	import flash.ui.Keyboard;
+	
+	import communication.arpg.ArpgMsgEvent;
+	
 	import modules.GameEvent;
 	import modules.ViewManager;
+	import modules.chat.model.ChatModel;
 	import modules.load.Load;
 	import modules.load.LoadEvent;
-
+	
 	import utils.PopupManager;
 
 	/**
@@ -20,8 +25,6 @@ package modules.chat
 		private var loading:Boolean = false;
 
 		private var isLoad:Boolean = false;
-
-		private var mainUI:MovieClip;
 
 		public function ChatViewManager()
 		{
@@ -87,14 +90,17 @@ package modules.chat
 
 		override protected function onAddToStage(event:Event):void
 		{
-//			dispatcher.addEventListener(ChatEvent.LOGIN_SUCCEED, onLoginSucceed);
+			dispatcher.addEventListener(ChatEvent.SPEAK, onGameEvent);
 
-			mainUI.btn_send.addEventListener(MouseEvent.CLICK, onClick);
+			mainUI.enterBtn.addEventListener(MouseEvent.CLICK, onClick);
+			mainUI.inputTxt.addEventListener(KeyboardEvent.KEY_DOWN,onKeyDown);
 		}
 
 		override protected function onRemovedFromStage(event:Event):void
 		{
+			dispatcher.removeEventListener(ChatEvent.SPEAK, onGameEvent);
 			mainUI.btn_send.removeEventListener(MouseEvent.CLICK, onClick);
+			mainUI.inputTxt.removeEventListener(KeyboardEvent.KEY_DOWN,onKeyDown);
 		}
 
 		protected function onGameEvent(event:GameEvent):void
@@ -104,17 +110,42 @@ package modules.chat
 				case ChatEvent.CHAT_SHOW:
 					show();
 					break;
+				case ChatEvent.SPEAK:
+					speak(event.data);
+					break;
 			}
+		}
+		
+		protected function onKeyDown(event:KeyboardEvent):void
+		{
+			if(event.keyCode == Keyboard.ENTER)
+			{
+				sendMsg();
+			}
+		}
+
+		private function speak(data:ChatModel):void
+		{
+			mainUI.chatAreaTxt.appendText(data.username + ":" + data.msg + "\n");
 		}
 
 		protected function onClick(event:MouseEvent):void
 		{
 			switch (event.currentTarget)
 			{
-				case mainUI.btn_send:
-
+				case mainUI.enterBtn:
+					sendMsg();
 					break;
 			}
 		}
+		
+		private function sendMsg():void
+		{
+			if(mainUI.inputTxt.text.length > 0)
+			{
+				dispatcher.dispatchEvent(new ArpgMsgEvent(ARPGProto.ASID_CHAT_REQ, {msg: mainUI.inputTxt.text}));
+			}
+			mainUI.inputTxt.text = "";
+		}		
 	}
 }

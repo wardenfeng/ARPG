@@ -1,9 +1,11 @@
 package feng;
 
 import protobuf.ARPGProto.ASPKG_CAST_SKILL_REQ;
+import protobuf.ARPGProto.ASPKG_CHAT_REQ;
 import protobuf.ARPGProto.ASPKG_LOGIN_REQ;
 import protobuf.ARPGProto.ASPKG_MOVE_REQ;
 import protobuf.ARPGProto.E_ATTACK_TYPE;
+import feng.modules.ChatManager;
 import feng.modules.LoginManager;
 import feng.modules.MoveManager;
 import feng.modules.SkillManager;
@@ -65,6 +67,15 @@ public class MsgProcessor
 		SkillManager skillManager = AllReference.getSkillManager();
 		skillManager.castSkill(clientId, skillId, castSkillReq.getTargetId(),castSkillReq.getMapX(), castSkillReq.getMapY(),type);
 
+	}
+
+	public void OnRecvChatReq(ASPKG_CHAT_REQ chatReq)
+	{
+		// TODO Auto-generated method stub
+		ChatManager chatManager = AllReference.getChatManager();
+		chatManager.speak(clientId,chatReq.getMsg());
+		
+		
 	}
 
 }

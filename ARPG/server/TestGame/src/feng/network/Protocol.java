@@ -3,6 +3,7 @@ package feng.network;
 import java.nio.ByteBuffer;
 
 import protobuf.ARPGProto.ASPKG_CAST_SKILL_REQ;
+import protobuf.ARPGProto.ASPKG_CHAT_REQ;
 import protobuf.ARPGProto.ASPKG_LOGIN_REQ;
 import protobuf.ARPGProto.ASPKG_MOVE_REQ;
 
@@ -30,6 +31,8 @@ public class Protocol
 	static public final int ASID_HP_UPDATE_NTF = 11;
 	static public final int ASID_MP_UPDATE_NTF = 12;
 	public static final int ASID_ADD_MONSTER_NTF = 13;
+	public static final int ASID_CHAT_REQ = 14;
+	public static final int ASID_CHAT_Ntf = 15;
 	
 
 	public static void Decode(int MsgID, ByteBuffer byteBuffer, MsgProcessor proc)
@@ -49,6 +52,10 @@ public class Protocol
 		case ASID_CAST_SKILL_REQ:
 			ASPKG_CAST_SKILL_REQ castSkillReq = ASPKG_CAST_SKILL_REQ.parseFrom(byteBuffer.array());
 			proc.OnRecvCastSkillReq(castSkillReq);
+			break;
+		case ASID_CHAT_REQ:
+			ASPKG_CHAT_REQ chatReq = ASPKG_CHAT_REQ.parseFrom(byteBuffer.array());
+			proc.OnRecvChatReq(chatReq);
 			break;
 		default:
 			System.out.println("收到陌生协议号：" + MsgID);

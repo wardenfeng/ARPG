@@ -2,7 +2,6 @@ package modules.login
 {
 	import com.feng.components.FButton;
 	
-	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
@@ -20,8 +19,6 @@ package modules.login
 		private var loading:Boolean = false;
 
 		private var isLoad:Boolean = false;
-
-		private var mainUI:MovieClip;
 
 		public function LoginUIManager()
 		{

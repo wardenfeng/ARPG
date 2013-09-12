@@ -77,7 +77,7 @@ public class BroadcastManager
 			int clientId = (int) entry.getKey();
 
 			MsgSender msgSender = AllReference.getMsgSender(clientId);
-			msgSender.OnRecvCastSkillNtf(playerId, skillId, targetId, mapX, mapY, type,skillHarmList);
+			msgSender.OnRecvCastSkillNtf(playerId, skillId, targetId, mapX, mapY, type, skillHarmList);
 		}
 	}
 
@@ -104,6 +104,19 @@ public class BroadcastManager
 
 			MsgSender msgSender = AllReference.getMsgSender(clientId);
 			msgSender.OnRecvMPUpdateNtf(playerId, mp);
+		}
+	}
+
+	public void speak(int playerId, String username, String msg)
+	{
+		Iterator<Entry<Integer, Client>> iter = CommonData.loginedClientMap.entrySet().iterator();
+		while (iter.hasNext())
+		{
+			Entry<Integer, Client> entry = (Entry<Integer, Client>) iter.next();
+			int clientId = (int) entry.getKey();
+
+			MsgSender msgSender = AllReference.getMsgSender(clientId);
+			msgSender.OnRecvChatNtf(playerId, username, msg);
 		}
 	}
 

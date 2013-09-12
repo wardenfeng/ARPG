@@ -151,6 +151,18 @@
 			repeated ADD_MONSTER addMonster = 1;
 		}
 		
+		message ASPKG_CHAT_REQ
+		{
+			required string msg = 1;
+		}
+		
+		message ASPKG_CHAT_NTF
+		{
+			required int32 playerId = 1;
+			required string username = 2;
+			required string msg = 3;
+		}
+		
     </protocolbuffers>
     <messages>
 		<!-- 登录请求 -->
@@ -179,6 +191,9 @@
 		<message name="ASID_MP_UPDATE_NTF" id="12" type="ASPKG_MP_UPDATE_NTF" proc_fun="OnRecvMPUpdateNtf" by="client"/>
 		<!-- 添加怪物 -->
 		<message name="ASID_ADD_MONSTER_NTF" id="13" type="ASPKG_ADD_MONSTER_NTF" proc_fun="OnRecvAddMonsterNtf" by="client"/>
+		<!-- 聊天 -->
+		<message name="ASID_CHAT_REQ" id="14" type="ASPKG_CHAT_REQ" proc_fun="OnRecvChatReq" by="server"/>
+		<message name="ASID_CHAT_Ntf" id="15" type="ASPKG_CHAT_NTF" proc_fun="OnRecvChatNtf" by="client"/>
 		
     </messages>
 </coder>

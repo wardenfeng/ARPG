@@ -5,9 +5,22 @@
 
 package
 {
-    import flash.utils.*;
+    import flash.utils.ByteArray;
+    import flash.utils.Dictionary;
+    
     import communication.arpg.ARPGMsgProcessor;
-    import protobuf.*;
+    
+    import protobuf.ASPKG_ADD_MONSTER_NTF;
+    import protobuf.ASPKG_ADD_PLAYER_NTF;
+    import protobuf.ASPKG_CAST_SKILL_ACK;
+    import protobuf.ASPKG_CAST_SKILL_NTF;
+    import protobuf.ASPKG_CHAT_NTF;
+    import protobuf.ASPKG_HP_UPDATE_NTF;
+    import protobuf.ASPKG_LOGIN_ACK;
+    import protobuf.ASPKG_MOVE_ACK;
+    import protobuf.ASPKG_MOVE_NTF;
+    import protobuf.ASPKG_MP_UPDATE_NTF;
+    import protobuf.ASPKG_REMOVE_PLAYER_NTF;
     
     public class ARPGProto
     {
@@ -24,6 +37,15 @@ package
         static public var ASID_HP_UPDATE_NTF:String = "11";
         static public var ASID_MP_UPDATE_NTF:String = "12";
         static public var ASID_ADD_MONSTER_NTF:String = "13";
+        static public var ASID_CHAT_REQ:String = "14";
+        static public var ASID_CHAT_Ntf:String = "15";
+        
+        private function DecodeASID_CHAT_Ntf(buf:ByteArray, proc:ARPGMsgProcessor):void
+        {
+            var pkg:ASPKG_CHAT_NTF=new ASPKG_CHAT_NTF;
+            pkg.mergeFrom(buf);
+            proc.OnRecvChatNtf(pkg);
+        }
         
         private function DecodeASID_MOVE_ACK(buf:ByteArray, proc:ARPGMsgProcessor):void
         {
@@ -99,6 +121,7 @@ package
         
         public function Init():void
         {
+            DecodeFuncArray[ASID_CHAT_Ntf] = DecodeASID_CHAT_Ntf;
             DecodeFuncArray[ASID_MOVE_ACK] = DecodeASID_MOVE_ACK;
             DecodeFuncArray[ASID_HP_UPDATE_NTF] = DecodeASID_HP_UPDATE_NTF;
             DecodeFuncArray[ASID_CAST_SKILL_NTF] = DecodeASID_CAST_SKILL_NTF;
@@ -116,6 +139,8 @@ package
             var fun:Function = DecodeFuncArray[MsgID.toString()];
             if (fun != null)
                 fun(buf, proc);
+			else
+				logger("陌生协议："+MsgID);
         }
     }
 }

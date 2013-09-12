@@ -4,7 +4,9 @@ package communication.arpg
 	
 	import modules.GameDispatcher;
 	import modules.GameEvent;
+	import modules.chat.Chat;
 	import modules.chat.ChatEvent;
+	import modules.chat.model.ChatModel;
 	import modules.gamescene.GameSceneEvent;
 	import modules.gamescene.data.MonsterModel;
 	import modules.gamescene.data.PlayerModel;
@@ -16,6 +18,7 @@ package communication.arpg
 	import protobuf.ASPKG_ADD_PLAYER_NTF;
 	import protobuf.ASPKG_CAST_SKILL_ACK;
 	import protobuf.ASPKG_CAST_SKILL_NTF;
+	import protobuf.ASPKG_CHAT_NTF;
 	import protobuf.ASPKG_HP_UPDATE_NTF;
 	import protobuf.ASPKG_LOGIN_ACK;
 	import protobuf.ASPKG_MOVE_ACK;
@@ -196,6 +199,15 @@ package communication.arpg
 					dispatcher.dispatchEvent(new GameSceneEvent(GameSceneEvent.ADD_MONSTER, data));
 				}
 			}
+		}
+		
+		public function OnRecvChatNtf(pkg:ASPKG_CHAT_NTF):void
+		{
+			var chatModel:ChatModel = new ChatModel();
+			chatModel.playerId = pkg.playerId;
+			chatModel.username = pkg.username;
+			chatModel.msg = pkg.msg;
+			dispatcher.dispatchEvent(new ChatEvent(ChatEvent.SPEAK,chatModel));
 		}
 	}
 }
