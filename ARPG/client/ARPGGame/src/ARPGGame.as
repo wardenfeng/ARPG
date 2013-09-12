@@ -4,9 +4,6 @@ package
 	import com.junkbyte.console.Cc;
 	
 	import flash.events.Event;
-	import flash.geom.Point;
-	
-	import animation.animationtypes.MonsterAnimation;
 	
 	import communication.ServerAddress;
 	import communication.arpg.ArpgSocketManager;
@@ -24,6 +21,8 @@ package
 	import modules.prompt.Prompt;
 	import modules.scenemap.Scenemap;
 	import modules.shortcuts.ShortcutsController;
+	
+	import test.Test;
 
 	/**
 	 *
@@ -56,15 +55,6 @@ package
 			loadConfig();
 
 			dispatcher.dispatchEvent(new LoginEvent(LoginEvent.LOGIN_SHOW));
-
-			var npc:MonsterAnimation = new MonsterAnimation("1001");
-			npc.floorPoint = new Point(200, 200);
-			addChild(npc);
-
-			addEventListener(Event.ENTER_FRAME, function(event:Event):void
-			{
-				npc.animationController.enterFrame();
-			});
 		}
 
 		private function loadConfig():void
@@ -98,6 +88,8 @@ package
 		 **/
 		private function initMoudles():void
 		{
+			new Test();
+			
 			Load.init();
 
 			Login.init();
