@@ -23,7 +23,7 @@ package modules.shortcuts
 
 		public function ShortcutsController()
 		{
-			UIAllRefer.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+			UIAllRefer.game.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
 		}
 
 		private function onKeyUp(event:KeyboardEvent):void

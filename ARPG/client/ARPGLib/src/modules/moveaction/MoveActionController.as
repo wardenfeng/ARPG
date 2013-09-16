@@ -66,7 +66,7 @@ package modules.moveaction
 				findPathArr = null;
 				currentStep = 0;
 				dispatcher.dispatchEvent(new MoveActionEvent(MoveActionEvent.HERO_END_MOVE));
-				trace("到达目的地");
+				logger("到达目的地");
 			}
 		}
 

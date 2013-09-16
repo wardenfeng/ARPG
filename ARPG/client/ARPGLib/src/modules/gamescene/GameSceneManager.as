@@ -117,7 +117,7 @@ package modules.gamescene
 
 			sceneLayer.addEventListener(MouseEvent.CLICK, onSceneClick);
 
-			UIAllRefer.stage.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+			UIAllRefer.game.addEventListener(Event.ENTER_FRAME, onEnterFrame);
 			trace("添加人物完成");
 		}
 
@@ -452,8 +452,8 @@ package modules.gamescene
 		private function setHeroCenter():void
 		{
 			//移动场景
-			sceneLayer.x = int(UIAllRefer.stage.stageWidth / 2 - hero.x);
-			sceneLayer.y = int(UIAllRefer.stage.stageHeight / 2 - hero.y);
+			sceneLayer.x = int(UIAllRefer.gameWidth / 2 - hero.x);
+			sceneLayer.y = int(UIAllRefer.gameHeight / 2 - hero.y);
 
 			//设置场景移动边界(避免看到黑边)
 			if (sceneLayer.x > 0)
@@ -464,15 +464,15 @@ package modules.gamescene
 			{
 				sceneLayer.y = 0;
 			}
-			if (sceneLayer.x < UIAllRefer.stage.stageWidth - GameSceneConfig.mapWidth)
+			if (sceneLayer.x < UIAllRefer.gameWidth - GameSceneConfig.mapWidth)
 			{
-				sceneLayer.x = UIAllRefer.stage.stageWidth - GameSceneConfig.mapWidth;
+				sceneLayer.x = UIAllRefer.gameWidth - GameSceneConfig.mapWidth;
 			}
-			if (sceneLayer.y < UIAllRefer.stage.stageHeight - GameSceneConfig.mapHeight)
+			if (sceneLayer.y < UIAllRefer.gameHeight - GameSceneConfig.mapHeight)
 			{
-				sceneLayer.y = UIAllRefer.stage.stageHeight - GameSceneConfig.mapHeight;
+				sceneLayer.y = UIAllRefer.gameHeight - GameSceneConfig.mapHeight;
 			}
-			var showArea:Rectangle = new Rectangle(-sceneLayer.x, -sceneLayer.y, UIAllRefer.stage.stageWidth, UIAllRefer.stage.stageHeight);
+			var showArea:Rectangle = new Rectangle(-sceneLayer.x, -sceneLayer.y, UIAllRefer.gameWidth, UIAllRefer.gameHeight);
 			gameSceneBackground.showMap(GlobalData.mapId, showArea);
 
 			//深度排序

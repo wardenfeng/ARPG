@@ -4,7 +4,6 @@ package communication.arpg
 	
 	import modules.GameDispatcher;
 	import modules.GameEvent;
-	import modules.chat.Chat;
 	import modules.chat.ChatEvent;
 	import modules.chat.model.ChatModel;
 	import modules.gamescene.GameSceneEvent;

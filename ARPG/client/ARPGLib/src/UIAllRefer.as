@@ -11,7 +11,14 @@ package
 	{
 		public static var stage:Stage;
 		
+		/** 游戏实体 */
 		public static var game:Game;
+		
+		/** 游戏宽度 */
+		public static var gameWidth:int = 1000;
+		
+		/** 游戏高度 */
+		public static var gameHeight:int = 580;
 
 		/** 悬浮框层 */
 		public static const tooltipLayer:Sprite = new Sprite();

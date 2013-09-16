@@ -3,7 +3,6 @@ package modules.chat
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
-	import flash.text.TextField;
 	import flash.ui.Keyboard;
 	
 	import communication.arpg.ArpgMsgEvent;
@@ -73,7 +72,7 @@ package modules.chat
 
 			PopupManager.addContentUI(mainUI);
 			mainUI.x = 0;
-			mainUI.y = UIAllRefer.stage.stageHeight - mainUI.height;
+			mainUI.y = UIAllRefer.gameHeight - mainUI.height;
 		}
 
 		override protected function updateView():void

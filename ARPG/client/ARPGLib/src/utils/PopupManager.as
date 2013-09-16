@@ -15,7 +15,7 @@ package utils
 		{
 			if (modal)
 			{
-				UIAllRefer.stage.addChild(window);
+				UIAllRefer.game.parent.addChild(window);
 				UIAllRefer.game.mouseEnabled = false;
 				UIAllRefer.game.mouseChildren = false;
 				window.addEventListener(Event.REMOVED_FROM_STAGE, function(event:Event):void
@@ -33,8 +33,8 @@ package utils
 
 		public static function centerPopUp(popUp:DisplayObject):void
 		{
-			popUp.x = (UIAllRefer.stage.stageWidth - popUp.width) / 2;
-			popUp.y = (UIAllRefer.stage.stageHeight - popUp.height) / 2;
+			popUp.x = (UIAllRefer.gameWidth - popUp.width) / 2;
+			popUp.y = (UIAllRefer.gameHeight - popUp.height) / 2;
 		}
 		
 		public static function removePopUp(popUp:DisplayObject):void

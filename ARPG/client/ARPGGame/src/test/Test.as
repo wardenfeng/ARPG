@@ -19,9 +19,9 @@ package test
 		{
 			var npc:MonsterAnimation=new MonsterAnimation("1001");
 			npc.floorPoint=new Point(200, 200);
-			UIAllRefer.stage.addChild(npc);
+			UIAllRefer.game.addChild(npc);
 
-			UIAllRefer.stage.addEventListener(Event.ENTER_FRAME, function(event:Event):void
+			UIAllRefer.game.addEventListener(Event.ENTER_FRAME, function(event:Event):void
 			{
 				npc.animationController.enterFrame();
 			});

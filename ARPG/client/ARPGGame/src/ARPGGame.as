@@ -4,6 +4,7 @@ package
 	import com.junkbyte.console.Cc;
 	
 	import flash.events.Event;
+	import flash.system.Security;
 	
 	import communication.ServerAddress;
 	import communication.arpg.ArpgSocketManager;
@@ -35,6 +36,8 @@ package
 
 		public function ARPGGame()
 		{
+			Security.allowDomain("*");
+			
 			super();
 		}
 
