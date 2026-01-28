@@ -32,6 +32,20 @@
           >
             <Icon icon="mdi:map-marker" class="player-marker" />
           </div>
+          
+          <!-- 其他玩家指示器 -->
+          <div
+            v-for="otherPlayer in otherPlayersPositions"
+            :key="otherPlayer.playerId"
+            class="other-player-indicator"
+            :style="{
+              left: otherPlayer.position.x + '%',
+              top: otherPlayer.position.y + '%',
+            }"
+            :title="otherPlayer.username"
+          >
+            <Icon icon="mdi:account" class="other-player-marker" />
+          </div>
         </div>
         
         <div v-else class="loading-message">
@@ -51,6 +65,10 @@
           <div class="info-item">
             <Icon icon="mdi:account" class="info-icon" />
             <span>位置: {{ playerPositionText }}</span>
+          </div>
+          <div class="info-item">
+            <Icon icon="mdi:account-group" class="info-icon" />
+            <span>玩家数量: {{ playerCount }}</span>
           </div>
         </div>
       </div>
@@ -75,10 +93,15 @@ const {
   viewportStyle,
   playerStyle,
   playerPositionText,
+  playerCount,
+  getOtherPlayersPositions,
   handleImageError,
   setMapImageRef,
   handleImageLoad,
 } = useSceneMapPanel();
+
+// 使用计算属性的值
+const otherPlayersPositions = getOtherPlayersPositions;
 
 // 将图片引用传递给 composable
 setMapImageRef(mapImageRef);
@@ -201,6 +224,19 @@ setMapImageRef(mapImageRef);
   color: #ff5252;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
   animation: pulse 2s infinite;
+}
+
+.other-player-indicator {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9;
+}
+
+.other-player-marker {
+  font-size: 20px;
+  color: #4caf50;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
 }
 
 @keyframes pulse {

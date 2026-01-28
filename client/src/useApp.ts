@@ -4,6 +4,7 @@ import { WebSocketClient } from './network/WebSocketClient';
 import { MessageHandler } from './network/MessageHandler';
 import { Login } from './modules/login/Login';
 import { Chat } from './modules/chat/Chat';
+import { PlayerManager } from './modules/player/PlayerManager';
 import { LoginAck, LoginReq, MessageType } from './network/Protocol';
 
 const WS_SERVER_URL = 'ws://localhost:8887';
@@ -12,6 +13,7 @@ let gameInstance: Game | null = null;
 let wsClientInstance: WebSocketClient | null = null;
 let loginModuleInstance: Login | null = null;
 let chatModuleInstance: Chat | null = null;
+let playerManagerInstance: PlayerManager | null = null;
 
 export function useApp() {
   const isLoggedIn: Ref<boolean> = ref(false);
@@ -45,6 +47,10 @@ export function useApp() {
     // 初始化聊天模块
     chatModuleInstance = new Chat();
     chatModuleInstance.setWebSocketClient(wsClientInstance);
+
+    // 初始化玩家管理模块
+    playerManagerInstance = new PlayerManager(eventBus);
+    playerManagerInstance.setSceneManager(gameInstance.getSceneManager());
 
     // 监听聊天发送事件
     eventBus.on('chat:send', (message: string) => {

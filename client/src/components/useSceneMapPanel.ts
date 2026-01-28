@@ -1,5 +1,6 @@
 import { ref, Ref, computed, watch, onMounted, onUnmounted, type Ref as VueRef } from 'vue';
 import { AssetPaths } from '../config/AssetPaths';
+import { PlayerEntity } from '../scene/entities/PlayerEntity';
 
 export interface MapInfo {
   mapId: number;
@@ -17,6 +18,7 @@ export function useSceneMapPanel() {
   const cameraY: Ref<number> = ref(0);
   const mapImageRef: Ref<HTMLImageElement | null> = ref(null);
   const imageLoaded: Ref<boolean> = ref(false);
+  const otherPlayers: Ref<Array<{ playerId: number; username: string; mapX: number; mapY: number }>> = ref([]);
   let updateInterval: number | null = null;
 
   const toggle = (): void => {
@@ -81,6 +83,55 @@ export function useSceneMapPanel() {
     // 后续可以从 PlayerEntity 或事件总线获取真实玩家位置
     playerMapX.value = cameraX.value;
     playerMapY.value = cameraY.value;
+
+    // 更新其他玩家位置
+    updateOtherPlayers();
+  };
+
+  // 更新其他玩家列表
+  const updateOtherPlayers = (): void => {
+    const game = (window as any).__game;
+    if (!game) {
+      otherPlayers.value = [];
+      return;
+    }
+
+    const sceneManager = game.getSceneManager();
+    if (!sceneManager) {
+      otherPlayers.value = [];
+      return;
+    }
+
+    // 获取所有场景项
+    const items = sceneManager.getScene().getItems();
+    
+    // 过滤出玩家实体
+    const players: Array<{ playerId: number; username: string; mapX: number; mapY: number }> = [];
+    
+    for (const item of items) {
+      // 检查是否是 PlayerEntity
+      if (item instanceof PlayerEntity) {
+        // 排除当前玩家（通过位置匹配，如果位置非常接近则认为是当前玩家）
+        const distance = Math.sqrt(
+          Math.pow(item.getMapX() - playerMapX.value, 2) + 
+          Math.pow(item.getMapY() - playerMapY.value, 2)
+        );
+        
+        // 如果距离大于 50，则认为是其他玩家
+        if (distance > 50) {
+          const mapX = item.getMapX();
+          const mapY = item.getMapY();
+          players.push({
+            playerId: item.playerId,
+            username: item.username,
+            mapX,
+            mapY,
+          });
+        }
+      }
+    }
+    
+    otherPlayers.value = players;
   };
 
   const updateMapInfo = (): void => {
@@ -173,8 +224,8 @@ export function useSceneMapPanel() {
     };
   };
 
-  // 计算玩家在小地图上的位置（基于图片实际显示尺寸）
-  const getPlayerPosition = (): { x: number; y: number } => {
+  // 计算指定位置在小地图上的位置（基于图片实际显示尺寸）
+  const getPositionOnMap = (mapX: number, mapY: number): { x: number; y: number } => {
     const displayInfo = getImageDisplayInfo();
     if (!displayInfo) {
       return { x: 0, y: 0 };
@@ -184,9 +235,9 @@ export function useSceneMapPanel() {
     const mapScaleX = displayInfo.displayWidth / mapInfo.value!.mapWidth;
     const mapScaleY = displayInfo.displayHeight / mapInfo.value!.mapHeight;
 
-    // 计算玩家位置在图片显示区域中的像素位置
-    const pixelX = playerMapX.value * mapScaleX;
-    const pixelY = playerMapY.value * mapScaleY;
+    // 计算指定位置在图片显示区域中的像素位置
+    const pixelX = mapX * mapScaleX;
+    const pixelY = mapY * mapScaleY;
 
     // 转换为相对于容器的百分比（包括偏移量）
     const x = ((displayInfo.offsetX + pixelX) / displayInfo.containerWidth) * 100;
@@ -194,6 +245,24 @@ export function useSceneMapPanel() {
 
     return { x, y };
   };
+
+  // 计算玩家在小地图上的位置（基于图片实际显示尺寸）
+  const getPlayerPosition = (): { x: number; y: number } => {
+    return getPositionOnMap(playerMapX.value, playerMapY.value);
+  };
+
+  // 计算其他玩家在小地图上的位置列表
+  const getOtherPlayersPositions = computed(() => {
+    if (!imageLoaded.value || !mapImageRef.value || !mapInfo.value) {
+      return [];
+    }
+
+    return otherPlayers.value.map(player => ({
+      playerId: player.playerId,
+      username: player.username,
+      position: getPositionOnMap(player.mapX, player.mapY),
+    }));
+  });
 
   // 计算当前视野在小地图上的位置和大小（基于图片实际显示尺寸）
   const getViewportRect = (): { x: number; y: number; width: number; height: number } => {
@@ -336,6 +405,12 @@ export function useSceneMapPanel() {
     return `(${Math.floor(playerMapX.value)}, ${Math.floor(playerMapY.value)})`;
   });
 
+  // 计算玩家总数（包括当前玩家和其他玩家）
+  const playerCount = computed(() => {
+    // 当前玩家 + 其他玩家数量
+    return 1 + otherPlayers.value.length;
+  });
+
   // 当地图显示时，更新地图信息
   watch(isVisible, (newValue) => {
     if (newValue) {
@@ -395,6 +470,10 @@ export function useSceneMapPanel() {
     viewportStyle,
     playerStyle,
     playerPositionText,
+    playerCount,
+    // 其他玩家
+    otherPlayers,
+    getOtherPlayersPositions,
     // 事件处理
     setMapImageRef,
     handleImageLoad,
