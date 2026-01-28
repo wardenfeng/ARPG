@@ -1,0 +1,246 @@
+<template>
+  <div class="chat-panel">
+    <div class="chat-header" @click="toggleExpanded">
+      <Icon icon="mdi:chat" class="header-icon" />
+      <span class="header-title">聊天</span>
+      <Icon
+        :icon="expanded ? 'mdi:chevron-down' : 'mdi:chevron-up'"
+        class="header-toggle"
+      />
+    </div>
+    
+    <div v-if="expanded" class="chat-content">
+      <div class="chat-messages" ref="messagesContainer">
+        <div
+          v-for="(msg, index) in messages"
+          :key="index"
+          class="chat-message"
+        >
+          <Icon icon="mdi:account-circle" class="message-icon" />
+          <div class="message-content">
+            <span class="message-username">{{ msg.username }}:</span>
+            <span class="message-text">{{ msg.message }}</span>
+          </div>
+        </div>
+        <div v-if="messages.length === 0" class="empty-message">
+          <Icon icon="mdi:chat-outline" class="empty-icon" />
+          <span>暂无消息</span>
+        </div>
+      </div>
+      
+      <div class="chat-input-container">
+        <input
+          v-model="inputMessage"
+          type="text"
+          placeholder="输入消息..."
+          class="chat-input"
+          @keyup.enter="sendMessage"
+        />
+        <button class="send-button" @click="sendMessage" :disabled="!inputMessage.trim()">
+          <Icon icon="mdi:send" class="send-icon" />
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { Icon } from '@iconify/vue';
+import { useChatPanel } from './useChatPanel';
+
+const { messages, inputMessage, expanded, messagesContainer, sendMessage, toggleExpanded } = useChatPanel();
+
+</script>
+
+<style scoped>
+.chat-panel {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 350px;
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  pointer-events: auto;
+  z-index: 100;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 15px;
+  background: rgba(30, 60, 114, 0.9);
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+}
+
+.chat-header:hover {
+  background: rgba(30, 60, 114, 1);
+}
+
+.header-icon {
+  font-size: 20px;
+  color: #64b5f6;
+}
+
+.header-title {
+  flex: 1;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.header-toggle {
+  font-size: 20px;
+  color: #90caf9;
+  transition: transform 0.3s;
+}
+
+.chat-content {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.chat-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.chat-message:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.message-icon {
+  font-size: 18px;
+  color: #64b5f6;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.message-content {
+  flex: 1;
+  color: white;
+  font-size: 13px;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.message-username {
+  color: #90caf9;
+  font-weight: 600;
+  margin-right: 6px;
+}
+
+.message-text {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.empty-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 40px 20px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+}
+
+.empty-icon {
+  font-size: 48px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.chat-input-container {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chat-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+
+.chat-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.chat-input:focus {
+  outline: none;
+  border-color: #64b5f6;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.send-button {
+  padding: 8px 12px;
+  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.send-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #45a049 0%, #3d8b40 100%);
+  transform: scale(1.05);
+}
+
+.send-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.send-icon {
+  font-size: 18px;
+}
+</style>

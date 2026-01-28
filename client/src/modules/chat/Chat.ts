@@ -37,7 +37,7 @@ export class Chat {
     this.chatUI.hide();
   }
 
-  private sendMessage(message: string): void {
+  sendMessage(message: string): void {
     if (!this.wsClient || !this.wsClient.isConnected()) {
       console.warn('WebSocket not connected');
       return;

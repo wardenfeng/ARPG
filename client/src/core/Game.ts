@@ -38,25 +38,44 @@ export class Game {
     window.addEventListener('resize', resize);
   }
 
+  /**
+   * 初始化游戏基础系统（不加载地图）
+   */
   async init(): Promise<void> {
     if (this.initialized) return;
     
-    console.log('Initializing game...');
+    console.log('Initializing game systems...');
     
-    // Load initial map
+    // 启动游戏循环（但不加载地图，等待登录成功）
+    this.gameLoop.start();
+    this.initialized = true;
+    console.log('Game systems initialized');
+  }
+
+  /**
+   * 进入游戏场景（登录成功后调用）
+   */
+  async enterGame(mapId: number): Promise<void> {
+    console.log(`Entering game scene, loading map ${mapId}...`);
+    
+    // Load map
     try {
-      await this.sceneManager.getMapRenderer().loadMapFromJSON(1001);
+      await this.sceneManager.getMapRenderer().loadMapFromJSON(mapId);
       console.log('Map loaded successfully');
+      
+      const mapConfig = this.sceneManager.getMapRenderer().getConfig();
+      if (mapConfig) {
+        // Set initial camera target to the center of the map
+        this.sceneManager.setCameraTarget(mapConfig.mapWidth / 2, mapConfig.mapHeight / 2);
+      }
     } catch (error) {
       console.error('Failed to load map:', error);
+      throw error;
     }
     
     // Load initial resources if needed
-    this.eventBus.emit('game:init');
-    
-    this.gameLoop.start();
-    this.initialized = true;
-    console.log('Game initialized');
+    this.eventBus.emit('game:enter');
+    console.log('Game scene entered');
   }
 
   getRenderer(): WebGLRenderer {

@@ -32,8 +32,11 @@ export class Login {
   setWebSocketClient(wsClient: WebSocketClient): void {
     this.wsClient = wsClient;
     
-    // Listen for login response
+    // Listen for login response (MessageHandler emits both 'message:LOGIN_ACK' and 'login:result')
     this.eventBus.on('message:LOGIN_ACK', (message: LoginAck) => {
+      this.handleLoginResponse(message);
+    });
+    this.eventBus.on('login:result', (message: LoginAck) => {
       this.handleLoginResponse(message);
     });
   }
