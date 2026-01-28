@@ -76,6 +76,9 @@ export class Game {
           // 如果没有提供玩家位置，设置相机位置为地图中心
           this.sceneManager.setCameraPosition(mapConfig.mapWidth / 2, mapConfig.mapHeight / 2);
         }
+        
+        // 初始化 A* 寻路（使用加载的地图配置）
+        this.eventBus.emit('game:mapLoaded', mapConfig);
       }
     } catch (error) {
       console.error('Failed to load map:', error);

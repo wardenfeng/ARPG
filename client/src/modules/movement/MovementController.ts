@@ -100,5 +100,9 @@ export class MovementController {
   hasPath(): boolean {
     return this.currentPath.length > 0;
   }
+
+  hasAStar(): boolean {
+    return this.astar !== null;
+  }
 }
 

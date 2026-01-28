@@ -265,7 +265,44 @@ export class SceneManager {
     this.mapRenderer.setCamera(this.cameraX, this.cameraY, canvas.width, canvas.height);
     this.currentScene.setCamera(this.cameraX, this.cameraY, canvas.width, canvas.height);
     
-    this.currentScene.update(deltaTime);
+    // 更新场景项（包括玩家移动）
+    const mapConfig = this.mapRenderer.getConfig();
+    if (mapConfig) {
+      const items = this.currentScene.getItems();
+      for (const item of items) {
+        if (item instanceof PlayerEntity) {
+          item.update(deltaTime, mapConfig.walkGridWidth, mapConfig.walkGridHeight);
+        } else if (item.update) {
+          item.update(deltaTime);
+        }
+      }
+    } else {
+      this.currentScene.update(deltaTime);
+    }
+
+    // 更新移动控制器，处理寻路路径
+    const movingPlayerId = (window as any).__currentPlayerId;
+    const movementControllerInstance = (window as any).__movementController;
+    if (movingPlayerId !== undefined && movementControllerInstance && mapConfig) {
+      const items = this.currentScene.getItems();
+      for (const item of items) {
+        if (item instanceof PlayerEntity && item.playerId === movingPlayerId) {
+          const playerMapX = item.getMapX();
+          const playerMapY = item.getMapY();
+          
+          // 更新移动控制器，检查是否到达路径点
+          const nextPosition = movementControllerInstance.update(deltaTime, playerMapX, playerMapY);
+          if (nextPosition) {
+            // 设置玩家移动到下一个路径点
+            item.setTargetPosition(nextPosition.mapX, nextPosition.mapY, mapConfig.walkGridWidth, mapConfig.walkGridHeight);
+          } else if (!movementControllerInstance.hasPath() && item.getIsMoving()) {
+            // 路径完成，停止移动
+            item.stopMoving();
+          }
+          break;
+        }
+      }
+    }
   }
 
   render(): void {

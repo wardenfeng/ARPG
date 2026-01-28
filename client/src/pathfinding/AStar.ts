@@ -28,10 +28,27 @@ export class AStar {
   }
 
   find(startX: number, startY: number, endX: number, endY: number): PathPoint[] | null {
+    console.log(`AStar.find: Finding path from (${startX}, ${startY}) to (${endX}, ${endY})`);
     const startTime = performance.now();
     this.initLists();
     this.openCount = 0;
     this.openId = -1;
+
+    // 检查起点和终点是否可以通过
+    // 根据 ActionScript 逻辑：只要不是 PATH_BARRIER (1)，就可以通过
+    // PATH_PASS (0) 和 PATH_TRANSPARENT (2) 都可以通过
+    const startBlock = this.mapTileModel.isBlock(0, 0, startX, startY);
+    const endBlock = this.mapTileModel.isBlock(0, 0, endX, endY);
+    console.log(`AStar.find: Start block type: ${startBlock}, End block type: ${endBlock}`);
+    
+    if (startBlock === PathType.BARRIER) {
+      console.warn(`AStar.find: Start position (${startX}, ${startY}) is blocked (type: ${startBlock})`);
+      return null;
+    }
+    if (endBlock === PathType.BARRIER) {
+      console.warn(`AStar.find: End position (${endX}, ${endY}) is blocked (type: ${endBlock})`);
+      return null;
+    }
 
     this.openNote(startX, startY, 0, 0, -1);
 

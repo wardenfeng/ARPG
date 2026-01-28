@@ -43,8 +43,9 @@ export class PlayerDB {
       id: this.data!.nextId++,
       username,
       password, // In production, this should be hashed
-      mapX: 10,
-      mapY: 10,
+      // 设置默认出生位置（根据 SQL 数据，玩家默认位置为 (39, 69)，但该位置可能是障碍，改为 (38, 63)）
+      mapX: 38,
+      mapY: 63,
       clothing: '10002',
       mapId: 1001,
       hp: 100,

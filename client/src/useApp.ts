@@ -5,6 +5,11 @@ import { MessageHandler } from './network/MessageHandler';
 import { Login } from './modules/login/Login';
 import { Chat } from './modules/chat/Chat';
 import { PlayerManager } from './modules/player/PlayerManager';
+import { MovementController } from './modules/movement/MovementController';
+import { ClickMovement } from './modules/movement/ClickMovement';
+import { AStar } from './pathfinding/AStar';
+import { MapTileModel, PathType } from './pathfinding/MapTileModel';
+import { MapConfig } from './scene/MapRenderer';
 import { LoginAck, LoginReq, MessageType } from './network/Protocol';
 import { PlayerEntity } from './scene/entities/PlayerEntity';
 import { Sprite } from './renderer/Sprite';
@@ -19,18 +24,20 @@ let wsClientInstance: WebSocketClient | null = null;
 let loginModuleInstance: Login | null = null;
 let chatModuleInstance: Chat | null = null;
 let playerManagerInstance: PlayerManager | null = null;
+let movementControllerInstance: MovementController | null = null;
+let clickMovementInstance: ClickMovement | null = null;
 
 export function useApp() {
   const isLoggedIn: Ref<boolean> = ref(false);
   const errorMessage: Ref<string> = ref('');
 
   const initGame = (): void => {
-    const canvas = document.getElementById('game-canvas') as HTMLCanvasElement;
-    if (!canvas) {
+    const gameCanvas = document.getElementById('game-canvas') as HTMLCanvasElement;
+    if (!gameCanvas) {
       throw new Error('Canvas element not found');
     }
 
-    gameInstance = new Game(canvas);
+    gameInstance = new Game(gameCanvas);
     gameInstance.init().catch(console.error);
 
     // 将 game 实例挂载到 window，供其他模块访问
@@ -57,12 +64,156 @@ export function useApp() {
     playerManagerInstance = new PlayerManager(eventBus);
     playerManagerInstance.setSceneManager(gameInstance.getSceneManager());
 
+    // 初始化移动控制器
+    movementControllerInstance = new MovementController(eventBus);
+    movementControllerInstance.setWebSocketClient(wsClientInstance);
+    (window as any).__movementController = movementControllerInstance;
+
+    // 初始化点击移动
+    const clickCanvas = document.getElementById('game-canvas') as HTMLCanvasElement;
+    if (clickCanvas) {
+      clickMovementInstance = new ClickMovement(clickCanvas, eventBus);
+    }
+
     // 监听聊天发送事件
     eventBus.on('chat:send', (message: string) => {
       if (chatModuleInstance) {
         chatModuleInstance.sendMessage(message);
       }
     });
+
+    // 监听地图点击事件，进行寻路和移动
+    eventBus.on('click:map', (data: { x: number; y: number }) => {
+      handleMapClick(data.x, data.y);
+    });
+
+    // 监听地图加载完成事件，初始化 A* 寻路
+    eventBus.on('game:mapLoaded', (mapConfig: MapConfig) => {
+      initializePathfinding(mapConfig);
+    });
+  };
+
+  const initializePathfinding = (mapConfig: MapConfig): void => {
+    if (!movementControllerInstance) {
+      console.warn('MovementController not initialized, cannot initialize pathfinding');
+      return;
+    }
+
+    const mapData = mapConfig.mapData;
+    if (mapData) {
+      console.log(`Initializing A* with map data: ${mapData.length} rows, first row length: ${mapData[0]?.length}`);
+      const mapTileModel = new MapTileModel(mapData);
+      const astar = new AStar(mapTileModel);
+      movementControllerInstance.setAStar(astar);
+      console.log('A* pathfinding initialized successfully');
+    } else {
+      console.warn('Map data not available, cannot initialize A*');
+    }
+  };
+
+  const handleMapClick = (screenX: number, screenY: number): void => {
+    if (!gameInstance || !movementControllerInstance || !clickMovementInstance) {
+      return;
+    }
+
+    const sceneManager = gameInstance.getSceneManager();
+    const mapRenderer = sceneManager.getMapRenderer();
+    const config = mapRenderer.getConfig();
+    
+    if (!config) {
+      console.warn('Map config not available, cannot handle click');
+      return;
+    }
+
+    // 获取当前玩家
+    const currentPlayerId = (window as any).__currentPlayerId;
+    if (currentPlayerId === undefined) {
+      return;
+    }
+
+    const items = sceneManager.getScene().getItems();
+    let currentPlayer: PlayerEntity | null = null;
+    for (const item of items) {
+      if (item instanceof PlayerEntity && item.playerId === currentPlayerId) {
+        currentPlayer = item;
+        break;
+      }
+    }
+
+    if (!currentPlayer) {
+      console.warn('Current player not found');
+      return;
+    }
+
+    // 获取相机位置
+    const cameraX = sceneManager.getCameraX();
+    const cameraY = sceneManager.getCameraY();
+
+    // 将屏幕坐标转换为世界坐标
+    const worldX = screenX + cameraX;
+    const worldY = screenY + cameraY;
+
+    // 将世界坐标转换为地图坐标
+    const mapX = Math.floor(worldX / config.walkGridWidth);
+    const mapY = Math.floor(worldY / config.walkGridHeight);
+
+    // 获取当前玩家位置
+    const currentMapX = currentPlayer.getMapX();
+    const currentMapY = currentPlayer.getMapY();
+
+    console.log(`Click at screen (${screenX}, ${screenY}), world (${worldX}, ${worldY}), map (${mapX}, ${mapY})`);
+    console.log(`Current player at map (${currentMapX}, ${currentMapY})`);
+
+    // 如果点击位置和当前位置相同，不处理
+    if (mapX === currentMapX && mapY === currentMapY) {
+      console.log('Click position same as current position, ignoring');
+      return;
+    }
+
+    // 检查坐标是否在地图范围内
+    if (mapX < 0 || mapX >= config.walkGridColumns || mapY < 0 || mapY >= config.walkGridRows) {
+      console.warn(`Click position (${mapX}, ${mapY}) is out of map bounds (${config.walkGridColumns}x${config.walkGridRows})`);
+      return;
+    }
+
+    // 检查 A* 是否已初始化（应该在进入场景时初始化）
+    if (!movementControllerInstance.hasAStar()) {
+      console.warn('A* not initialized, initializing now...');
+      const mapData = config.mapData;
+      if (mapData) {
+        console.log(`Initializing A* with map data: ${mapData.length} rows, first row length: ${mapData[0]?.length}`);
+        const mapTileModel = new MapTileModel(mapData);
+        const astar = new AStar(mapTileModel);
+        movementControllerInstance.setAStar(astar);
+      } else {
+        console.warn('Map data not available, cannot initialize A*');
+        return;
+      }
+    }
+
+    // 检查目标位置是否可通行
+    const mapTileModel = new MapTileModel(config.mapData);
+    const targetBlock = mapTileModel.isBlock(0, 0, mapX, mapY);
+    
+    let finalMapX = mapX;
+    let finalMapY = mapY;
+    
+    if (targetBlock === PathType.BARRIER) {
+      console.warn(`Target position (${mapX}, ${mapY}) is blocked, finding nearest passable position...`);
+      const nearestPassable = mapTileModel.findNearestPassable(mapX, mapY, 10);
+      if (nearestPassable) {
+        finalMapX = nearestPassable.x;
+        finalMapY = nearestPassable.y;
+        console.log(`Found nearest passable position: (${finalMapX}, ${finalMapY})`);
+      } else {
+        console.warn(`No passable position found near (${mapX}, ${mapY})`);
+        return;
+      }
+    }
+
+    // 使用 A* 寻路并开始移动
+    console.log(`Finding path from (${currentMapX}, ${currentMapY}) to (${finalMapX}, ${finalMapY})`);
+    movementControllerInstance.moveTo(finalMapX, finalMapY, currentMapX, currentMapY);
   };
 
   const handleLogin = async (account: string, password: string): Promise<void> => {
