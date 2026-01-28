@@ -7,11 +7,59 @@ export interface ChatMessage {
   message: string;
 }
 
+// 常用表情列表
+const EMOJI_LIST = [
+  '😀', '😃', '😄', '😁', '😆', '😅', '🤣', '😂', '🙂', '🙃',
+  '😉', '😊', '😇', '🥰', '😍', '🤩', '😘', '😗', '😚', '😙',
+  '😋', '😛', '😜', '🤪', '😝', '🤑', '🤗', '🤭', '🤫', '🤔',
+  '🤐', '🤨', '😐', '😑', '😶', '😏', '😒', '🙄', '😬', '🤥',
+  '😌', '😔', '😪', '🤤', '😴', '😷', '🤒', '🤕', '🤢', '🤮',
+  '🤧', '🥵', '🥶', '😶‍🌫️', '😵', '😵‍💫', '🤯', '🤠', '🥳', '😎',
+  '🤓', '🧐', '😕', '😟', '🙁', '☹️', '😮', '😯', '😲', '😳',
+  '🥺', '😦', '😧', '😨', '😰', '😥', '😢', '😭', '😱', '😖',
+  '😣', '😞', '😓', '😩', '😫', '🥱', '😤', '😡', '😠', '🤬',
+  '💀', '☠️', '💩', '🤡', '👹', '👺', '👻', '👽', '👾', '🤖',
+  '👍', '👎', '👊', '✊', '🤛', '🤜', '🤞', '✌️', '🤟', '🤘',
+  '🤙', '👌', '🤌', '🤏', '👈', '👉', '👆', '👇', '☝️', '👋',
+  '🤚', '🖐', '✋', '🖖', '👏', '🙌', '🤲', '🤝', '🙏', '✍️',
+  '💪', '🦾', '🦿', '🦵', '🦶', '👂', '🦻', '👃', '🧠', '🫀',
+  '🫁', '🦷', '🦴', '👀', '👁', '👅', '👄', '💋', '🩸', '❤️',
+  '🧡', '💛', '💚', '💙', '💜', '🖤', '🤍', '🤎', '💔', '❣️',
+  '💕', '💞', '💓', '💗', '💖', '💘', '💝', '💟', '☮️', '✝️',
+  '☪️', '🕉', '☸️', '✡️', '🔯', '🕎', '☯️', '☦️', '🛐', '⛎',
+  '♈', '♉', '♊', '♋', '♌', '♍', '♎', '♏', '♐', '♑',
+  '♒', '♓', '🆔', '⚛️', '🉑', '☢️', '☣️', '📴', '📳', '🈶',
+  '🈚', '🈸', '🈺', '🈷️', '✴️', '🆚', '💮', '🉐', '㊙️', '㊗️',
+  '🈴', '🈵', '🈹', '🈲', '🅰️', '🅱️', '🆎', '🆑', '🅾️', '🆘',
+  '❌', '⭕', '🛑', '⛔', '📛', '🚫', '💯', '💢', '♨️', '🚷',
+  '🚯', '🚳', '🚱', '🔞', '📵', '🚭', '❗', '❓', '❕', '❔',
+  '‼️', '⁉️', '🔅', '🔆', '〽️', '⚠️', '🚸', '🔱', '⚜️', '🔰',
+  '♻️', '✅', '🈯', '💹', '❇️', '✳️', '❎', '🌐', '💠', 'Ⓜ️',
+  '🌀', '💤', '🏧', '🚾', '♿', '🅿️', '🈳', '🈂️', '🛂', '🛃',
+  '🛄', '🛅', '🚹', '🚺', '🚼', '🚻', '🚮', '🎦', '📶', '🈁',
+  '🔣', 'ℹ️', '🔤', '🔡', '🔠', '🔢', '🔟', '🔯', '🔮', '🆙',
+  '🆕', '🆓', '🆖', '🆗', '🆒', '🆔', '🆚', '🈁', '🈂️', '🈷️',
+  '🈶', '🈯', '🉐', '🈹', '🈲', '🉑', '🈸', '🈴', '🈳', '㊗️',
+  '㊙️', '🈺', '🈵', '🔴', '🟠', '🟡', '🟢', '🔵', '🟣', '⚫',
+  '⚪', '🟤', '🔶', '🔷', '🔸', '🔹', '🔺', '🔻', '💠', '🔘',
+  '🔳', '🔲', '▪️', '▫️', '◾', '◽', '◼️', '◻️', '🟥', '🟧',
+  '🟨', '🟩', '🟦', '🟪', '⬛', '⬜', '🟫', '🔈', '🔇', '🔉',
+  '🔊', '🔔', '🔕', '📣', '📢', '💬', '💭', '🗯️', '♠️', '♥️',
+  '♦️', '♣️', '🃏', '🀄', '🎴', '🎭', '🖼️', '🎨', '👓', '🕶️',
+  '🥽', '🥼', '🦺', '👔', '👕', '👖', '🧣', '🧤', '🧥', '🧦',
+  '👗', '👘', '🥻', '🩱', '🩲', '🩳', '👙', '👚', '👛', '👜',
+  '👝', '🎒', '🩴', '👞', '👟', '🥾', '🥿', '👠', '👡', '🩰',
+  '👢', '👑', '👒', '🎩', '🎓', '🧢', '⛑️', '🪖', '💄', '💍',
+  '💼', '👜', '🎒', '👝', '👛', '🛍️', '🛒', '🛍️', '🛒', '🛍️',
+];
+
 export function useChatPanel() {
   const messages: Ref<ChatMessage[]> = ref([]);
   const inputMessage: Ref<string> = ref('');
   const expanded: Ref<boolean> = ref(true);
   const messagesContainer: Ref<HTMLElement | null> = ref(null);
+  const showEmojiPicker: Ref<boolean> = ref(false);
+  const inputRef: Ref<HTMLInputElement | null> = ref(null);
 
   const addMessage = (username: string, message: string): void => {
     messages.value.push({ username, message });
@@ -57,6 +105,35 @@ export function useChatPanel() {
 
   const toggleExpanded = (): void => {
     expanded.value = !expanded.value;
+  };
+
+  const toggleEmojiPicker = (): void => {
+    showEmojiPicker.value = !showEmojiPicker.value;
+  };
+
+  const insertEmoji = (emoji: string): void => {
+    if (inputRef.value) {
+      const start = inputRef.value.selectionStart || 0;
+      const end = inputRef.value.selectionEnd || 0;
+      const text = inputMessage.value;
+      inputMessage.value = text.substring(0, start) + emoji + text.substring(end);
+      
+      // 设置光标位置到插入表情后
+      nextTick(() => {
+        if (inputRef.value) {
+          const newPosition = start + emoji.length;
+          inputRef.value.setSelectionRange(newPosition, newPosition);
+          inputRef.value.focus();
+        }
+      });
+    } else {
+      // 如果没有 inputRef，直接追加到末尾
+      inputMessage.value += emoji;
+    }
+  };
+
+  const closeEmojiPicker = (): void => {
+    showEmojiPicker.value = false;
   };
 
   const setupChatListeners = (): void => {
@@ -108,5 +185,11 @@ export function useChatPanel() {
     messagesContainer,
     sendMessage,
     toggleExpanded,
+    showEmojiPicker,
+    inputRef,
+    emojiList: EMOJI_LIST,
+    toggleEmojiPicker,
+    insertEmoji,
+    closeEmojiPicker,
   };
 }
