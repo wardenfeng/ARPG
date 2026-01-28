@@ -54,8 +54,11 @@ export class Game {
 
   /**
    * 进入游戏场景（登录成功后调用）
+   * @param mapId 地图ID
+   * @param playerMapX 玩家地图X坐标（可选，如果提供则设置相机目标）
+   * @param playerMapY 玩家地图Y坐标（可选，如果提供则设置相机目标）
    */
-  async enterGame(mapId: number): Promise<void> {
+  async enterGame(mapId: number, playerMapX?: number, playerMapY?: number): Promise<void> {
     console.log(`Entering game scene, loading map ${mapId}...`);
     
     // Load map
@@ -65,8 +68,14 @@ export class Game {
       
       const mapConfig = this.sceneManager.getMapRenderer().getConfig();
       if (mapConfig) {
-        // Set initial camera target to the center of the map
-        this.sceneManager.setCameraTarget(mapConfig.mapWidth / 2, mapConfig.mapHeight / 2);
+        if (playerMapX !== undefined && playerMapY !== undefined) {
+          // 立即设置相机位置到玩家位置，不经过平滑跟随，使玩家立即显示在屏幕中心
+          this.sceneManager.setCameraToPlayer(playerMapX, playerMapY);
+          console.log(`Camera immediately set to player position from map coords (${playerMapX}, ${playerMapY})`);
+        } else {
+          // 如果没有提供玩家位置，设置相机位置为地图中心
+          this.sceneManager.setCameraPosition(mapConfig.mapWidth / 2, mapConfig.mapHeight / 2);
+        }
       }
     } catch (error) {
       console.error('Failed to load map:', error);

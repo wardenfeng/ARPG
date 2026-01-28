@@ -6,6 +6,11 @@ import { Login } from './modules/login/Login';
 import { Chat } from './modules/chat/Chat';
 import { PlayerManager } from './modules/player/PlayerManager';
 import { LoginAck, LoginReq, MessageType } from './network/Protocol';
+import { PlayerEntity } from './scene/entities/PlayerEntity';
+import { Sprite } from './renderer/Sprite';
+import { SpriteSheet } from './animation/SpriteSheet';
+import { PlayerAnimation, ActionType, Direction, PlayerAnimationConfig } from './animation/PlayerAnimation';
+import { Texture } from './renderer/Texture';
 
 const WS_SERVER_URL = 'ws://localhost:8887';
 
@@ -95,8 +100,94 @@ export function useApp() {
     // 登录成功后进入游戏场景
     if (gameInstance) {
       const mapId = loginAck.mapId || 1001;
+      const playerMapX = loginAck.mapX;
+      const playerMapY = loginAck.mapY;
       try {
-        await gameInstance.enterGame(mapId);
+        // 传入玩家位置，使相机跟随玩家
+        await gameInstance.enterGame(mapId, playerMapX, playerMapY);
+
+        // 保存当前玩家ID，用于后续相机跟随
+        if (loginAck.playerId !== undefined) {
+          (window as any).__currentPlayerId = loginAck.playerId;
+        }
+
+        // 创建当前玩家实体（服务器不会在 ADD_PLAYER_NTF 中包含当前玩家）
+        if (playerManagerInstance && loginAck.playerId !== undefined && playerMapX !== undefined && playerMapY !== undefined) {
+          const sceneManager = gameInstance.getSceneManager();
+          const mapRenderer = sceneManager.getMapRenderer();
+          const config = mapRenderer.getConfig();
+          if (config) {
+            // 创建当前玩家实体
+            const currentPlayer = new PlayerEntity(
+              loginAck.playerId,
+              loginAck.username || 'Player',
+              playerMapX,
+              playerMapY
+            );
+            currentPlayer.setMapPosition(playerMapX, playerMapY, config.walkGridWidth, config.walkGridHeight);
+            currentPlayer.hp = loginAck.HP || 100;
+            currentPlayer.mp = loginAck.MP || 50;
+
+            // 创建占位符 sprite 和动画（使用 PlayerManager 的方法）
+            // 由于 PlayerManager 的 setupPlayerSprite 是私有的，我们需要直接创建
+            const game = (window as any).__game;
+            if (game && game.getResourceLoader()) {
+              const gl = game.getRenderer().getContext();
+              
+              // 创建占位符纹理
+              const canvas = document.createElement('canvas');
+              canvas.width = 64;
+              canvas.height = 64;
+              const ctx = canvas.getContext('2d');
+              if (ctx) {
+                ctx.fillStyle = '#4caf50';
+                ctx.fillRect(0, 0, 64, 64);
+                ctx.strokeStyle = '#2e7d32';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(2, 2, 60, 60);
+                ctx.fillStyle = '#ffffff';
+                ctx.beginPath();
+                ctx.arc(32, 20, 10, 0, Math.PI * 2);
+                ctx.fill();
+              }
+              const image = new Image();
+              image.src = canvas.toDataURL();
+              await image.decode();
+              const texture = new Texture(gl);
+              await texture.loadFromImage(image);
+              
+              const sprite = new Sprite(texture);
+              sprite.width = 64;
+              sprite.height = 64;
+              currentPlayer.setSprite(sprite);
+
+              const spriteSheet = new SpriteSheet({
+                image: '',
+                frameWidth: 64,
+                frameHeight: 64,
+                columns: 1,
+                rows: 1,
+              });
+
+              const animationConfig: PlayerAnimationConfig = {
+                actions: {
+                  [ActionType.STAND]: { frames: '0', speed: 1 },
+                  [ActionType.WALK]: { frames: '0', speed: 1 },
+                },
+                directions: [Direction.DOWN, Direction.LEFT, Direction.UP, Direction.RIGHT],
+              };
+
+              const animation = new PlayerAnimation(spriteSheet, animationConfig);
+              animation.setAction(ActionType.STAND);
+              animation.setDirection(Direction.DOWN);
+              currentPlayer.setAnimation(animation);
+            }
+
+            // 添加到场景
+            sceneManager.addItem(currentPlayer);
+            console.log(`Created current player entity: ${loginAck.username} (ID: ${loginAck.playerId}) at (${playerMapX}, ${playerMapY})`);
+          }
+        }
 
         // 聊天界面由 Vue 组件自动显示，无需手动调用
       } catch (error) {
