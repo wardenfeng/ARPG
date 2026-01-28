@@ -36,6 +36,7 @@ export class WebSocketClient {
         this.ws.onmessage = (event) => {
           try {
             const message = Protocol.deserialize(event.data);
+            console.log('WebSocketClient: Received message:', message.type, message);
             this.messageHandler.handle(message);
           } catch (error) {
             console.error('Error parsing message:', error);

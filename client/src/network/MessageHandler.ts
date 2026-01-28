@@ -9,6 +9,8 @@ export class MessageHandler {
   }
 
   handle(message: GameMessage): void {
+    console.log('MessageHandler received message:', message.type, message);
+    
     // Emit message-specific events
     this.eventBus.emit(`message:${message.type}`, message);
     

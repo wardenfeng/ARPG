@@ -1,45 +1,20 @@
-import { ChatUI } from './ChatUI';
 import { WebSocketClient } from '../../network/WebSocketClient';
-import { MessageType, ChatReq, ChatNtf } from '../../network/Protocol';
-import { EventBus } from '../../core/EventBus';
+import { MessageType, ChatReq } from '../../network/Protocol';
 
 export class Chat {
-  private chatUI: ChatUI;
   private wsClient: WebSocketClient | null = null;
-  private eventBus: EventBus;
 
-  constructor(eventBus: EventBus) {
-    this.eventBus = eventBus;
-    this.chatUI = new ChatUI();
-    this.setupUI();
-  }
-
-  private setupUI(): void {
-    this.chatUI.setOnSend((message) => {
-      this.sendMessage(message);
-    });
-
-    // Listen for chat messages
-    this.eventBus.on('message:CHAT_NTF', (message: ChatNtf) => {
-      this.handleChatMessage(message);
-    });
+  constructor() {
+    // Chat 类现在只负责发送消息，UI 由 Vue 组件处理
   }
 
   setWebSocketClient(wsClient: WebSocketClient): void {
     this.wsClient = wsClient;
   }
 
-  show(): void {
-    this.chatUI.show();
-  }
-
-  hide(): void {
-    this.chatUI.hide();
-  }
-
   sendMessage(message: string): void {
     if (!this.wsClient || !this.wsClient.isConnected()) {
-      console.warn('WebSocket not connected');
+      console.warn('WebSocket not connected, cannot send chat message');
       return;
     }
 
@@ -48,11 +23,8 @@ export class Chat {
       msg: message,
     };
 
+    console.log('Chat.sendMessage: Sending chat request:', chatReq);
     this.wsClient.send(chatReq);
-  }
-
-  private handleChatMessage(message: ChatNtf): void {
-    this.chatUI.addMessage(message.username, message.msg);
   }
 }
 

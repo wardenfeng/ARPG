@@ -20,24 +20,32 @@ export class ChatHandler {
   }
 
   handle(ws: WebSocket, message: ChatReq): void {
+    console.log('ChatHandler.handle: Received chat request:', message);
+    
     const clientId = this.wsServer.getClientId(ws);
     if (!clientId) {
+      console.warn('ChatHandler: No client ID found');
       return;
     }
 
     const player = this.playerManager.getPlayerByClientId(clientId);
     if (!player) {
+      console.warn('ChatHandler: No player found for client ID:', clientId);
       return;
     }
 
-    // Broadcast chat message
+    console.log('ChatHandler: Broadcasting chat message from player:', player.username, 'message:', message.msg);
+
+    // Broadcast chat message (包括发送者自己，所以不排除)
     const ntf: ChatNtf = {
       type: MessageType.CHAT_NTF,
       playerId: player.id,
       username: player.username,
       msg: message.msg,
     };
-    this.broadcastManager.chat(player.mapId, ntf, player.id);
+    // 不排除发送者，让所有玩家（包括发送者）都能看到消息
+    this.broadcastManager.chat(player.mapId, ntf);
+    console.log('ChatHandler: Chat message broadcasted');
   }
 }
 

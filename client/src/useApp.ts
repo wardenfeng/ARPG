@@ -43,7 +43,7 @@ export function useApp() {
     loginModuleInstance.setOnLoginSuccess(handleLoginSuccess);
 
     // 初始化聊天模块
-    chatModuleInstance = new Chat(eventBus);
+    chatModuleInstance = new Chat();
     chatModuleInstance.setWebSocketClient(wsClientInstance);
 
     // 监听聊天发送事件
@@ -92,10 +92,7 @@ export function useApp() {
       try {
         await gameInstance.enterGame(mapId);
 
-        // 显示聊天界面
-        if (chatModuleInstance) {
-          chatModuleInstance.show();
-        }
+        // 聊天界面由 Vue 组件自动显示，无需手动调用
       } catch (error) {
         console.error('Failed to enter game:', error);
         errorMessage.value = '进入游戏失败，请刷新页面重试';

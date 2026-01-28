@@ -73,7 +73,7 @@ export class SceneManager {
     
     // Render scene items
     const items = this.currentScene.getItems();
-    items.forEach(item => {
+    items.forEach(_item => {
       // Render item at screen position
       // This will be implemented by specific item types
       // Screen position calculation: item.getFloorX() - this.cameraX, item.getFloorY() - this.cameraY

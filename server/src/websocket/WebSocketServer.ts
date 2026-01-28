@@ -61,7 +61,11 @@ export class WebSocketServer {
 
   sendToClient(ws: WebSocket, message: GameMessage): void {
     if (ws.readyState === WebSocket.OPEN) {
-      ws.send(Protocol.serialize(message));
+      const data = Protocol.serialize(message);
+      console.log(`WebSocketServer.sendToClient: Sending message type ${message.type}, data length: ${data.length}`);
+      ws.send(data);
+    } else {
+      console.warn(`WebSocketServer.sendToClient: WebSocket is not open (state: ${ws.readyState})`);
     }
   }
 

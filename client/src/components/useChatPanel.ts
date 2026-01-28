@@ -37,13 +37,20 @@ export function useChatPanel() {
     const message = inputMessage.value.trim();
     if (!message) return;
 
+    console.log('Sending chat message:', message);
+
     // 通过事件总线发送消息
     const game = (window as any).__game;
     if (game) {
       const eventBus = game.getEventBus();
       if (eventBus) {
         eventBus.emit('chat:send', message);
+        console.log('Chat message sent via event bus');
+      } else {
+        console.error('EventBus not found');
       }
+    } else {
+      console.error('Game instance not found');
     }
     inputMessage.value = '';
   };
@@ -53,24 +60,45 @@ export function useChatPanel() {
   };
 
   const setupChatListeners = (): void => {
-    const game = (window as any).__game;
-    if (game) {
-      const eventBus: EventBus = game.getEventBus();
+    // 延迟设置监听器，确保游戏已初始化
+    let retryCount = 0;
+    const maxRetries = 50; // 最多重试 5 秒
+    
+    const trySetup = () => {
+      const game = (window as any).__game;
+      if (game) {
+        const eventBus: EventBus = game.getEventBus();
 
-      // 监听聊天消息
-      eventBus.on('message:CHAT_NTF', (message: ChatNtf) => {
-        addMessage(message.username, message.msg);
-      });
+        // 只监听 chat:message 事件（MessageHandler.handleChatNtf 发出的）
+        // 不监听 message:CHAT_NTF，避免重复接收
+        const handler = (message: ChatNtf) => {
+          console.log('useChatPanel: Received chat:message event:', message);
+          addMessage(message.username, message.msg);
+        };
 
-      eventBus.on('chat:message', (message: ChatNtf) => {
-        addMessage(message.username, message.msg);
-      });
-    }
+        eventBus.on('chat:message', handler);
+
+        console.log('useChatPanel: Chat listeners setup complete');
+      } else {
+        retryCount++;
+        if (retryCount < maxRetries) {
+          // 如果游戏还未初始化，延迟重试
+          setTimeout(trySetup, 100);
+        } else {
+          console.error('useChatPanel: Failed to setup listeners after max retries');
+        }
+      }
+    };
+
+    trySetup();
   };
 
   // 自动设置监听器
   onMounted(() => {
-    setupChatListeners();
+    // 延迟设置，确保游戏已初始化
+    setTimeout(() => {
+      setupChatListeners();
+    }, 500);
   });
 
   return {

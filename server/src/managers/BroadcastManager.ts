@@ -52,6 +52,7 @@ export class BroadcastManager {
   }
 
   chat(mapId: number, ntf: ChatNtf, excludePlayerId?: number): void {
+    console.log('BroadcastManager.chat: Broadcasting to map', mapId, 'excluding player', excludePlayerId);
     this.broadcastToMap(mapId, ntf, excludePlayerId);
   }
 
@@ -59,15 +60,54 @@ export class BroadcastManager {
     const players = this.playerManager.getPlayersInMap(mapId);
     const clients = this.wsServer.getAllClients();
     
+    console.log(`BroadcastManager.broadcastToMap: Map ${mapId}, ${players.length} players, ${clients.length} clients, excludePlayerId: ${excludePlayerId}`);
+    
+    let sentCount = 0;
+    let skippedCount = 0;
+    
     for (const ws of clients) {
       const clientId = this.wsServer.getClientId(ws);
-      if (!clientId) continue;
+      if (!clientId) {
+        console.warn('BroadcastManager: Client has no ID');
+        continue;
+      }
       
       const player = this.playerManager.getPlayerByClientId(clientId);
-      if (player && player.mapId === mapId && player.id !== excludePlayerId) {
+      if (!player) {
+        console.warn(`BroadcastManager: No player found for client ID ${clientId}`);
+        skippedCount++;
+        continue;
+      }
+      
+      if (player.mapId !== mapId) {
+        console.log(`BroadcastManager: Player ${player.username} is not in map ${mapId} (in map ${player.mapId})`);
+        skippedCount++;
+        continue;
+      }
+      
+      if (excludePlayerId !== undefined && player.id === excludePlayerId) {
+        console.log(`BroadcastManager: Excluding player ${player.username} (ID: ${player.id})`);
+        skippedCount++;
+        continue;
+      }
+      
+      if (ws.readyState !== 1) { // WebSocket.OPEN = 1
+        console.warn(`BroadcastManager: WebSocket for player ${player.username} is not open (state: ${ws.readyState})`);
+        skippedCount++;
+        continue;
+      }
+      
+      try {
         this.wsServer.sendToClient(ws, message);
+        sentCount++;
+        console.log(`BroadcastManager: Sent message to player ${player.username} (ID: ${player.id}, Client ID: ${clientId})`);
+      } catch (error) {
+        console.error(`BroadcastManager: Error sending to player ${player.username}:`, error);
+        skippedCount++;
       }
     }
+    
+    console.log(`BroadcastManager: Sent message to ${sentCount} players, skipped ${skippedCount} clients`);
   }
 }
 
