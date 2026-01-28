@@ -1,24 +1,19 @@
-import { MovementController } from './MovementController';
 import { MapTileModel } from '../../pathfinding/MapTileModel';
 import { EventBus } from '../../core/EventBus';
 
 export class ClickMovement {
-  private movementController: MovementController;
-  private mapTileModel: MapTileModel | null = null;
   private tileWidth: number = 50;
   private tileHeight: number = 25;
   private eventBus: EventBus;
   private canvas: HTMLCanvasElement;
 
-  constructor(canvas: HTMLCanvasElement, eventBus: EventBus, movementController: MovementController) {
+  constructor(canvas: HTMLCanvasElement, eventBus: EventBus) {
     this.canvas = canvas;
     this.eventBus = eventBus;
-    this.movementController = movementController;
     this.setupClickHandler();
   }
 
-  setMapTileModel(mapTileModel: MapTileModel, tileWidth: number, tileHeight: number): void {
-    this.mapTileModel = mapTileModel;
+  setMapTileModel(_mapTileModel: MapTileModel, tileWidth: number, tileHeight: number): void {
     this.tileWidth = tileWidth;
     this.tileHeight = tileHeight;
   }

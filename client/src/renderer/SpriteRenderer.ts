@@ -1,7 +1,6 @@
 import { WebGLRenderer } from './WebGLRenderer';
 import { Shader } from './Shader';
 import { Sprite } from './Sprite';
-import { Texture } from './Texture';
 
 const VERTEX_SHADER = `
 attribute vec2 a_position;

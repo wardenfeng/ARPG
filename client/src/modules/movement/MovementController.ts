@@ -1,5 +1,4 @@
 import { AStar, PathPoint } from '../../pathfinding/AStar';
-import { MapTileModel } from '../../pathfinding/MapTileModel';
 import { WebSocketClient } from '../../network/WebSocketClient';
 import { MessageType, MoveReq } from '../../network/Protocol';
 import { EventBus } from '../../core/EventBus';
@@ -8,11 +7,8 @@ export class MovementController {
   private astar: AStar | null = null;
   private currentPath: PathPoint[] = [];
   private currentPathIndex: number = 0;
-  private targetX: number = 0;
-  private targetY: number = 0;
   private wsClient: WebSocketClient | null = null;
   private eventBus: EventBus;
-  private moveSpeed: number = 100; // pixels per second
 
   constructor(eventBus: EventBus) {
     this.eventBus = eventBus;
@@ -47,15 +43,13 @@ export class MovementController {
     if (path && path.length > 0) {
       this.currentPath = path;
       this.currentPathIndex = 0;
-      this.targetX = mapX;
-      this.targetY = mapY;
       this.eventBus.emit('movement:pathFound', path);
     } else {
       console.warn('No path found');
     }
   }
 
-  update(deltaTime: number, currentMapX: number, currentMapY: number): { mapX: number; mapY: number } | null {
+  update(_deltaTime: number, currentMapX: number, currentMapY: number): { mapX: number; mapY: number } | null {
     if (this.currentPath.length === 0 || this.currentPathIndex >= this.currentPath.length) {
       return null;
     }

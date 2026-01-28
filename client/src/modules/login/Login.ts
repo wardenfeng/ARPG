@@ -1,6 +1,5 @@
 import { LoginUI } from './LoginUI';
 import { WebSocketClient } from '../../network/WebSocketClient';
-import { MessageHandler } from '../../network/MessageHandler';
 import { MessageType, LoginReq, LoginAck, LoginResult } from '../../network/Protocol';
 import { EventBus } from '../../core/EventBus';
 

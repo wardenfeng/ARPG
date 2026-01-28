@@ -9,7 +9,6 @@ export class SceneManager {
   private currentScene: GameScene;
   private mapRenderer: MapRenderer;
   private renderer: WebGLRenderer;
-  private spriteRenderer: SpriteRenderer;
   private cameraTargetX: number = 0;
   private cameraTargetY: number = 0;
   private cameraX: number = 0;
@@ -18,7 +17,6 @@ export class SceneManager {
 
   constructor(renderer: WebGLRenderer, spriteRenderer: SpriteRenderer, resourceLoader: ResourceLoader) {
     this.renderer = renderer;
-    this.spriteRenderer = spriteRenderer;
     this.mapRenderer = new MapRenderer(renderer, spriteRenderer, resourceLoader);
     this.currentScene = new GameScene();
     
@@ -76,10 +74,9 @@ export class SceneManager {
     // Render scene items
     const items = this.currentScene.getItems();
     items.forEach(item => {
-      const screenX = item.getFloorX() - this.cameraX;
-      const screenY = item.getFloorY() - this.cameraY;
       // Render item at screen position
       // This will be implemented by specific item types
+      // Screen position calculation: item.getFloorX() - this.cameraX, item.getFloorY() - this.cameraY
     });
   }
 

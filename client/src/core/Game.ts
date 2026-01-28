@@ -3,12 +3,14 @@ import { EventBus } from './EventBus';
 import { WebGLRenderer } from '../renderer/WebGLRenderer';
 import { SpriteRenderer } from '../renderer/SpriteRenderer';
 import { ResourceLoader } from './ResourceLoader';
+import { SceneManager } from '../scene/SceneManager';
 
 export class Game {
   private canvas: HTMLCanvasElement;
   private renderer: WebGLRenderer;
   private spriteRenderer: SpriteRenderer;
   private resourceLoader: ResourceLoader;
+  private sceneManager: SceneManager;
   private gameLoop: GameLoop;
   private eventBus: EventBus;
   private initialized: boolean = false;
@@ -19,6 +21,7 @@ export class Game {
     this.renderer = new WebGLRenderer(canvas);
     this.resourceLoader = new ResourceLoader(this.renderer.getContext());
     this.spriteRenderer = new SpriteRenderer(this.renderer);
+    this.sceneManager = new SceneManager(this.renderer, this.spriteRenderer, this.resourceLoader);
     this.gameLoop = new GameLoop(this.update.bind(this), this.render.bind(this));
     
     this.setupCanvas();
@@ -38,11 +41,22 @@ export class Game {
   async init(): Promise<void> {
     if (this.initialized) return;
     
+    console.log('Initializing game...');
+    
+    // Load initial map
+    try {
+      await this.sceneManager.getMapRenderer().loadMapFromJSON(1001);
+      console.log('Map loaded successfully');
+    } catch (error) {
+      console.error('Failed to load map:', error);
+    }
+    
     // Load initial resources if needed
     this.eventBus.emit('game:init');
     
     this.gameLoop.start();
     this.initialized = true;
+    console.log('Game initialized');
   }
 
   getRenderer(): WebGLRenderer {
@@ -61,14 +75,20 @@ export class Game {
     return this.eventBus;
   }
 
+  getSceneManager(): SceneManager {
+    return this.sceneManager;
+  }
+
   private update(deltaTime: number): void {
     // Update game logic
+    this.sceneManager.update(deltaTime);
     this.eventBus.emit('update', deltaTime);
   }
 
   private render(): void {
     this.renderer.clear();
     // Render game objects
+    this.sceneManager.render();
     this.eventBus.emit('render');
   }
 
