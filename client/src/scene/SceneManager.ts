@@ -61,6 +61,39 @@ export class SceneManager {
 
   private updateCameraSize(): void {
     const canvas = this.renderer.getCanvas();
+    
+    // 如果窗口大小改变，需要重新计算相机位置以保持玩家在屏幕中心
+    const currentPlayerId = (window as any).__currentPlayerId;
+    if (currentPlayerId !== undefined) {
+      // 从场景中查找当前玩家实体
+      const items = this.currentScene.getItems();
+      for (const item of items) {
+        if (item instanceof PlayerEntity && item.playerId === currentPlayerId) {
+          const playerMapX = item.getMapX();
+          const playerMapY = item.getMapY();
+          
+          // 重新计算相机位置，使玩家保持在屏幕中心
+          const { worldX, worldY } = this.mapToWorld(playerMapX, playerMapY);
+          let targetX = worldX - canvas.width / 2;
+          let targetY = worldY - canvas.height / 2;
+          
+          // 限制相机位置在地图边界内
+          const clamped = this.clampCameraPosition(targetX, targetY);
+          targetX = clamped.x;
+          targetY = clamped.y;
+          
+          // 立即更新相机位置和目标，避免抖动
+          this.cameraX = targetX;
+          this.cameraY = targetY;
+          this.cameraTargetX = targetX;
+          this.cameraTargetY = targetY;
+          
+          break;
+        }
+      }
+    }
+    
+    // 更新地图渲染器的相机和视口
     this.mapRenderer.setCamera(this.cameraX, this.cameraY, canvas.width, canvas.height);
   }
 
@@ -101,14 +134,52 @@ export class SceneManager {
   }
 
   /**
+   * 限制相机位置在地图边界内，避免显示地图外的黑色区域
+   */
+  private clampCameraPosition(x: number, y: number): { x: number; y: number } {
+    const canvas = this.renderer.getCanvas();
+    const mapConfig = this.mapRenderer.getConfig();
+    
+    if (!mapConfig) {
+      return { x, y };
+    }
+
+    const mapWidth = mapConfig.mapWidth;
+    const mapHeight = mapConfig.mapHeight;
+    const viewWidth = canvas.width;
+    const viewHeight = canvas.height;
+
+    // 限制相机位置，确保视口不超出地图边界
+    // 左边界：相机 X 不能小于 0
+    const minX = 0;
+    // 右边界：相机 X 不能大于 mapWidth - viewWidth
+    const maxX = Math.max(0, mapWidth - viewWidth);
+    // 上边界：相机 Y 不能小于 0
+    const minY = 0;
+    // 下边界：相机 Y 不能大于 mapHeight - viewHeight
+    const maxY = Math.max(0, mapHeight - viewHeight);
+
+    const clampedX = Math.max(minX, Math.min(maxX, x));
+    const clampedY = Math.max(minY, Math.min(maxY, y));
+
+    return { x: clampedX, y: clampedY };
+  }
+
+  /**
    * 立即定位相机到玩家位置（用于登录时立即显示玩家）
    */
   setCameraToPlayer(playerMapX: number, playerMapY: number): void {
     const { worldX, worldY } = this.mapToWorld(playerMapX, playerMapY);
     const canvas = this.renderer.getCanvas();
     // 减去视口一半，使玩家在屏幕中心
-    const targetX = worldX - canvas.width / 2;
-    const targetY = worldY - canvas.height / 2;
+    let targetX = worldX - canvas.width / 2;
+    let targetY = worldY - canvas.height / 2;
+    
+    // 限制相机位置在地图边界内
+    const clamped = this.clampCameraPosition(targetX, targetY);
+    targetX = clamped.x;
+    targetY = clamped.y;
+    
     this.setCameraPosition(targetX, targetY);
   }
 
@@ -120,8 +191,14 @@ export class SceneManager {
     const { worldX, worldY } = this.mapToWorld(playerMapX, playerMapY);
     const canvas = this.renderer.getCanvas();
     // 减去视口一半，使玩家在屏幕中心
-    const targetX = worldX - canvas.width / 2;
-    const targetY = worldY - canvas.height / 2;
+    let targetX = worldX - canvas.width / 2;
+    let targetY = worldY - canvas.height / 2;
+    
+    // 限制相机位置在地图边界内
+    const clamped = this.clampCameraPosition(targetX, targetY);
+    targetX = clamped.x;
+    targetY = clamped.y;
+    
     this.setCameraTarget(targetX, targetY);
   }
 
@@ -139,8 +216,13 @@ export class SceneManager {
           // 计算玩家应该的相机目标位置
           const { worldX, worldY } = this.mapToWorld(playerMapX, playerMapY);
           const canvas = this.renderer.getCanvas();
-          const expectedTargetX = worldX - canvas.width / 2;
-          const expectedTargetY = worldY - canvas.height / 2;
+          let expectedTargetX = worldX - canvas.width / 2;
+          let expectedTargetY = worldY - canvas.height / 2;
+          
+          // 限制相机位置在地图边界内
+          const clamped = this.clampCameraPosition(expectedTargetX, expectedTargetY);
+          expectedTargetX = clamped.x;
+          expectedTargetY = clamped.y;
           
           // 只有当玩家位置真正改变时才更新相机目标，避免不必要的更新导致抖动
           const targetDistance = Math.sqrt(
@@ -150,7 +232,7 @@ export class SceneManager {
           
           // 如果目标位置变化超过阈值（比如 5 像素），才更新相机目标
           if (targetDistance > 5) {
-            this.followPlayer(playerMapX, playerMapY);
+            this.setCameraTarget(expectedTargetX, expectedTargetY);
           }
           break;
         }
@@ -173,6 +255,11 @@ export class SceneManager {
       this.cameraX = this.cameraTargetX;
       this.cameraY = this.cameraTargetY;
     }
+
+    // 确保相机位置在地图边界内（防止平滑跟随时超出边界）
+    const clamped = this.clampCameraPosition(this.cameraX, this.cameraY);
+    this.cameraX = clamped.x;
+    this.cameraY = clamped.y;
 
     const canvas = this.renderer.getCanvas();
     this.mapRenderer.setCamera(this.cameraX, this.cameraY, canvas.width, canvas.height);
