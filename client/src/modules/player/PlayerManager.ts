@@ -1,7 +1,7 @@
 import { EventBus } from '../../core/EventBus';
 import { SceneManager } from '../../scene/SceneManager';
 import { PlayerEntity } from '../../scene/entities/PlayerEntity';
-import { AddPlayerNtf, RemovePlayerNtf } from '../../network/Protocol';
+import { AddPlayerNtf, RemovePlayerNtf, MoveNtf } from '../../network/Protocol';
 import { Sprite } from '../../renderer/Sprite';
 import { Texture } from '../../renderer/Texture';
 import { ResourceLoader } from '../../core/ResourceLoader';
@@ -83,6 +83,11 @@ export class PlayerManager {
     this.eventBus.on('player:remove', (message: RemovePlayerNtf) => {
       this.handleRemovePlayer(message);
     });
+
+    // 监听玩家移动事件
+    this.eventBus.on('move:notification', (message: MoveNtf) => {
+      this.handlePlayerMove(message);
+    });
   }
 
   private handleAddPlayers(message: AddPlayerNtf): void {
@@ -105,9 +110,9 @@ export class PlayerManager {
       return;
     }
 
-    // 获取瓦片尺寸
-    const tileWidth = config.renderTileWidth;
-    const tileHeight = config.renderTileHeight;
+    // 获取行走网格尺寸（玩家位置基于 walkGrid，不是 renderTile）
+    const tileWidth = config.walkGridWidth;  // 50
+    const tileHeight = config.walkGridHeight; // 25
 
     // 添加每个玩家
     for (const playerData of message.addPlayer) {
@@ -127,23 +132,30 @@ export class PlayerManager {
         playerData.mapY
       );
 
-      // 设置玩家位置
+      // 设置玩家位置（使用 walkGrid 尺寸）
       playerEntity.setMapPosition(playerData.mapX, playerData.mapY, tileWidth, tileHeight);
       playerEntity.hp = playerData.HP;
       playerEntity.mp = playerData.MP;
 
-      // 创建占位符 sprite 和动画
-      this.setupPlayerSprite(playerEntity, playerData.clothing);
-
-      // 添加到场景
+      // 添加到场景（先添加，sprite 会异步设置）
       this.sceneManager.addItem(playerEntity);
       this.players.set(playerData.playerId, playerEntity);
 
-      console.log(`PlayerManager: Added player ${playerData.username} (ID: ${playerData.playerId}) at (${playerData.mapX}, ${playerData.mapY})`);
+      console.log(`PlayerManager: Added player ${playerData.username} (ID: ${playerData.playerId}) at (${playerData.mapX}, ${playerData.mapY}), world pos: (${playerEntity.getFloorX()}, ${playerEntity.getFloorY()})`);
+
+      // 创建占位符 sprite 和动画（异步，但不阻塞添加）
+      this.setupPlayerSprite(playerEntity, playerData.clothing).catch(error => {
+        console.error(`PlayerManager: Failed to setup sprite for player ${playerData.username}:`, error);
+      });
     }
   }
 
   private async setupPlayerSprite(player: PlayerEntity, clothing: string): Promise<void> {
+    // 如果占位符纹理还没创建，先创建它
+    if (!this.placeholderTexture) {
+      await this.createPlaceholderTexture();
+    }
+
     // 使用占位符纹理创建 sprite
     if (this.placeholderTexture) {
       const sprite = new Sprite(this.placeholderTexture);
@@ -179,8 +191,11 @@ export class PlayerManager {
       animation.setAction(ActionType.STAND);
       animation.setDirection(Direction.DOWN);
       player.setAnimation(animation);
+      
+      console.log(`PlayerManager: Setup sprite and animation for player ${player.username} (ID: ${player.playerId})`);
     } else {
-      // 如果占位符纹理还没创建，延迟设置
+      // 如果占位符纹理创建失败，延迟重试
+      console.warn(`PlayerManager: Placeholder texture not available, retrying for player ${player.username}`);
       setTimeout(() => {
         this.setupPlayerSprite(player, clothing);
       }, 100);
@@ -203,6 +218,44 @@ export class PlayerManager {
     } else {
       console.warn(`PlayerManager: Player ${message.playerId} not found`);
     }
+  }
+
+  private handlePlayerMove(message: MoveNtf): void {
+    // 排除当前玩家（当前玩家的移动由本地处理）
+    const currentPlayerId = (window as any).__currentPlayerId;
+    if (currentPlayerId !== undefined && message.playerId === currentPlayerId) {
+      return; // 忽略当前玩家自己的移动通知
+    }
+
+    const player = this.players.get(message.playerId);
+    if (!player) {
+      console.warn(`PlayerManager: Received MOVE_NTF for unknown player ${message.playerId}`);
+      return;
+    }
+
+    if (!this.sceneManager) {
+      console.warn('PlayerManager: SceneManager not set, cannot update player position');
+      return;
+    }
+
+    const mapRenderer = this.sceneManager.getMapRenderer();
+    if (!mapRenderer) {
+      console.warn('PlayerManager: MapRenderer not available, cannot update player position');
+      return;
+    }
+
+    const config = mapRenderer.getConfig();
+    if (!config) {
+      console.warn('PlayerManager: Map config not available, cannot update player position');
+      return;
+    }
+
+    // 更新玩家位置（使用 walkGrid 尺寸）
+    const tileWidth = config.walkGridWidth;
+    const tileHeight = config.walkGridHeight;
+    player.setMapPosition(message.mapX, message.mapY, tileWidth, tileHeight);
+    
+    console.log(`PlayerManager: Updated player ${message.playerId} position to (${message.mapX}, ${message.mapY})`);
   }
 
   getPlayer(playerId: number): PlayerEntity | undefined {

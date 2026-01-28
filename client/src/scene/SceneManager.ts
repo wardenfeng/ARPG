@@ -11,6 +11,8 @@ export class SceneManager {
   private mapRenderer: MapRenderer;
   private renderer: WebGLRenderer;
   private spriteRenderer: SpriteRenderer;
+  private uiCanvas: HTMLCanvasElement;
+  private uiContext: CanvasRenderingContext2D;
   private cameraTargetX: number = 0;
   private cameraTargetY: number = 0;
   private cameraX: number = 0;
@@ -23,8 +25,38 @@ export class SceneManager {
     this.mapRenderer = new MapRenderer(renderer, spriteRenderer, resourceLoader);
     this.currentScene = new GameScene();
     
+    // 创建 UI canvas 用于绘制玩家信息（名称和血条）
+    this.uiCanvas = document.createElement('canvas');
+    this.uiCanvas.style.position = 'absolute';
+    this.uiCanvas.style.top = '0';
+    this.uiCanvas.style.left = '0';
+    this.uiCanvas.style.pointerEvents = 'none';
+    this.uiCanvas.style.zIndex = '100';
+    const gameCanvas = renderer.getCanvas();
+    gameCanvas.parentElement?.appendChild(this.uiCanvas);
+    
+    const uiCtx = this.uiCanvas.getContext('2d');
+    if (!uiCtx) {
+      throw new Error('Failed to get 2D context for UI canvas');
+    }
+    this.uiContext = uiCtx;
+    
+    // 同步 UI canvas 尺寸
+    this.resizeUICanvas();
+    
     this.updateCameraSize();
-    window.addEventListener('resize', () => this.updateCameraSize());
+    window.addEventListener('resize', () => {
+      this.updateCameraSize();
+      this.resizeUICanvas();
+    });
+  }
+
+  private resizeUICanvas(): void {
+    const gameCanvas = this.renderer.getCanvas();
+    this.uiCanvas.width = gameCanvas.width;
+    this.uiCanvas.height = gameCanvas.height;
+    this.uiCanvas.style.width = `${gameCanvas.width}px`;
+    this.uiCanvas.style.height = `${gameCanvas.height}px`;
   }
 
   private updateCameraSize(): void {
@@ -155,9 +187,46 @@ export class SceneManager {
     
     // Render scene items
     const items = this.currentScene.getItems();
+    // 调试：统计玩家数量
+    const playerCount = items.filter(item => item instanceof PlayerEntity).length;
+    if (playerCount > 0 && Math.random() < 0.01) { // 每100帧打印一次，避免日志过多
+      console.log(`SceneManager: Rendering ${playerCount} players, total items: ${items.length}`);
+    }
+    
     items.forEach(item => {
       this.renderItem(item);
     });
+
+    // 在 WebGL 渲染完成后，使用 Canvas 2D 绘制玩家 UI（名称和血条）
+    this.renderPlayerUIs(items);
+  }
+
+  private renderPlayerUIs(items: ISceneItem[]): void {
+    // 清除之前的 UI 绘制
+    this.uiContext.clearRect(0, 0, this.uiCanvas.width, this.uiCanvas.height);
+
+    // 绘制所有玩家的 UI
+    for (const item of items) {
+      if (item instanceof PlayerEntity) {
+        const worldX = item.getFloorX();
+        const worldY = item.getFloorY();
+        const screenX = worldX - this.cameraX;
+        const screenY = worldY - this.cameraY;
+
+        // 检查是否在视口内
+        const canvas = this.renderer.getCanvas();
+        const margin = 200;
+        if (screenX + margin < 0 || screenX - margin > canvas.width ||
+            screenY + margin < 0 || screenY - margin > canvas.height) {
+          continue; // 不在视口内，跳过
+        }
+
+        const sprite = item.getSprite();
+        const spriteWidth = sprite?.width || 64;
+        const spriteHeight = sprite?.height || 64;
+        this.renderPlayerInfo(item, screenX, screenY, spriteWidth, spriteHeight, this.uiContext);
+      }
+    }
   }
 
   private renderItem(item: ISceneItem): void {
@@ -202,8 +271,73 @@ export class SceneManager {
     } else if (sprite && sprite.texture) {
       // 如果没有动画，直接渲染 sprite
       this.spriteRenderer.render(sprite, screenX, screenY, sprite.width, sprite.height);
+    } else {
+      // 调试：如果玩家没有 sprite，记录日志（但不要太频繁）
+      if (Math.random() < 0.001) { // 每1000帧打印一次
+        console.warn(`SceneManager: Player ${player.username} (ID: ${player.playerId}) has no sprite or texture, cannot render`);
+      }
     }
-    // 如果没有 sprite，不渲染（可能资源还在加载中）
+
+    // 注意：玩家 UI 现在在 renderPlayerUIs 中统一渲染
+  }
+
+  private renderPlayerInfo(player: PlayerEntity, screenX: number, screenY: number, spriteWidth: number, spriteHeight: number, ctx: CanvasRenderingContext2D): void {
+    // 计算玩家头部位置（sprite 中心上方）
+    const playerCenterX = screenX + (spriteWidth / 2);
+    // 在玩家头部上方留一点间距，根据 sprite 高度调整
+    const playerTopY = screenY - (spriteHeight * 0.1) - 5;
+
+    // 保存当前状态
+    ctx.save();
+
+    // 设置文字样式
+    ctx.font = '12px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.fillStyle = '#ffffff';
+    ctx.strokeStyle = '#000000';
+    ctx.lineWidth = 2;
+
+    // 绘制玩家名称（带描边）
+    const nameY = playerTopY - 30;
+    ctx.strokeText(player.username, playerCenterX, nameY);
+    ctx.fillText(player.username, playerCenterX, nameY);
+
+    // 绘制血条
+    const barWidth = 60;
+    const barHeight = 6;
+    const barX = playerCenterX - barWidth / 2;
+    const barY = nameY + 16;
+
+    // 血条背景（深红色/黑色边框）
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(barX - 1, barY - 1, barWidth + 2, barHeight + 2);
+
+    // 血条背景（灰色）
+    ctx.fillStyle = '#333333';
+    ctx.fillRect(barX, barY, barWidth, barHeight);
+
+    // 计算血量百分比
+    const maxHp = 100; // 假设最大血量为 100
+    const hpPercent = Math.max(0, Math.min(1, player.hp / maxHp));
+    const hpWidth = barWidth * hpPercent;
+
+    // 血条（红色）
+    ctx.fillStyle = '#ff0000';
+    ctx.fillRect(barX, barY, hpWidth, barHeight);
+
+    // 血量文本（白色，在血条下方）
+    ctx.font = '10px Arial';
+    ctx.fillStyle = '#ffffff';
+    ctx.strokeStyle = '#000000';
+    ctx.lineWidth = 1.5;
+    const hpText = `${Math.floor(player.hp)}/${maxHp}`;
+    const hpTextY = barY + barHeight + 2;
+    ctx.strokeText(hpText, playerCenterX, hpTextY);
+    ctx.fillText(hpText, playerCenterX, hpTextY);
+
+    // 恢复状态
+    ctx.restore();
   }
 
   addItem(item: ISceneItem): void {
