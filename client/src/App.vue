@@ -7,12 +7,16 @@
     <ChatPanel
       v-if="isLoggedIn"
     />
+    <SceneMapPanel
+      v-if="isLoggedIn"
+    />
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import LoginDialog from './components/LoginDialog.vue';
 import ChatPanel from './components/ChatPanel.vue';
+import SceneMapPanel from './components/SceneMapPanel.vue';
 import { useApp } from './useApp';
 
 const { isLoggedIn, handleLogin } = useApp();

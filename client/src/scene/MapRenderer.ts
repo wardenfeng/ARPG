@@ -253,5 +253,33 @@ export class MapRenderer {
   getMapData(): number[][] | null {
     return this.config ? this.config.mapData : null;
   }
+
+  /**
+   * 获取当前视野宽度（游戏世界坐标）
+   */
+  getViewWidth(): number {
+    return this.viewWidth;
+  }
+
+  /**
+   * 获取当前视野高度（游戏世界坐标）
+   */
+  getViewHeight(): number {
+    return this.viewHeight;
+  }
+
+  /**
+   * 获取当前相机位置
+   */
+  getCameraX(): number {
+    return this.cameraX;
+  }
+
+  /**
+   * 获取当前相机位置
+   */
+  getCameraY(): number {
+    return this.cameraY;
+  }
 }
 

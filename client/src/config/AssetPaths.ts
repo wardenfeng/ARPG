@@ -24,6 +24,15 @@ export const AssetPaths = {
   },
 
   /**
+   * 获取小地图路径
+   * @param mapId 地图ID
+   * @returns 小地图图片路径
+   */
+  getSmallMapPath(mapId: number): string {
+    return `/assets/scene/${mapId}/small.jpg`;
+  },
+
+  /**
    * 获取玩家资源路径
    * @param resourceName 资源名称（如 clothing/10002）
    * @returns 资源路径

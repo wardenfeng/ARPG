@@ -1,9 +1,8 @@
 import { WebSocketClient } from '../../network/WebSocketClient';
-import { MessageType, LoginAck, LoginResult } from '../../network/Protocol';
+import { LoginAck, LoginResult } from '../../network/Protocol';
 import { EventBus } from '../../core/EventBus';
 
 export class Login {
-  private wsClient: WebSocketClient | null = null;
   private eventBus: EventBus;
   private onLoginSuccessCallback?: (data: LoginAck) => void;
 
@@ -11,8 +10,9 @@ export class Login {
     this.eventBus = eventBus;
   }
 
-  setWebSocketClient(wsClient: WebSocketClient): void {
-    this.wsClient = wsClient;
+  setWebSocketClient(_wsClient: WebSocketClient): void {
+    // WebSocket client is set but not directly used here
+    // Login logic is handled through EventBus
     
     // Listen for login response (MessageHandler emits both 'message:LOGIN_ACK' and 'login:result')
     this.eventBus.on('message:LOGIN_ACK', (message: LoginAck) => {
