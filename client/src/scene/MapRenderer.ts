@@ -3,6 +3,7 @@ import { SpriteRenderer } from '../renderer/SpriteRenderer';
 import { Texture } from '../renderer/Texture';
 import { Sprite } from '../renderer/Sprite';
 import { ResourceLoader } from '../core/ResourceLoader';
+import { AssetPaths } from '../config/AssetPaths';
 
 export interface MapConfig {
   mapId: number;
@@ -31,13 +32,38 @@ export class MapRenderer {
     this.resourceLoader = resourceLoader;
   }
 
-  async loadMap(config: MapConfig, basePath: string): Promise<void> {
+  /**
+   * 从 MapConfig 对象加载地图
+   */
+  async loadMap(config: MapConfig): Promise<void> {
     this.config = config;
     // Preload visible tiles
-    await this.preloadVisibleTiles(basePath);
+    await this.preloadVisibleTiles();
   }
 
-  private async preloadVisibleTiles(basePath: string): Promise<void> {
+  /**
+   * 从 JSON 文件加载地图配置
+   */
+  async loadMapFromJSON(mapId: number): Promise<void> {
+    const configUrl = AssetPaths.getMapConfigPath(mapId);
+    const jsonConfig = await this.resourceLoader.loadJSON<any>(configUrl);
+    
+    // 转换 JSON 配置为 MapConfig 格式
+    const config: MapConfig = {
+      mapId: jsonConfig.mapId || mapId,
+      mapWidth: jsonConfig.mapWidth,
+      mapHeight: jsonConfig.mapHeight,
+      tileWidth: jsonConfig.tileWidth,
+      tileHeight: jsonConfig.tileHeight,
+      rows: jsonConfig.rows,
+      columns: jsonConfig.columns,
+      mapData: jsonConfig.mapData,
+    };
+    
+    await this.loadMap(config);
+  }
+
+  private async preloadVisibleTiles(): Promise<void> {
     if (!this.config) return;
 
     const startX = Math.floor(this.cameraX / this.config.tileWidth);
@@ -52,7 +78,7 @@ export class MapRenderer {
         if (x >= 0 && y >= 0 && x < this.config.columns && y < this.config.rows) {
           const tileKey = `${x}_${y}`;
           if (!this.loadedTiles.has(tileKey)) {
-            const url = `${basePath}/${x}_${y}.jpg`;
+            const url = AssetPaths.getMapTilePath(this.config.mapId, x, y);
             loadPromises.push(this.loadTile(tileKey, url));
           }
         }
@@ -82,7 +108,7 @@ export class MapRenderer {
     
     // Load new tiles if needed
     if (this.config) {
-      this.preloadVisibleTiles('').catch(console.error);
+      this.preloadVisibleTiles().catch(console.error);
     }
   }
 
